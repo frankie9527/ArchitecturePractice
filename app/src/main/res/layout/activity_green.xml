@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:onClick="insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="insert"/>
+    <Button
+        android:onClick="delect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delect"/>
+    <Button
+        android:onClick="get"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get"/>
+    <Button
+        android:onClick="updata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="updata"/>
+</LinearLayout>

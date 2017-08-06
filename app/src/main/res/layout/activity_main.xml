@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jyh.rest.MainActivity">
+
+    <com.jyh.rest.customview.TabViewpager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10" />
+
+    <RadioGroup
+        android:id="@+id/rg_main_parent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rg_news"
+            style="@style/main_tab_bottom"
+            android:drawableTop="@drawable/main_tab_rest_selector"
+            android:checked="true"
+            android:text="@string/main_tab_rest" />
+
+        <RadioButton
+            android:id="@+id/rg_video"
+            style="@style/main_tab_bottom"
+            android:drawableTop="@drawable/main_tab_video_selector"
+            android:text="@string/main_tab_video" />
+
+        <RadioButton
+            android:id="@+id/rg_mine"
+            style="@style/main_tab_bottom"
+            android:drawableTop="@drawable/main_tab_mine_selector"
+            android:text="@string/main_tab_mine" />
+    </RadioGroup>
+
+</LinearLayout>

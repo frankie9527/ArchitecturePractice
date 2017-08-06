@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">闲憩</string>
+    <string name="app_about">关于</string>
+    <!--  新闻的标题-->
+    <string name="news_headlines">头条</string>
+    <string name="news_society">社会</string>
+    <string name="news_better_choose">精选</string>
+    <string name="news_emotion">情感</string>
+    <string name="news_technology">科技</string>
+    <string name="news_finance">财经</string>
+    <string name="news_entertainment">娱乐</string>
+    <string name="news_fashion">时尚</string>
+    <string name="news_digital">数码</string>
+    <string name="news_home_style">家居</string>
+    <string name="news_education">教育</string>
+    <string name="news_children">亲子</string>
+    <string name="news_sports">体育</string>
+    <string name="news_football">足球</string>
+    <string name="news_nba">NBA</string>
+    <string name="news_cba">CBA</string>
+    <string name="news_car">汽车</string>
+    <string name="news_joke">笑话</string>
+    <string name="news_military">军事</string>
+    <string name="news_house">房产</string>
+    <string name="news_game">游戏</string>
+    <string name="news_move">移动</string>
+    <string name="news_tourism">旅游</string>
+    <string name="news_blizzard">暴雪</string>
+
+
+    <!-- main_tab-->
+    <string name="main_tab_rest">闲憩</string>
+    <string name="main_tab_video">视频</string>
+    <string name="main_tab_mine">我</string>
+    <!-- 视频的标题-->
+    <string name="video_hot">热点</string>
+    <string name="video_entertainment">娱乐</string>
+    <string name="video_fun">搞笑</string>
+    <string name="video_high_quality">精品</string>
+
+    <string name="splash_copyright">Copyright &#169; 2016 Rest All Rights Reserved\nPowered by Jyh</string>
+
+    <string name="hint_password">请输入你的密码</string>
+    <string name="hint_phone">请输入你的手机号码</string>
+    <string name="hint_name">请输入姓名</string>
+    <string name="hint_sex">请选择性别</string>
+    <string name="hint_birthday">请选择生日</string>
+    <string name="login_in">登陆</string>
+    <string name="login_out">登出</string>
+    <string name="regist">注册</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register_optional">选填</string>
+    <string name="sex">性别</string>
+    <string name="birthday">生日</string>
+    <string name="name">姓名</string>
+
+    <string name="app_purpose">
+         "关于闲憩.\n\n"
+
+        "     闲憩是一款休闲时打发时间的一款新闻阅读软件，希望您的闲暇时光有我来陪伴，和你阅览国内新闻，开怀搞笑视频！"
+        "闲憩，一直致力于更好的用户体验，不一样的风格给您不一样的体验!.\n\n"
+
+
+        "免责声明.\n\n"
+         "   本应用的所以数据都来自网络，如有侵权请多多包涵，本人马上下家此应用！谢谢.\n\n"
+
+
+        "联系我.\n\n"
+        "    如果您觉得闲憩还有改进或者不足的地方请联系我，QQ:847145851"
+    </string>
+</resources>

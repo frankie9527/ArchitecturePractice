@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/toobar_back"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white">
+            <EditText
+                android:id="@+id/ed_search"
+                android:textCursorDrawable="@drawable/search_edit_color_shape"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="搜索" />
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/recy_list"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <com.jyh.rest.customview.ProgressWheel
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="@dimen/dp_160"
+                android:layout_height="@dimen/dp_160"
+                android:layout_centerInParent="true"
+                app:matProg_barColor="?attr/colorPrimary"
+                app:matProg_progressIndeterminate="true" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
+
+
+

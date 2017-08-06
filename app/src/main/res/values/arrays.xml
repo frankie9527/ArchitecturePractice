@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="news_array">
+        <item>@string/news_headlines</item>
+        <item>@string/news_society</item>
+        <item>@string/news_better_choose</item>
+        <item>@string/news_emotion</item>
+        <item>@string/news_technology</item>
+        <!--<item>@string/news_finance</item>-->
+        <!--<item>@string/news_entertainment</item>-->
+        <!--<item>@string/news_fashion</item>-->
+        <!--<item>@string/news_digital</item>-->
+        <!--<item>@string/news_home_style</item>-->
+        <!--<item>@string/news_education</item>-->
+        <!--<item>@string/news_children</item>-->
+        <!--<item>@string/news_sports</item>-->
+        <!--<item>@string/news_football</item>-->
+        <!--<item>@string/news_nba</item>-->
+        <!--<item>@string/news_cba</item>-->
+        <!--<item>@string/news_car</item>-->
+        <!--<item>@string/news_joke</item>-->
+        <!--<item>@string/news_military</item>-->
+        <!--<item>@string/news_house</item>-->
+        <!--<item>@string/news_game</item>-->
+        <!--<item>@string/news_move</item>-->
+        <!--<item>@string/news_tourism</item>-->
+        <!--<item>@string/news_blizzard</item>-->
+
+    </string-array>
+    <string-array name="video_array">
+        <item>@string/video_hot</item>
+        <item>@string/video_entertainment</item>
+        <item>@string/video_fun</item>
+        <item>@string/video_high_quality</item>
+    </string-array>
+    <string-array name="slogan_array">
+        <item>闲憩，陪伴你的闲暇时光！</item>
+        <item>你的快乐，有我陪伴O(∩_∩)O~</item>
+        <item>当你开心的时候，我也很快乐，加油！</item>
+    </string-array>
+
+</resources>
