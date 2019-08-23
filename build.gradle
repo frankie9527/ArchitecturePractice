@@ -12,16 +12,7 @@ buildscript {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
 }
-ext {
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.3'
 
-    targetSdkVersion = 24
-    //主程序版本
-    minSdkVersion = 15
-    versionCode = 3
-    versionName = "3.0"
-}
 allprojects {
     repositories {
         jcenter()

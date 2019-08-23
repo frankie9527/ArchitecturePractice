@@ -1,1 +1,1 @@
-include ':app', ':jyhlibrary', ':ijkplayer-java', ':giraffeplayer'
+include ':app', ':jyhlibrary', ':giraffeplayer'
