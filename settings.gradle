@@ -1,1 +1,1 @@
-include ':app', ':jyhlibrary', ':giraffeplayer'
+include ':app'
