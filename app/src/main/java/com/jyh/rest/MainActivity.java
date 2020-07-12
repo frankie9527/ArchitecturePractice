@@ -3,8 +3,8 @@ package com.jyh.rest;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import com.jyh.rest.base.BaseActivity;
 import com.jyh.rest.customview.TabViewpager;

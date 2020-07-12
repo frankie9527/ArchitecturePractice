@@ -3,7 +3,7 @@ package com.jyh.rest.ui.activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.jyh.rest.R;
 import com.jyh.rest.base.BaseActivity;

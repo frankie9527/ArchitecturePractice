@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Rest.iml" filepath="$PROJECT_DIR$/Rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rest.iml" filepath="$PROJECT_DIR$/Rest.iml" group="Rest" />
       <module fileurl="file://$PROJECT_DIR$/Rest-master.iml" filepath="$PROJECT_DIR$/Rest-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/giraffeplayer/giraffeplayer.iml" filepath="$PROJECT_DIR$/giraffeplayer/giraffeplayer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jyhlibrary/jyhlibrary.iml" filepath="$PROJECT_DIR$/jyhlibrary/jyhlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Rest/app" />
+      <module fileurl="file://$PROJECT_DIR$/giraffeplayer/giraffeplayer.iml" filepath="$PROJECT_DIR$/giraffeplayer/giraffeplayer.iml" group="Rest/giraffeplayer" />
     </modules>
   </component>
 </project>

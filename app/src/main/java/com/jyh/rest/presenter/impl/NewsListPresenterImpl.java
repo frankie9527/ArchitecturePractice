@@ -3,8 +3,8 @@ package com.jyh.rest.presenter.impl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.jyh.rest.RestApplication;
 import com.jyh.rest.entity.NewsBean;
@@ -14,7 +14,6 @@ import com.jyh.rest.listener.RequestListCallBack;
 import com.jyh.rest.presenter.NewsListPresenter;
 import com.jyh.rest.ui.activity.HoriztonPicBrowActivity;
 import com.jyh.rest.ui.activity.NewsDetailActivity;
-import com.jyh.rest.ui.adapter.NewsListRecyclerAdapter;
 import com.jyh.rest.utils.spUtils;
 import com.jyh.rest.view.ListNewsVideoView;
 

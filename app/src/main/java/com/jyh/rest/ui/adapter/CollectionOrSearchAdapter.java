@@ -1,14 +1,16 @@
 package com.jyh.rest.ui.adapter;
 
 import android.graphics.Color;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
@@ -103,7 +105,7 @@ public class CollectionOrSearchAdapter extends RecyclerView.Adapter {
                 img_params.width = UIUtils.getNewsPicSize()[0];
                 img_params.height = UIUtils.getNewsPicSize()[1];
                 img.setLayoutParams(img_params);
-                Glide.with(UIUtils.getContext()).load(collectionbean.getImgsrc()).asBitmap()
+                Glide.with(UIUtils.getContext()).load(collectionbean.getImgsrc())
                         .format(DecodeFormat.PREFER_ARGB_8888)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.mipmap.logo_rest)

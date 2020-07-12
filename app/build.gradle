@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
-    apply plugin: 'android-apt'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
+
     defaultConfig {
         applicationId "com.jyh.rest"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 29
         versionCode 3
         versionName "3.0"
 
@@ -25,30 +25,54 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    //依赖注解
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile project(':jyhlibrary')
-    compile 'com.tencent.bugly:crashreport:2.1.9'
-    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    compile 'com.tencent.bugly:nativecrashreport:3.0'
-    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-    compile 'com.tencent.bugly:crashreport:2.2.2'
-    compile project(':giraffeplayer')
-    compile files('libs/libammsdk.jar')
-    compile files('libs/mta-sdk-1.6.2.jar')
-    compile files('libs/open_sdk_r5756_lite.jar')
-    compile files('libs/SocialSDK_QQZone_3.jar')
-    compile files('libs/SocialSDK_WeiXin_2.jar')
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_view.jar')
-    compile 'org.greenrobot:greendao:3.2.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
 
-    compile 'com.commit451:PhotoView:1.2.4'
+    //依赖注解
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+//    compile project(':jyhlibrary')
+    implementation 'com.tencent.bugly:crashreport:2.8.6'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:3.6.0'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:crashreport:2.8.6'
+    implementation project(':giraffeplayer')
+    implementation files('libs/libammsdk.jar')
+    implementation files('libs/mta-sdk-1.6.2.jar')
+    implementation files('libs/open_sdk_r5756_lite.jar')
+    implementation files('libs/SocialSDK_QQZone_3.jar')
+    implementation files('libs/SocialSDK_WeiXin_2.jar')
+    implementation files('libs/umeng_social_api.jar')
+    implementation files('libs/umeng_social_net.jar')
+    implementation files('libs/umeng_social_view.jar')
+    implementation 'org.greenrobot:greendao:3.3.0' // add library
+
+    implementation 'com.commit451:PhotoView:1.2.4'
+
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //Glide 图片处理
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //rxjava 和rxandroid
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    //retrofit2 + okhttp3
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    //recyclerview
+    implementation 'com.jcodecraeer:xrecyclerview:1.2.7'
 }

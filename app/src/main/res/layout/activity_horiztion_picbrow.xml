@@ -12,16 +12,16 @@
 
 
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/id_viewpager"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
 
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

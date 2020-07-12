@@ -1,6 +1,6 @@
 package com.jyh.rest.base;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by Administrator on 2016/9/7 0007.

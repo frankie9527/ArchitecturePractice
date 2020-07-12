@@ -1,12 +1,10 @@
 package com.jyh.rest.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -17,10 +15,8 @@ import com.jyh.rest.entity.NewsBean;
 import com.jyh.rest.listener.ItemClickListener;
 import com.jyh.rest.presenter.NewsListPresenter;
 import com.jyh.rest.presenter.impl.NewsListPresenterImpl;
-import com.jyh.rest.ui.activity.NewsDetailActivity;
 import com.jyh.rest.ui.adapter.NewsListRecyclerAdapter;
 import com.jyh.rest.utils.ToastUtils;
-import com.jyh.rest.utils.spUtils;
 import com.jyh.rest.view.ListNewsVideoView;
 
 import java.util.List;
