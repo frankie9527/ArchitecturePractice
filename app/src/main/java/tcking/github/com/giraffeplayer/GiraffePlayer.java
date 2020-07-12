@@ -28,6 +28,7 @@ import android.widget.TextView;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
+import com.jyh.rest.R;
 /**
  * Created by tcking on 15/10/27.
  */

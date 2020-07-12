@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.jyh.rest.R;
+
 /**
  * Created by tcking on 15/10/27.
  */
@@ -19,6 +21,7 @@ public class GiraffePlayerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.giraffe_player);
