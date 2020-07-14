@@ -44,7 +44,6 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:3.6.0'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation 'com.tencent.bugly:crashreport:2.8.6'
-    implementation project(':giraffeplayer')
     implementation files('libs/libammsdk.jar')
     implementation files('libs/mta-sdk-1.6.2.jar')
     implementation files('libs/open_sdk_r5756_lite.jar')

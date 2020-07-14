@@ -1,1 +1,1 @@
-include ':app', ':giraffeplayer'
+include ':app'
