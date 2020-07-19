@@ -1,24 +1,31 @@
 package com.jyh.rest.ui.activity;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 
 import com.jyh.rest.R;
 import com.jyh.rest.base.BaseActivity;
 import com.jyh.rest.entity.VideoBean;
 import com.jyh.rest.utils.StatusBarCompat;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import butterknife.ButterKnife;
-import tcking.github.com.giraffeplayer.GiraffePlayer;
+
 
 /**
  * Created by Administrator on 2016/11/8.
  */
 
 public class VideoPlayActivity extends BaseActivity {
-    GiraffePlayer player;
+    StandardGSYVideoPlayer player;
+    OrientationUtils orientationUtils;
     VideoBean bean;
     String url;
     String title;
@@ -35,6 +42,7 @@ public class VideoPlayActivity extends BaseActivity {
     protected void initData() {
         StatusBarCompat.compat(VideoPlayActivity.this, Color.BLACK);
         bean = (VideoBean) getIntent().getSerializableExtra("bean");
+        assert bean != null;
         url = bean.getMp4_url();
         title = bean.getTitle();
         initPlay();
@@ -42,9 +50,31 @@ public class VideoPlayActivity extends BaseActivity {
 
 
     private void initPlay() {
-        player = new GiraffePlayer(this);
-        player.play(url);
-        player.setTitle(title);
+       player=findViewById(R.id.video_player);
+        player.setUp(url, true, title);
+        //增加title
+        player.getTitleTextView().setVisibility(View.VISIBLE);
+        //设置返回键
+        player.getBackButton().setVisibility(View.VISIBLE);
+        //设置旋转
+        orientationUtils = new OrientationUtils(this, player);
+        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+        player.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orientationUtils.resolveByClick();
+            }
+        });
+        //是否可以滑动调整
+        player.setIsTouchWiget(true);
+        //设置返回按键功能
+        player.getBackButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        player.startPlayLogic();
     }
 
 
@@ -52,7 +82,7 @@ public class VideoPlayActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         if (player != null) {
-            player.onPause();
+            player.onVideoPause();
         }
     }
 
@@ -60,16 +90,16 @@ public class VideoPlayActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (player != null) {
-            player.onResume();
+            player.onVideoResume();
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (player != null) {
-            player.onDestroy();
-        }
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
     }
 
     @Override
@@ -82,9 +112,13 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (player != null && player.onBackPressed()) {
+        //先返回正常状态
+        if (orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            player.getFullscreenButton().performClick();
             return;
         }
+        //释放所有
+        player.setVideoAllCallBack(null);
         super.onBackPressed();
     }
 }

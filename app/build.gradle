@@ -2,11 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.2'
 
     defaultConfig {
         applicationId "com.jyh.rest"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 3
         versionName "3.0"
@@ -74,4 +73,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
     //recyclerview
     implementation 'com.jcodecraeer:xrecyclerview:1.2.7'
+
+    //完整版引入
+    implementation 'com.shuyu:GSYVideoPlayer:7.1.4'
 }

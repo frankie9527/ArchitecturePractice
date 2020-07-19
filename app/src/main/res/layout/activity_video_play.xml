@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.jyh.rest.ui.activity.VideoPlayActivity">
-    <include
-        layout="@layout/giraffe_player"
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/video_player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+      />
 
 
 
