@@ -5,8 +5,7 @@
     android:orientation="vertical">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,7 +21,7 @@
             app:title="@string/app_name"
             app:titleTextColor="@color/white" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
@@ -36,10 +35,10 @@
                 android:hint="@string/hint_phone"
                 android:inputType="phone"
                 android:textColor="@color/alpha_80_black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
@@ -53,7 +52,7 @@
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
                 android:textColor="@color/alpha_80_black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/but_login"
@@ -72,25 +71,25 @@
 
     <TextView
         android:id="@+id/tv_qq"
-        android:onClick="view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:onClick="view"
         android:text="QQ"
         android:textColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_wx"
-        android:onClick="view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="18dp"
+        android:layout_height="9dp"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="20dp"
+        android:onClick="view"
         android:text="微信"
         android:textColor="@color/colorPrimary" />
 
