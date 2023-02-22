@@ -1,6 +1,6 @@
 # 闲憩
 闲憩是一款休闲阅读应用，界面风格主要按照Material Design设计。应用主要有新闻，视频和个人模块
-##预览
+## 预览
 ![image](https://raw.githubusercontent.com/ZengChong500373/Rest/master/img/rest.gif)
 ### 应用技术
 #### http
