@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="RecommendViewModel"
+            type="com.jyh.sixthspace.viewmodel.RecommendViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/vp_recommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+<!--                    <com.jyh.sixthspace.uilibrary.ViewPagerIndicator.MagicIndicator-->
+<!--                        android:id="@+id/indicator"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="@dimen/wh40.0dimens40.0dp"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        />-->
+                    <RelativeLayout
+                        android:id="@+id/rlGoSearch"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/black_trans_bg"
+                        android:paddingLeft="15dp">
+
+                        <TextView
+                            android:id="@+id/etSearchKey"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:background="@null"
+                            android:drawableLeft="@drawable/search"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:imeOptions="actionSearch"
+                            android:text="更多精彩"
+                            android:textColor="@color/alpha_85_white"
+                            android:textSize="15sp" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/fragment_recommend_recycler_item" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
