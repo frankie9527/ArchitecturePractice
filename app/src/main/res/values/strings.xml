@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SixthSpace</string>
+    <string name="home">home</string>
+    <string name="discovery">discovery</string>
+    <string name="hot">hot</string>
+
 </resources>
