@@ -1,4 +1,4 @@
-package com.sixth.space
+package com.sixth.space.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

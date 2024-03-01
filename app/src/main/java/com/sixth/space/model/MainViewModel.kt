@@ -1,4 +1,4 @@
-package com.sixth.space
+package com.sixth.space.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

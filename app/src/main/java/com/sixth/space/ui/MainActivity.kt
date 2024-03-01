@@ -1,4 +1,4 @@
-package com.sixth.space
+package com.sixth.space.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.sixth.space.model.MainViewModel
+import com.sixth.space.R
 
 class MainActivity : AppCompatActivity() {
+
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,4 +4,10 @@
     <string name="discovery">discovery</string>
     <string name="hot">hot</string>
 
+    <string name="weekly">weekly</string>
+    <string name="monthly">monthly</string>
+    <string name="historical">historical</string>
+
+
+
 </resources>

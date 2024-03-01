@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="discovery_array">
+        <item>关注</item>
+        <item>分类</item>
+    </string-array>
+    <string-array name="hot_list">
+        <item>@string/weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/historical</item>
+    </string-array>
+</resources>

@@ -4,4 +4,8 @@
     <string name="home">主页</string>
     <string name="discovery">发现</string>
     <string name="hot">热门</string>
+
+    <string name="weekly">周排行</string>
+    <string name="monthly">月排行</string>
+    <string name="historical">总排行</string>
 </resources>
