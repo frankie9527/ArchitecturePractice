@@ -62,6 +62,7 @@ dependencies {
 
     //hilt
     implementation("com.google.dagger:hilt-android:2.50")
+
     kapt("com.google.dagger:hilt-compiler:2.50")
 
     //room
@@ -80,4 +81,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //my github
+    implementation("com.github.Frankie9527:EasyAndroid:0.5.1")
+
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // ViewModel
 }

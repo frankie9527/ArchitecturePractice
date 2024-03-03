@@ -13,7 +13,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="10"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_weight="1"
             android:background="?android:attr/windowBackground"
+            app:itemTextColor="@color/main_tab_txt_color_selector"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 </layout>

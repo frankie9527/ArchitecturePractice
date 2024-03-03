@@ -8,4 +8,6 @@
     <string name="weekly">周排行</string>
     <string name="monthly">月排行</string>
     <string name="historical">总排行</string>
+
+    <string name="hot_rank">人气榜</string>
 </resources>

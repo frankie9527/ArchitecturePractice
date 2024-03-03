@@ -1,5 +1,6 @@
 package com.sixth.space.network
 
+import com.sixth.space.data.HotList
 import retrofit2.http.GET
 import retrofit2.http.Query
 

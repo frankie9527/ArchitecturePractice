@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sixth.space.model.MainViewModel
 import com.sixth.space.R
+import com.sixth.space.ui.fragment.DiscoveryFragment
+import com.sixth.space.ui.fragment.HomeFragment
+import com.sixth.space.ui.fragment.HotFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.viewPager2.adapter = MainFragmentStateAdapter(this);
+        binding.viewPager2.isUserInputEnabled=false;
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
