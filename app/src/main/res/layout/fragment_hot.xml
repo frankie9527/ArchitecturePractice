@@ -13,7 +13,7 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -47,12 +47,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_title_bg"
+            android:background="@color/white"
             android:fillViewport="false"
             app:tabIndicatorColor="#000"
             app:tabIndicatorHeight="2dp"
             app:tabMinWidth="100dp"
-            app:tabSelectedTextColor="#000"
+            app:tabSelectedTextColor="@color/color_black"
             app:tabTextColor="#5000">
 
         </com.google.android.material.tabs.TabLayout>

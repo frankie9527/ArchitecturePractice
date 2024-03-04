@@ -1,6 +1,7 @@
 package com.sixth.space.network
 
 import com.sixth.space.data.HotList
+import com.sixth.space.data.ReplyList
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,4 +16,11 @@ interface RetrofitService {
         @Query("strategy") strategy: String
     ): HotList
 
+    @GET("/api/v2/replies/video")
+    suspend fun getReply(
+        @Query("lastId") lastId: String,
+        @Query("videoId") videoId: String,
+        @Query("num") num: String,
+        @Query("type") type: String
+    ): ReplyList
 }

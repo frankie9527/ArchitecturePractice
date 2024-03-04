@@ -85,8 +85,8 @@ dependencies {
 
     //my github
     implementation("com.github.Frankie9527:EasyAndroid:0.5.1")
+    implementation("com.github.Frankie9527:VariousPlayer:0.5")
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
-    // ViewModel
 }

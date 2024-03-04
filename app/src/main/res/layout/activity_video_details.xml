@@ -5,9 +5,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:text="hello"
+    <org.various.player.ui.simple.SimpleVideoView
+        android:id="@+id/simple_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="240dp" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        app:tabIndicatorColor="#000"
+        app:tabIndicatorHeight="2dp"
+        app:tabMinWidth="100dp"
+        app:tabSelectedTextColor="#000"
+        app:tabTextColor="#5000" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

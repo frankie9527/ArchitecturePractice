@@ -26,7 +26,7 @@ class TestViewModel @Inject constructor(private val service: RetrofitService) : 
 
     fun demo() {
         viewModelScope.launch(Dispatchers.IO){
-           service.getHotList("str");
+           service.getReply("","322130","","");
         }
     }
 }

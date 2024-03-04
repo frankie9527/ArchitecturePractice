@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.annotation.CallSuper
 import dagger.hilt.android.HiltAndroidApp
 import org.easy.tools.EasySdk
-import org.easy.tools.utils.CrashHandler
+import org.various.player.PlayerConfig
 
 
 @HiltAndroidApp
@@ -20,5 +20,6 @@ class App : Application() {
         super.onCreate()
         appContext = this
         EasySdk.init(this);
+        PlayerConfig.init(this)
     }
 }

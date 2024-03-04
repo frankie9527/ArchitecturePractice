@@ -27,4 +27,15 @@ class RemoteData @Inject constructor(
             Resource.DataError(errorCode = NETWORK_ERROR)
         }
     }
+
+    override suspend fun fetchReplyComment(id: String): Resource<ReplyList> {
+        if (!networkConnectivity.isConnected()) {
+            return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);
+        }
+        return try {
+            Resource.Success(data = service.getReply("",id,"",""))
+        } catch (e: IOException) {
+            Resource.DataError(errorCode = NETWORK_ERROR)
+        }
+    }
 }

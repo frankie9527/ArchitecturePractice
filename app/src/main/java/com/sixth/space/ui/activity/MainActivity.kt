@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                !viewModel.go2main.value
-            }
-        }
+//        installSplashScreen().apply {
+//            setKeepOnScreenCondition {
+//                !viewModel.go2main.value
+//            }
+//        }
         initView();
 
     }

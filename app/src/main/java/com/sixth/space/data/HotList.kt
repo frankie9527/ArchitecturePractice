@@ -8,7 +8,7 @@ data class HotList(
     val itemList: List<Item>,
     val nextPageUrl: Any,
     val total: Int
-) {
+) : Serializable{
     data class Item(
         val adIndex: Int,
         val `data`: Data,

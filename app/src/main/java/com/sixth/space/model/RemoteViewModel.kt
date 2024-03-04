@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixth.space.data.DataRepositorySource
 import com.sixth.space.data.HotList
+import com.sixth.space.data.ReplyList
 import com.sixth.space.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,32 +19,48 @@ import javax.inject.Inject
  * private val dataRepositoryRepository: DataRepositorySource
  */
 @HiltViewModel
-class HotViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
+class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
     ViewModel() {
-    val recipesLiveDataPrivate = MutableLiveData<Resource<HotList>>()
-    val recipesLiveData: LiveData<Resource<HotList>> get() = recipesLiveDataPrivate
+    val recipesHotDataPrivate = MutableLiveData<Resource<HotList>>()
+    val recipesHotData: LiveData<Resource<HotList>> get() = recipesHotDataPrivate
+
+    val recipesReplyDataPrivate = MutableLiveData<Resource<ReplyList>>()
+    val recipesReplyData: LiveData<Resource<ReplyList>> get() = recipesReplyDataPrivate
 
 
-    lateinit var str: String;
     fun fetchHotData(position: Int) {
+        var str: String;
         viewModelScope.launch {
-            recipesLiveDataPrivate.value = Resource.Loading();
+            recipesHotDataPrivate.value = Resource.Loading();
             str = when (position) {
                 0 -> {
                     "monthly"
                 }
+
                 1 -> {
                     "monthly"
                 }
+
                 else -> {
                     "historical"
                 }
             }
             dataRepositoryRepository.getHotList(str).collect() {
-                recipesLiveDataPrivate.value = it;
+                recipesHotDataPrivate.value = it;
             }
-
         }
     }
+
+    fun videoRecommend() {}
+
+    fun fetchReplyComment(id: String) {
+        viewModelScope.launch {
+            recipesReplyDataPrivate.value = Resource.Loading();
+            dataRepositoryRepository.fetchReplyComment(id).collect() {
+                recipesReplyDataPrivate.value = it;
+            }
+        }
+    }
+
 
 }

@@ -1,6 +1,7 @@
-package com.sixth.space.ui
+package com.sixth.space.ui.activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +24,7 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
-//        observe(viewModel.recipesLiveData, ::handleRecipesList)
+
 
     }
 
@@ -32,7 +33,8 @@ class TestActivity : AppCompatActivity() {
     }
 
     fun monthly(view: View) {
-        checkReadPermission()
+        val  intent= Intent(this,VideoDetailsActivity::class.java)
+        startActivity(intent)
     }
 
     fun historical(view: View) {

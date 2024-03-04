@@ -10,4 +10,6 @@ import com.sixth.space.network.Resource
  */
 interface RemoteDataSource {
     suspend fun getHotList(str: String): Resource<HotList>
+
+    suspend fun fetchReplyComment(id: String): Resource<ReplyList>
 }
