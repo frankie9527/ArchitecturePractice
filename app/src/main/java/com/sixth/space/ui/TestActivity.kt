@@ -11,11 +11,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.sixth.space.R
 import com.sixth.space.data.HotList
-import com.sixth.space.data.Resource
+import com.sixth.space.network.Resource
 
 import com.sixth.space.model.TestViewModel
-import com.sixth.space.ui.fragment.hello
-import com.sixth.space.uitls.observe
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

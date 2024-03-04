@@ -1,4 +1,4 @@
-package com.sixth.space.data
+package com.sixth.space.network
 
 // A generic class that contains data and status about loading this data.
 sealed class Resource<T>(

@@ -1,5 +1,6 @@
 package com.sixth.space.data
 
+import com.sixth.space.network.Resource
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -8,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  * @Description:
  */
 interface DataRepositorySource {
-    suspend fun getHotList(position: Int): Flow<Resource<HotList>>
+    suspend fun getHotList(str: String): Flow<Resource<HotList>>
 }

@@ -1,6 +1,7 @@
 package com.sixth.space.data
 
 
+import com.sixth.space.network.Resource
 import com.sixth.space.network.RetrofitService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,13 +15,12 @@ import kotlin.coroutines.CoroutineContext
  * @Description:
  */
 class DataRepository @Inject constructor(
-    private val service: RetrofitService,
+    private val remoteRepository: RemoteData,
     private val ioDispatcher: CoroutineContext
 ) : DataRepositorySource {
-    override suspend fun getHotList(position: Int): Flow<Resource<HotList>> {
+    override suspend fun getHotList(str: String): Flow<Resource<HotList>> {
         return flow {
-            val data = service.getHotList("weekly");
-            emit(Resource.Success(data = data))
+            emit(remoteRepository.getHotList(str))
         }.flowOn(ioDispatcher);
     }
 

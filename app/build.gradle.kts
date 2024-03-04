@@ -41,6 +41,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
 }
 // Allow references to generated code
 kapt {

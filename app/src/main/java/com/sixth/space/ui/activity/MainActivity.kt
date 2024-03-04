@@ -1,11 +1,11 @@
-package com.sixth.space.ui
+package com.sixth.space.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.sixth.space.databinding.ActivityMainBinding
-import androidx.databinding.DataBindingUtil
+
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -14,11 +14,15 @@ import com.sixth.space.R
 import com.sixth.space.ui.fragment.DiscoveryFragment
 import com.sixth.space.ui.fragment.HomeFragment
 import com.sixth.space.ui.fragment.HotFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private val viewModel by viewModels<MainViewModel>()
-    private lateinit var binding: ActivityMainBinding
+    val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
@@ -29,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         initView();
 
     }
+
     private fun initView() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(binding.root)
         binding.viewPager2.adapter = MainFragmentStateAdapter(this);
-        binding.viewPager2.isUserInputEnabled=false;
+        binding.viewPager2.isUserInputEnabled = false;
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {

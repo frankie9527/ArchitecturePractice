@@ -1,11 +1,12 @@
 package com.sixth.space.di
 
-import com.sixth.space.data.DataRepository
-import com.sixth.space.data.DataRepositorySource
-import dagger.Binds
+import android.content.Context
+import com.sixth.space.uitls.Network
+import com.sixth.space.uitls.NetworkConnectivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
@@ -24,5 +25,9 @@ class AppModule {
     fun provideCoroutineContext(): CoroutineContext {
         return Dispatchers.IO
     }
-
+    @Provides
+    @Singleton
+    fun provideNetworkConnectivity(@ApplicationContext context: Context): NetworkConnectivity {
+        return Network(context)
+    }
 }

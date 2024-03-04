@@ -1,16 +1,11 @@
 package com.sixth.space.di
 
-import com.google.gson.GsonBuilder
-import com.sixth.space.data.DataRepository
-import com.sixth.space.data.DataRepositorySource
 import com.sixth.space.network.NetworkInterceptor
 import com.sixth.space.network.RetrofitService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -46,9 +41,5 @@ class NetworkModule {
             .build()
             .create(RetrofitService::class.java)
     }
-    @Provides
-    @Singleton
-    fun provideDataRepository(service: RetrofitService): DataRepository{
-        return DataRepository(service,Dispatchers.IO);
-    }
+
 }

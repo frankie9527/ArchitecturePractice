@@ -1,5 +1,7 @@
 package com.sixth.space.data
 
+import java.io.Serializable
+
 data class HotList(
     val adExist: Boolean,
     val count: Int,
@@ -14,7 +16,7 @@ data class HotList(
         val tag: Any,
         val trackingData: Any,
         val type: String
-    ) {
+    ) : Serializable {
         data class Data(
             val ad: Boolean,
             val adTrack: List<Any>,
@@ -65,7 +67,7 @@ data class HotList(
             val waterMarks: Any,
             val webAdTrack: Any,
             val webUrl: WebUrl
-        ) {
+        ) : Serializable{
             data class Author(
                 val adTrack: Any,
                 val approvedNotReadyVideoCount: Int,
@@ -81,18 +83,18 @@ data class HotList(
                 val recSort: Int,
                 val shield: Shield,
                 val videoNum: Int
-            ) {
+            ) : Serializable{
                 data class Follow(
                     val followed: Boolean,
                     val itemId: Int,
                     val itemType: String
-                )
+                ): Serializable
 
                 data class Shield(
                     val itemId: Int,
                     val itemType: String,
                     val shielded: Boolean
-                )
+                ): Serializable
             }
 
             data class Consumption(
@@ -100,7 +102,7 @@ data class HotList(
                 val realCollectionCount: Int,
                 val replyCount: Int,
                 val shareCount: Int
-            )
+            ): Serializable
 
             data class Cover(
                 val blurred: String,
@@ -108,7 +110,7 @@ data class HotList(
                 val feed: String,
                 val homepage: String,
                 val sharing: Any
-            )
+            ): Serializable
 
             data class PlayInfo(
                 val height: Int,
@@ -117,19 +119,19 @@ data class HotList(
                 val url: String,
                 val urlList: List<Url>,
                 val width: Int
-            ) {
+            ) : Serializable{
                 data class Url(
                     val name: String,
                     val size: Int,
                     val url: String
-                )
+                ): Serializable
             }
 
             data class Provider(
                 val alias: String,
                 val icon: String,
                 val name: String
-            )
+            ): Serializable
 
             data class Tag(
                 val actionUrl: String,
@@ -146,12 +148,12 @@ data class HotList(
                 val name: String,
                 val newestEndTime: Long,
                 val tagRecType: String
-            )
+            ): Serializable
 
             data class WebUrl(
                 val forWeibo: String,
                 val raw: String
-            )
+            ): Serializable
         }
     }
 }
