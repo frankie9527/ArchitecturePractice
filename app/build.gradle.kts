@@ -24,8 +24,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -51,6 +50,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity-ktx:1.8.2")
@@ -83,10 +83,15 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    // 基础依赖包，必须要依赖
+    implementation("com.geyifeng.immersionbar:immersionbar:3.2.2")
+    // kotlin扩展（可选）
+    implementation("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
+
     //my github
     implementation("com.github.Frankie9527:EasyAndroid:0.5.1")
     implementation("com.github.Frankie9527:VariousPlayer:0.5")
 
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
 
 }

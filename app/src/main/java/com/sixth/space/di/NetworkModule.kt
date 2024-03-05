@@ -2,6 +2,7 @@ package com.sixth.space.di
 
 import com.sixth.space.network.NetworkInterceptor
 import com.sixth.space.network.RetrofitService
+import com.sixth.space.uitls.NetworkConnectivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,9 +23,8 @@ class NetworkModule {
     val BASE_URL = "http://baobab.kaiyanapp.com"
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(networkInterceptor: NetworkInterceptor): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            val networkInterceptor = NetworkInterceptor()
             addInterceptor(networkInterceptor)
             addNetworkInterceptor(networkInterceptor)
         }.build()
@@ -42,4 +42,9 @@ class NetworkModule {
             .create(RetrofitService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideNetworkInterceptor(network: NetworkConnectivity): NetworkInterceptor {
+        return NetworkInterceptor(network);
+    }
 }

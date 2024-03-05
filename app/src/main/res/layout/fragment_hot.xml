@@ -15,33 +15,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_header_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/hot_rank"
-                    android:textColor="@color/color_item_title"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/img_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:src="@mipmap/ic_action_search_black" />
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+            app:titleTextColor="@color/black"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"

@@ -3,14 +3,17 @@ package com.sixth.space.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sixth.space.base.BaseResp
 import com.sixth.space.base.Constant
-import com.sixth.space.data.HotList
+import com.sixth.space.data.HotItem
+import com.sixth.space.data.ReplyItem
 import com.sixth.space.databinding.FragmentRecyclerBinding
 
 import com.sixth.space.model.RemoteViewModel
@@ -21,6 +24,7 @@ import com.sixth.space.ui.activity.VideoDetailsActivity
 import com.sixth.space.uitls.observe
 import dagger.hilt.android.AndroidEntryPoint
 import org.easy.ui.recycler.listener.ItemClickListener
+import java.util.Objects
 
 @AndroidEntryPoint
 class HotListFragment : Fragment(), ItemClickListener {
@@ -47,27 +51,28 @@ class HotListFragment : Fragment(), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView();
-        initData();
+        initViewAndData();
+
     }
 
-    fun initView() {
-        observe(viewModel.recipesHotData, ::handleRecipesList)
+
+    fun initViewAndData() {
+        position = requireArguments().getInt(Constant.HOT_POSITION)
+        observe(viewModel.recipesHotData, ::handleRecipesHotList)
+        observe(viewModel.recipesReplyData, ::handleRecipesReplyHotList)
         binding.recycler.layoutManager = LinearLayoutManager(context);
-        adapter = HotListAdapter()
+        adapter = HotListAdapter(position)
         adapter.setItemListener(this);
         binding.recycler.adapter = adapter;
-    }
-
-    fun initData() {
-        position = requireArguments().getInt(Constant.HOT_POSITION)
         when (position) {
             0, 1, 2 -> {
                 viewModel.fetchHotData(position)
             }
+
             3 -> {
                 viewModel.videoRecommend()
             }
+
             4 -> {
                 viewModel.fetchReplyComment("322130")
             }
@@ -75,12 +80,21 @@ class HotListFragment : Fragment(), ItemClickListener {
 
     }
 
-    private fun handleRecipesList(status: Resource<HotList>) {
+    private fun handleRecipesHotList(status: Resource<BaseResp<HotItem>>) {
+        dealData(status)
+    }
+
+    private fun handleRecipesReplyHotList(status: Resource<BaseResp<ReplyItem>>) {
+        dealData(status)
+    }
+
+    fun <T> dealData(status: Resource<BaseResp<T>>) {
         when (status) {
             is Resource.Loading -> binding.controlLayout.showLoading()
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
-                adapter.setData(status.data.itemList)
+                val data = status.data.itemList as List<Objects>;
+                adapter.setData(data);
             }
 
             is Resource.DataError -> {
@@ -94,14 +108,7 @@ class HotListFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClick(p0: View?, position: Int) {
-//        val data = adapter.getDataInPostion(position);
-//        val intent = Intent(activity, VideoDetailsActivity::class.java)
-//        val bundle = Bundle()
-//        bundle.putSerializable(Constant.VIDEO_ITEM, VideoData("nihao") )
-//        intent.putExtras(bundle)
-//        startActivity(intent, bundle)
-
-        val  intent=Intent(activity,VideoDetailsActivity::class.java)
+        val intent = Intent(activity, VideoDetailsActivity::class.java)
         startActivity(intent)
     }
 

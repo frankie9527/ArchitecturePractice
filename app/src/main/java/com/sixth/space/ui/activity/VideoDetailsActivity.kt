@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sixth.space.base.BaseActivity
-import com.sixth.space.data.HotList
+
 import com.sixth.space.databinding.ActivityVideoDetailsBinding
 import com.sixth.space.ui.fragment.HotListFragment
+import com.sixth.space.ui.fragment.VideoDetailsCommentFragment
+import com.sixth.space.ui.fragment.VideoDetailsRecommendFragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.various.player.PlayerConstants
 import org.various.player.listener.UserActionListener
 
@@ -16,8 +19,9 @@ import org.various.player.listener.UserActionListener
  * @Date: 2024/3/5
  * @Description:
  */
+@AndroidEntryPoint
 class VideoDetailsActivity : BaseActivity() {
-    lateinit var videoData: HotList.Item;
+//    lateinit var videoData: HotList.Item;
     var url = "https://d1.xia12345.com/video/202310/6524242a37926f1bd8c3740c/hd.mp4"
     val binding by lazy {
         ActivityVideoDetailsBinding.inflate(layoutInflater)
@@ -72,12 +76,15 @@ class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity) :
         return 2;
     }
 
-    override fun createFragment(position: Int): HotListFragment {
+    override fun createFragment(position: Int): Fragment {
         return if (position==0){
-            HotListFragment().newInstance(3);
+             HotListFragment().newInstance(3);
+//            VideoDetailsRecommendFragment()
         }else {
             HotListFragment().newInstance(4);
+//            VideoDetailsCommentFragment();
         }
+
 
     }
 

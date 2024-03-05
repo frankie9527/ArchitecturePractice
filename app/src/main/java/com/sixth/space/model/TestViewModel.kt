@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sixth.space.data.HotList
+import com.sixth.space.base.BaseResp
+import com.sixth.space.data.HotItem
 import com.sixth.space.network.Resource
 import com.sixth.space.network.RetrofitService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TestViewModel @Inject constructor(private val service: RetrofitService) : ViewModel() {
-    val recipesLiveDataPrivate = MutableLiveData<Resource<HotList>>()
-    val recipesLiveData: LiveData<Resource<HotList>> get() = recipesLiveDataPrivate
+    val recipesLiveDataPrivate = MutableLiveData<Resource<BaseResp<HotItem>>>()
+    val recipesLiveData: LiveData<Resource<BaseResp<HotItem>>> get() = recipesLiveDataPrivate
     fun fetchHotData() {
     }
 

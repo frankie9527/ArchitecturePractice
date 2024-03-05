@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.sixth.space.R
-import com.sixth.space.data.HotList
+import com.sixth.space.base.BaseResp
+import com.sixth.space.data.HotItem
 import com.sixth.space.network.Resource
 
 import com.sixth.space.model.TestViewModel
@@ -40,7 +41,7 @@ class TestActivity : AppCompatActivity() {
     fun historical(view: View) {
 
     }
-    private fun handleRecipesList(status: Resource<HotList>) {
+    private fun handleRecipesList(status: Resource<BaseResp<HotItem>>) {
         when (status) {
             is Resource.Loading -> hello("Loading")
             is Resource.Success -> status.data?.let { hello("Success") }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.gyf.immersionbar.ImmersionBar
+import com.sixth.space.R
 
 /**
  * @author: Frankie
@@ -16,8 +18,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        initStatusBar();
         initViewBinding()
         observeViewModel()
+    }
+
+    fun initStatusBar() {
+       ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

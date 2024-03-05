@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sixth.space.base.BaseResp
 import com.sixth.space.data.DataRepositorySource
-import com.sixth.space.data.HotList
-import com.sixth.space.data.ReplyList
+import com.sixth.space.data.HotItem
+import com.sixth.space.data.ReplyItem
+
 import com.sixth.space.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,11 +23,11 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
     ViewModel() {
-    val recipesHotDataPrivate = MutableLiveData<Resource<HotList>>()
-    val recipesHotData: LiveData<Resource<HotList>> get() = recipesHotDataPrivate
+    val recipesHotDataPrivate = MutableLiveData<Resource<BaseResp<HotItem>>>()
+    val recipesHotData: LiveData<Resource<BaseResp<HotItem>>> get() = recipesHotDataPrivate
 
-    val recipesReplyDataPrivate = MutableLiveData<Resource<ReplyList>>()
-    val recipesReplyData: LiveData<Resource<ReplyList>> get() = recipesReplyDataPrivate
+    val recipesReplyDataPrivate = MutableLiveData<Resource<BaseResp<ReplyItem>>>()
+    val recipesReplyData: LiveData<Resource<BaseResp<ReplyItem>>> get() = recipesReplyDataPrivate
 
 
     fun fetchHotData(position: Int) {
@@ -34,7 +36,7 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
             recipesHotDataPrivate.value = Resource.Loading();
             str = when (position) {
                 0 -> {
-                    "monthly"
+                    "weekly"
                 }
 
                 1 -> {

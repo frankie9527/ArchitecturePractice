@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.gyf.immersionbar.ImmersionBar
 import com.sixth.space.R
 import com.sixth.space.databinding.FragmentHotBinding
 
@@ -24,6 +25,7 @@ class HotFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolBar.setTitle(R.string.hot_rank)
         val hotList: Array<String?> = resources.getStringArray(R.array.hot_list);
         for (str in hotList) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(str))

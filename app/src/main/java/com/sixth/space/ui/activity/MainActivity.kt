@@ -11,17 +11,24 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sixth.space.model.MainViewModel
 import com.sixth.space.R
+import com.sixth.space.base.BaseActivity
 import com.sixth.space.ui.fragment.DiscoveryFragment
 import com.sixth.space.ui.fragment.HomeFragment
 import com.sixth.space.ui.fragment.HotFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private val viewModel by viewModels<MainViewModel>()
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    override fun observeViewModel() {
+
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +37,10 @@ class MainActivity : AppCompatActivity() {
 //                !viewModel.go2main.value
 //            }
 //        }
-        initView();
 
     }
 
-    private fun initView() {
+    override fun initViewBinding() {
         setContentView(binding.root)
         binding.viewPager2.adapter = MainFragmentStateAdapter(this);
         binding.viewPager2.isUserInputEnabled = false;
