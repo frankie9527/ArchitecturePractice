@@ -1,14 +1,22 @@
 <resources>
     <string name="app_name">SixthSpace</string>
-    <string name="home">home</string>
-    <string name="discovery">discovery</string>
+    <string name="home">Home</string>
+    <string name="post">Post</string>
     <string name="hot">hot</string>
 
-    <string name="weekly">weekly</string>
-    <string name="monthly">monthly</string>
-    <string name="historical">historical</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="historical">Historical</string>
 
     <string name="hot_rank">PopularityList</string>
+
+    <string name="recommend">Recommend</string>
+    <string name="daily">Daily</string>
+
+    <string name="comment">Comment</string>
+    <string name="introduction">Introduction</string>
+
+    <string name="follow">follow</string>
 
 
 

@@ -7,10 +7,10 @@ package com.sixth.space.base
  * @Date: 2024/3/5
  * @Description:
  */
-class BaseResp<T> (
+class HttpResponse<T> (
     val adExist: Boolean,
     val count: Int,
-    val itemList: List<T>,
+    var itemList: List<T>,
     val nextPageUrl: Any,
     val total: Int
 )

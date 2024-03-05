@@ -10,5 +10,3 @@ package com.sixth.space.data
  */
 
 
-data class VideoData(val str: String) {
-}

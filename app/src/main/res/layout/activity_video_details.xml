@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <org.various.player.ui.simple.SimpleVideoView
-        android:id="@+id/simple_view"
+    <ImageView
+        android:id="@+id/img_back_ground"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="false"
-        app:tabIndicatorColor="#000"
-        app:tabIndicatorHeight="2dp"
-        app:tabMinWidth="100dp"
-        app:tabSelectedTextColor="#000"
-        app:tabTextColor="#5000" />
+        <org.various.player.ui.simple.SimpleVideoView
+            android:id="@+id/simple_view"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="false"
+            android:textAllCaps="false"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabIndicator="@null"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/color_gray" />
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/color_gray"
+            android:layout_height="@dimen/dp_line"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>
+

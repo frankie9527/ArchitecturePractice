@@ -8,30 +8,31 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.gyf.immersionbar.ImmersionBar
 import com.sixth.space.R
-import com.sixth.space.databinding.FragmentHotBinding
+import com.sixth.space.databinding.FragmentBaseCommonViewpagerBinding
+import com.sixth.space.ui.onMenuClickListener
+import org.easy.tools.utils.ToastUtils
 
-class HotFragment : Fragment() {
-    lateinit var binding: FragmentHotBinding;
+
+class HotFragment(private val listener : onMenuClickListener) : Fragment() , View.OnClickListener {
+    lateinit var binding: FragmentBaseCommonViewpagerBinding;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHotBinding.inflate(inflater, container, false)
+        binding = FragmentBaseCommonViewpagerBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolBar.setTitle(R.string.hot_rank)
-        val hotList: Array<String?> = resources.getStringArray(R.array.hot_list);
+        val hotList: Array<String?> = resources.getStringArray(R.array.hot_array);
         for (str in hotList) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(str))
         }
         binding.viewPager.adapter= HotListFragmentStateAdapter(this);
-        binding.tabLayout.addOnTabSelectedListener(object :OnTabSelectedListener{
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     binding.viewPager.currentItem = tab.position
@@ -55,16 +56,29 @@ class HotFragment : Fragment() {
             }
 
         })
+        binding.imgOpenMenu.setOnClickListener(this);
+        binding.imgSearch.setOnClickListener(this);
+    }
+
+    override fun onClick(v: View?) {
+        if (v == binding.imgOpenMenu) {
+            listener.onMenuClick();
+            return
+        }
+        if (v == binding.imgSearch) {
+            ToastUtils.getInstance().show("imgSearch")
+        }
     }
 }
+
 class HotListFragmentStateAdapter(fm: Fragment) :
-    FragmentStateAdapter(fm){
+    FragmentStateAdapter(fm) {
     override fun getItemCount(): Int {
         return 3;
     }
 
-    override fun createFragment(position: Int): HotListFragment {
-        return HotListFragment().newInstance(position);
+    override fun createFragment(position: Int): Fragment {
+        return HotAndVideoListFragment().newInstance(position);
     }
 
 }

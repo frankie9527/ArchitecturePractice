@@ -2,6 +2,8 @@ package com.sixth.space.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.sixth.space.databinding.ActivityMainBinding
@@ -15,11 +17,14 @@ import com.sixth.space.base.BaseActivity
 import com.sixth.space.ui.fragment.DiscoveryFragment
 import com.sixth.space.ui.fragment.HomeFragment
 import com.sixth.space.ui.fragment.HotFragment
+import com.sixth.space.ui.onMenuClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import org.easy.ui.viewpager.transforms.StackTransformer
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), onMenuClickListener {
     private val viewModel by viewModels<MainViewModel>()
+    private var menu: View? = null
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -27,7 +32,6 @@ class MainActivity : BaseActivity() {
     override fun observeViewModel() {
 
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,35 +46,49 @@ class MainActivity : BaseActivity() {
 
     override fun initViewBinding() {
         setContentView(binding.root)
-        binding.viewPager2.adapter = MainFragmentStateAdapter(this);
+        binding.slideLayout.setSliderFadeColor(0)
+        menu = findViewById(R.id.menu)
+        val params: ViewGroup.LayoutParams = menu!!.getLayoutParams()
+        params.width = (resources.displayMetrics.widthPixels * 0.85f).toInt()
+        menu!!.setLayoutParams(params)
+
+        binding.viewPager2.adapter = MainFragmentStateAdapter(this,this);
         binding.viewPager2.isUserInputEnabled = false;
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
-                    binding.viewPager2.setCurrentItem(0, true);
+                    binding.viewPager2.setCurrentItem(0, false);
                 }
 
-                R.id.navigation_discovery -> {
-                    binding.viewPager2.setCurrentItem(1, true);
+                R.id.navigation_post_video -> {
+
                 }
 
                 R.id.navigation_hot -> {
-                    binding.viewPager2.setCurrentItem(2, true);
+                    binding.viewPager2.setCurrentItem(1, false);
                 }
             }
             true
         }
     }
+
+    override fun onMenuClick() {
+        if (!binding.slideLayout.isOpen) {
+            binding.slideLayout.openPane()
+        }
+    }
 }
 
-class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
+class MainFragmentStateAdapter(
+    fragmentActivity: FragmentActivity,
+    private val listener: onMenuClickListener
+) :
     FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 2
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> HomeFragment()
-            1 -> DiscoveryFragment()
-            else -> HotFragment();
+            0 -> HomeFragment(listener)
+            else -> HotFragment(listener);
         }
     }
 

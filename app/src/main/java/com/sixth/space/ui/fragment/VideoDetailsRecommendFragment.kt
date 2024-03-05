@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import com.sixth.space.databinding.FragmentVideoDetailsRemomendBinding
 import com.sixth.space.model.RemoteViewModel
 
-import com.sixth.space.ui.HotListAdapter
+import com.sixth.space.ui.adapter.HotAndVideoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.easy.ui.recycler.listener.ItemClickListener
 
@@ -19,7 +19,7 @@ import org.easy.ui.recycler.listener.ItemClickListener
 class VideoDetailsRecommendFragment : Fragment(), ItemClickListener {
     lateinit var binding: FragmentVideoDetailsRemomendBinding;
     val viewModel: RemoteViewModel by viewModels()
-    lateinit var adapter: HotListAdapter;
+    lateinit var adapter: HotAndVideoAdapter;
     var position: Int = 0;
     override fun onCreateView(
         inflater: LayoutInflater,

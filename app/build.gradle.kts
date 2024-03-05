@@ -78,10 +78,10 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
     //glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    implementation("androidx.core:core-splashscreen:1.0.1")
 
     // 基础依赖包，必须要依赖
     implementation("com.geyifeng.immersionbar:immersionbar:3.2.2")

@@ -4,12 +4,15 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+import com.sixth.space.R
 import com.sixth.space.base.BaseActivity
+import com.sixth.space.base.Constant
 
 import com.sixth.space.databinding.ActivityVideoDetailsBinding
-import com.sixth.space.ui.fragment.HotListFragment
-import com.sixth.space.ui.fragment.VideoDetailsCommentFragment
-import com.sixth.space.ui.fragment.VideoDetailsRecommendFragment
+import com.sixth.space.ui.fragment.HotAndVideoListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.various.player.PlayerConstants
 import org.various.player.listener.UserActionListener
@@ -39,13 +42,40 @@ class VideoDetailsActivity : BaseActivity() {
 
 
     }
+    val imgUrl="http://ali-img.kaiyanapp.com/0d83aa7ffff0b0d50d91efac5d6acdc4.jpeg?imageMogr2/quality/60/format/jpg";
     override fun initViewBinding() {
         binding.simpleView.setPlayData(url, "title")
+        Glide.with(this).load(imgUrl).into(binding.imgBackGround);
         binding.simpleView.startSyncPlay()
+
         binding.simpleView.setUserActionListener(UserActionListener { action -> if (action == PlayerConstants.ACTION_BACK) finish() })
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("简介"))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("评论"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.comment)))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.recommend)))
         binding.viewPager.adapter= VideoDetailsFragmentStateAdapter(this);
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    binding.viewPager.currentItem = tab.position
+                };
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    binding.viewPager.currentItem = tab.position
+                }
+            }
+        })
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
+            }
+
+        })
     }
 
     override fun observeViewModel() {
@@ -78,11 +108,10 @@ class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment {
         return if (position==0){
-             HotListFragment().newInstance(3);
-//            VideoDetailsRecommendFragment()
+             HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend);
         }else {
-            HotListFragment().newInstance(4);
-//            VideoDetailsCommentFragment();
+            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment);
+
         }
 
 

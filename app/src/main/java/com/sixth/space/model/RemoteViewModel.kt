@@ -4,12 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sixth.space.base.BaseResp
+import com.sixth.space.base.HttpResponse
 import com.sixth.space.data.DataRepositorySource
 import com.sixth.space.data.HotItem
+import com.sixth.space.data.RecommendItem
 import com.sixth.space.data.ReplyItem
 
 import com.sixth.space.network.Resource
+import com.sixth.space.uitls.LogUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,14 +25,19 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
     ViewModel() {
-    val recipesHotDataPrivate = MutableLiveData<Resource<BaseResp<HotItem>>>()
-    val recipesHotData: LiveData<Resource<BaseResp<HotItem>>> get() = recipesHotDataPrivate
+    val recipesHotDataPrivate = MutableLiveData<Resource<HttpResponse<HotItem>>>()
+    val recipesHotData: LiveData<Resource<HttpResponse<HotItem>>> get() = recipesHotDataPrivate
 
-    val recipesReplyDataPrivate = MutableLiveData<Resource<BaseResp<ReplyItem>>>()
-    val recipesReplyData: LiveData<Resource<BaseResp<ReplyItem>>> get() = recipesReplyDataPrivate
+    val recipesReplyDataPrivate = MutableLiveData<Resource<HttpResponse<ReplyItem>>>()
+    val recipesReplyData: LiveData<Resource<HttpResponse<ReplyItem>>> get() = recipesReplyDataPrivate
+
+    val recipesRecommendDataPrivate = MutableLiveData<Resource<HttpResponse<RecommendItem>>>()
+    val recipesRecommendData: LiveData<Resource<HttpResponse<RecommendItem>>> get() = recipesRecommendDataPrivate
 
 
     fun fetchHotData(position: Int) {
+        LogUtils.d("RemoteViewModel","fetchHotData str="+position)
+        Thread.dumpStack();
         var str: String;
         viewModelScope.launch {
             recipesHotDataPrivate.value = Resource.Loading();
@@ -47,19 +54,26 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
                     "historical"
                 }
             }
-            dataRepositoryRepository.getHotList(str).collect() {
+            dataRepositoryRepository.fetchHotList(str).collect() {
                 recipesHotDataPrivate.value = it;
             }
         }
     }
-
-    fun videoRecommend() {}
 
     fun fetchReplyComment(id: String) {
         viewModelScope.launch {
             recipesReplyDataPrivate.value = Resource.Loading();
             dataRepositoryRepository.fetchReplyComment(id).collect() {
                 recipesReplyDataPrivate.value = it;
+            }
+        }
+    }
+
+    fun fetchRecommend(id: String) {
+        viewModelScope.launch {
+            recipesReplyDataPrivate.value = Resource.Loading();
+            dataRepositoryRepository.fetchRecommend(id).collect() {
+                recipesRecommendDataPrivate.value = it;
             }
         }
     }

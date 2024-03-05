@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.SixthSpace" parent="Theme.AppCompat.Light.NoActionBar">
 ·        <item name="colorPrimary">@color/color_black</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
+        <item name="colorAccent">@color/color_black</item>
     </style>
 
     <style name="Theme.SixthSpace" parent="Base.Theme.SixthSpace" />
@@ -13,4 +13,22 @@
         </item>
         <item name="postSplashScreenTheme">@style/Theme.SixthSpace</item>
     </style>
+
+    <!--ShapeableImageView 圆 -->
+    <style name="CircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="RoundedStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="tabRippleColor">@color/color_translucent</item>
+    </style>
+
+
+
 </resources>

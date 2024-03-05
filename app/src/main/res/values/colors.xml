@@ -9,4 +9,6 @@
 
     <!-- title 半透明背景颜色 -->
     <color name="color_title_bg">#CCFFFFFF</color>
+
+    <color name="purple_500">#FF6200EE</color>
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="discovery_array">
-        <item>关注</item>
-        <item>分类</item>
+    <string-array name="home_array">
+        <item>@string/daily</item>
+        <item>@string/recommend</item>
     </string-array>
-    <string-array name="hot_list">
+    <string-array name="hot_array">
         <item>@string/weekly</item>
         <item>@string/monthly</item>
         <item>@string/historical</item>

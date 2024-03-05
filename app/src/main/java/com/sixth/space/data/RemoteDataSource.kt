@@ -1,6 +1,6 @@
 package com.sixth.space.data
 
-import com.sixth.space.base.BaseResp
+import com.sixth.space.base.HttpResponse
 import com.sixth.space.network.Resource
 
 
@@ -10,7 +10,9 @@ import com.sixth.space.network.Resource
  * @Description:
  */
 interface RemoteDataSource {
-    suspend fun getHotList(str: String): Resource<BaseResp<HotItem>>
+    suspend fun fetchHotList(str: String): Resource<HttpResponse<HotItem>>
 
-    suspend fun fetchReplyComment(id: String): Resource<BaseResp<ReplyItem>>
+    suspend fun fetchReplyComment(id: String): Resource<HttpResponse<ReplyItem>>
+
+    suspend fun fetchRecommend(id: String): Resource<HttpResponse<RecommendItem>>
 }
