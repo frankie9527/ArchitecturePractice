@@ -13,7 +13,8 @@ import com.sixth.space.base.HttpResponse
 import com.sixth.space.base.Constant
 import com.sixth.space.data.HotItem
 import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.ReplyItem
+import com.sixth.space.data.CommentItem
+import com.sixth.space.data.VideoInfo
 import com.sixth.space.databinding.FragmentRecyclerBinding
 
 import com.sixth.space.model.RemoteViewModel
@@ -85,7 +86,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         dealData(status)
     }
 
-    private fun handleRecipesReplyHotList(status: Resource<HttpResponse<ReplyItem>>) {
+    private fun handleRecipesReplyHotList(status: Resource<HttpResponse<CommentItem>>) {
         dealData(status)
     }
     private fun handleRecipesRecommendHotList(status: Resource<HttpResponse<RecommendItem>>) {
@@ -96,7 +97,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
             is Resource.Loading -> binding.controlLayout.showLoading()
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
-                val data = status.data.itemList as List<Objects>;
+                val data = status.data.videoList;
                 adapter.setData(data);
             }
 

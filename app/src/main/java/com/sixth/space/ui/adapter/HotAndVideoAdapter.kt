@@ -9,7 +9,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.sixth.space.base.Constant
 import com.sixth.space.data.HotItem
 import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.ReplyItem
+import com.sixth.space.data.CommentItem
+import com.sixth.space.data.VideoInfo
 import com.sixth.space.databinding.FragmentCommentListItemBinding
 import com.sixth.space.databinding.FragmentHotListItemBinding
 import com.sixth.space.databinding.FragmentRecommendHeadItemBinding
@@ -27,7 +28,7 @@ import java.util.Objects
  * @Description:
  */
 class HotAndVideoAdapter(private val adapterType: Int) :
-    BaseRecyclerAdapter<Objects, BaseRecyclerHolder>() {
+    BaseRecyclerAdapter<VideoInfo, BaseRecyclerHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerHolder {
         val binding: ViewBinding;
@@ -71,26 +72,25 @@ class HotAndVideoAdapter(private val adapterType: Int) :
     override fun MyHolder(holder: BaseRecyclerHolder, position: Int) {
         super.MyHolder(holder, position)
         if (getItemViewType(position) == Constant.recycler_adapter_type_hot) {
-            val data = list.get(position) as HotItem;
+            val data = list.get(position);
             val hotHolder = holder as HotListHolder;
             hotHolder.bin(data)
         }
         if (getItemViewType(position) == Constant.recycler_adapter_type_comment) {
-            val data = list.get(position) as ReplyItem;
+            val data = list.get(position);
             val replyHolder = holder as CommentHolder;
             replyHolder.bin(data);
         }
         if (getItemViewType(position) == Constant.recycler_adapter_type_recommend_head) {
-            val data = list.get(position) as RecommendItem;
+            val data = list.get(position)
             val headHolder = holder as RecommendHeadHolder;
             headHolder.bin(data)
 
         }
         if (getItemViewType(position) == Constant.recycler_adapter_type_recommend) {
-            val data = list.get(position) as RecommendItem;
+            val data = list.get(position)
             val recommendHolder = holder as RecommendHolder;
             recommendHolder.bin(data)
-
         }
 
     }
@@ -111,12 +111,12 @@ class HotAndVideoAdapter(private val adapterType: Int) :
     class HotListHolder(private val binding: FragmentHotListItemBinding) :
         BaseRecyclerHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bin(data: HotItem) {
-            binding.title.setText(data.data.title)
-            binding.type.setText("#" + data.data.category)
+        fun bin(data: VideoInfo) {
+            binding.title.setText(data.title)
+            binding.type.setText("#" + data.category)
             binding.img.let {
                 Glide.with(it)
-                    .load(data.data.cover.feed)
+                    .load(data.cover)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(it)
             }
@@ -125,35 +125,36 @@ class HotAndVideoAdapter(private val adapterType: Int) :
 
     class CommentHolder(private val binding: FragmentCommentListItemBinding) :
         BaseRecyclerHolder(binding.root) {
-        fun bin(data: ReplyItem) {
+        fun bin(data: VideoInfo) {
+
             binding.imgHead.let {
-                Glide.with(it).load(data.data.user.avatar).into(it);
+                Glide.with(it).load(data.avatar).into(it);
             }
-            binding.tvMessage.text = data.data.message;
-            binding.tvLikeCount.text = data.data.likeCount.toString();
-            binding.tvNickname.text = data.data.user.nickname
-            binding.tvDate.text = data.data.createTime.getTime2String()
+            binding.tvMessage.text = data.commentMsg;
+            binding.tvLikeCount.text = data.likeCount.toString();
+            binding.tvNickname.text = data.name
+            binding.tvDate.text = data.releaseTime.getTime2String()
         }
     }
 
     class RecommendHolder(private val binding: FragmentRecommendListItemBinding) :
         BaseRecyclerHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bin(data: RecommendItem) {
+        fun bin(data: VideoInfo) {
             binding.imgCover.let {
-                Glide.with(it).load(data.data.cover?.feed).into(it);
+                Glide.with(it).load(data.cover).into(it);
             }
-            binding.tvTitle.text = data.data.title;
-            binding.tvCategory.text = "#" + data.data?.category;
-            binding.tvAuthor.text = data.data.author?.name;
-            binding.tvDate.text = data.data.releaseTime.getTime2String()
-            binding.tvDuration.text = data.data.duration.durationToStr();
+            binding.tvTitle.text = data.title;
+            binding.tvCategory.text = "#" + data.category;
+            binding.tvAuthor.text = data.name;
+            binding.tvDate.text = data.releaseTime.getTime2String()
+            binding.tvDuration.text = data.duration.durationToStr();
         }
     }
 
     class RecommendHeadHolder(private val binding: FragmentRecommendHeadItemBinding) :
         BaseRecyclerHolder(binding.root) {
-        fun bin(data: RecommendItem) {
+        fun bin(data: VideoInfo) {
 
         }
     }

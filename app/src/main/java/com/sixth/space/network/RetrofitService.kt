@@ -3,7 +3,7 @@ package com.sixth.space.network
 import com.sixth.space.base.HttpResponse
 import com.sixth.space.data.HotItem
 import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.ReplyItem
+import com.sixth.space.data.CommentItem
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,7 +24,7 @@ interface RetrofitService {
         @Query("videoId") videoId: String,
         @Query("num") num: String,
         @Query("type") type: String
-    ): HttpResponse<ReplyItem>
+    ): HttpResponse<CommentItem>
 
     @GET("/api/v4/video/related")
     suspend fun fetchRecommend(

@@ -1,5 +1,6 @@
 package com.sixth.space.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.sixth.space.R
 import com.sixth.space.databinding.FragmentBaseCommonViewpagerBinding
+import com.sixth.space.ui.activity.SearchActivity
+import com.sixth.space.ui.activity.VideoDetailsActivity
 import com.sixth.space.ui.onMenuClickListener
 import org.easy.tools.utils.ToastUtils
 
@@ -68,7 +71,7 @@ class HomeFragment(private val listener : onMenuClickListener) : Fragment(), OnC
             return
         }
         if (v == binding.imgSearch) {
-            ToastUtils.getInstance().show("imgSearch")
+            startActivity(Intent(activity, SearchActivity::class.java))
         }
     }
 }

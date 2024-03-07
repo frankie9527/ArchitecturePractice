@@ -8,7 +8,7 @@ import com.sixth.space.base.HttpResponse
 import com.sixth.space.data.DataRepositorySource
 import com.sixth.space.data.HotItem
 import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.ReplyItem
+import com.sixth.space.data.CommentItem
 
 import com.sixth.space.network.Resource
 import com.sixth.space.uitls.LogUtils
@@ -28,8 +28,8 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
     val recipesHotDataPrivate = MutableLiveData<Resource<HttpResponse<HotItem>>>()
     val recipesHotData: LiveData<Resource<HttpResponse<HotItem>>> get() = recipesHotDataPrivate
 
-    val recipesReplyDataPrivate = MutableLiveData<Resource<HttpResponse<ReplyItem>>>()
-    val recipesReplyData: LiveData<Resource<HttpResponse<ReplyItem>>> get() = recipesReplyDataPrivate
+    val recipesReplyDataPrivate = MutableLiveData<Resource<HttpResponse<CommentItem>>>()
+    val recipesReplyData: LiveData<Resource<HttpResponse<CommentItem>>> get() = recipesReplyDataPrivate
 
     val recipesRecommendDataPrivate = MutableLiveData<Resource<HttpResponse<RecommendItem>>>()
     val recipesRecommendData: LiveData<Resource<HttpResponse<RecommendItem>>> get() = recipesRecommendDataPrivate

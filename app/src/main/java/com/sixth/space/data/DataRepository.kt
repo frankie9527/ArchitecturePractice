@@ -24,7 +24,7 @@ class DataRepository @Inject constructor(
         }.flowOn(ioDispatcher);
     }
 
-    override suspend fun fetchReplyComment(id: String): Flow<Resource<HttpResponse<ReplyItem>>> {
+    override suspend fun fetchReplyComment(id: String): Flow<Resource<HttpResponse<CommentItem>>> {
         return flow {
             emit(remoteRepository.fetchReplyComment(id))
         }.flowOn(ioDispatcher);

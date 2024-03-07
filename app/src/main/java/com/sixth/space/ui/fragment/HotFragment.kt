@@ -1,5 +1,6 @@
 package com.sixth.space.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,10 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.sixth.space.R
 import com.sixth.space.databinding.FragmentBaseCommonViewpagerBinding
+import com.sixth.space.ui.activity.SearchActivity
 import com.sixth.space.ui.onMenuClickListener
-import org.easy.tools.utils.ToastUtils
 
-
-class HotFragment(private val listener : onMenuClickListener) : Fragment() , View.OnClickListener {
+class HotFragment(private val listener: onMenuClickListener) : Fragment(), View.OnClickListener {
     lateinit var binding: FragmentBaseCommonViewpagerBinding;
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +31,7 @@ class HotFragment(private val listener : onMenuClickListener) : Fragment() , Vie
         for (str in hotList) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(str))
         }
-        binding.viewPager.adapter= HotListFragmentStateAdapter(this);
+        binding.viewPager.adapter = HotListFragmentStateAdapter(this);
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -49,7 +49,7 @@ class HotFragment(private val listener : onMenuClickListener) : Fragment() , Vie
                 }
             }
         })
-        binding.viewPager.registerOnPageChangeCallback(object :OnPageChangeCallback(){
+        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
@@ -66,7 +66,7 @@ class HotFragment(private val listener : onMenuClickListener) : Fragment() , Vie
             return
         }
         if (v == binding.imgSearch) {
-            ToastUtils.getInstance().show("imgSearch")
+            startActivity(Intent(activity, SearchActivity::class.java))
         }
     }
 }

@@ -8,22 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.sixth.space.base.Constant
-
-import com.sixth.space.databinding.FragmentVideoDetailsCommentBinding
-import com.sixth.space.uitls.LogUtils
-
+import com.sixth.space.databinding.FragmentTiktokBinding
 
 import org.easy.ui.recycler.listener.ItemClickListener
 
 class TiktokFragment : Fragment(), ItemClickListener {
-    lateinit var binding: FragmentVideoDetailsCommentBinding;
+    lateinit var binding: FragmentTiktokBinding;
     var position: Int = 0;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentVideoDetailsCommentBinding.inflate(inflater, container, false)
+        binding = FragmentTiktokBinding.inflate(inflater, container, false)
         return binding.root
     }
 

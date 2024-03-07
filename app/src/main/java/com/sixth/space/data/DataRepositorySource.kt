@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface DataRepositorySource {
     suspend fun fetchHotList(str: String): Flow<Resource<HttpResponse<HotItem>>>
-    suspend fun fetchReplyComment(id:String): Flow<Resource<HttpResponse<ReplyItem>>>
+    suspend fun fetchReplyComment(id:String): Flow<Resource<HttpResponse<CommentItem>>>
 
     suspend fun fetchRecommend(id:String): Flow<Resource<HttpResponse<RecommendItem>>>
 }

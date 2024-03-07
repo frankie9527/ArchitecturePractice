@@ -36,7 +36,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.VideoDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"/>
+        <activity android:name=".ui.activity.SearchActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@ package com.sixth.space.data
  * @Date: 2024/3/5
  * @Description:
  */
-data class ReplyItem(
+data class CommentItem(
     val adIndex: Int,
     val `data`: Data,
     val id: Int,
