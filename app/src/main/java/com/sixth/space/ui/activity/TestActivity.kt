@@ -7,12 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.sixth.space.R
 import com.sixth.space.databinding.ActivityTestBinding
+import com.sixth.space.model.SearchViewModel
 import com.sixth.space.model.TestViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TestActivity : AppCompatActivity() {
-    val viewModel: TestViewModel by viewModels()
+    val viewModel: SearchViewModel by viewModels()
     private var menu: View? = null
     val binding by lazy {
         ActivityTestBinding.inflate(layoutInflater)
@@ -20,11 +21,9 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
-        binding.slideLayout.setSliderFadeColor(0)
-        menu = findViewById<View>(R.id.menu)
-        val params: ViewGroup.LayoutParams = menu!!.getLayoutParams()
-        params.width = (resources.displayMetrics.widthPixels * 0.85f).toInt()
-        menu!!.setLayoutParams(params)
 
+    }
+    fun demo1(view: View){
+        viewModel.search("b")
     }
 }

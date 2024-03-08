@@ -169,7 +169,7 @@
                     app:srcCompat="@drawable/baseline_comment_24" />
 
                 <TextView
-                    android:id="@+id/tv_reply_count"
+                    android:id="@+id/tv_comment_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_5"

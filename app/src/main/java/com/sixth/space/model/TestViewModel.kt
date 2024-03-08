@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixth.space.base.HttpResponse
-import com.sixth.space.data.HotItem
+import com.sixth.space.data.video.HotItem
 import com.sixth.space.network.Resource
 import com.sixth.space.network.RetrofitService
 import dagger.hilt.android.lifecycle.HiltViewModel

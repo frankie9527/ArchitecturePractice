@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixth.space.base.HttpResponse
 import com.sixth.space.data.DataRepositorySource
-import com.sixth.space.data.HotItem
-import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.CommentItem
+import com.sixth.space.data.dao.VideoInfo
+import com.sixth.space.data.dao.VideoRepository
+import com.sixth.space.data.video.HotItem
+import com.sixth.space.data.video.RecommendItem
+import com.sixth.space.data.video.CommentItem
 
 import com.sixth.space.network.Resource
 import com.sixth.space.uitls.LogUtils
@@ -25,19 +27,18 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
     ViewModel() {
-    val recipesHotDataPrivate = MutableLiveData<Resource<HttpResponse<HotItem>>>()
-    val recipesHotData: LiveData<Resource<HttpResponse<HotItem>>> get() = recipesHotDataPrivate
+    val recipesHotDataPrivate = MutableLiveData<Resource<List<VideoInfo>>>()
+    val recipesHotData: LiveData<Resource<List<VideoInfo>>> get() = recipesHotDataPrivate
 
-    val recipesReplyDataPrivate = MutableLiveData<Resource<HttpResponse<CommentItem>>>()
-    val recipesReplyData: LiveData<Resource<HttpResponse<CommentItem>>> get() = recipesReplyDataPrivate
+    val recipesReplyDataPrivate = MutableLiveData<Resource<List<VideoInfo>>>()
+    val recipesReplyData: LiveData<Resource<List<VideoInfo>>> get() = recipesReplyDataPrivate
 
-    val recipesRecommendDataPrivate = MutableLiveData<Resource<HttpResponse<RecommendItem>>>()
-    val recipesRecommendData: LiveData<Resource<HttpResponse<RecommendItem>>> get() = recipesRecommendDataPrivate
+    val recipesRecommendDataPrivate = MutableLiveData<Resource<List<VideoInfo>>>()
+    val recipesRecommendData: LiveData<Resource<List<VideoInfo>>> get() = recipesRecommendDataPrivate
 
 
     fun fetchHotData(position: Int) {
         LogUtils.d("RemoteViewModel","fetchHotData str="+position)
-        Thread.dumpStack();
         var str: String;
         viewModelScope.launch {
             recipesHotDataPrivate.value = Resource.Loading();
@@ -77,6 +78,4 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
             }
         }
     }
-
-
 }

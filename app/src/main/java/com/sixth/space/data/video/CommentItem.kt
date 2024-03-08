@@ -1,4 +1,4 @@
-package com.sixth.space.data
+package com.sixth.space.data.video
 
 /**
  * @author: Frankie

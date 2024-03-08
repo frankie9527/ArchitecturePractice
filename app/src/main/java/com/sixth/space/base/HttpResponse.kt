@@ -1,6 +1,6 @@
 package com.sixth.space.base
 
-import com.sixth.space.data.VideoInfo
+
 
 
 /**
@@ -14,5 +14,5 @@ class HttpResponse<T>(
     var itemList: List<T>,
     val nextPageUrl: Any,
     val total: Int,
-    var videoList: List<VideoInfo>
+
 )

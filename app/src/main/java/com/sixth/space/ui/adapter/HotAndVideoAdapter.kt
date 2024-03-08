@@ -7,19 +7,16 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.sixth.space.base.Constant
-import com.sixth.space.data.HotItem
-import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.CommentItem
-import com.sixth.space.data.VideoInfo
+import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.databinding.FragmentCommentListItemBinding
 import com.sixth.space.databinding.FragmentHotListItemBinding
 import com.sixth.space.databinding.FragmentRecommendHeadItemBinding
 import com.sixth.space.databinding.FragmentRecommendListItemBinding
+import com.sixth.space.uitls.LogUtils
 import com.sixth.space.uitls.durationToStr
 import org.easy.ui.recycler.base.BaseRecyclerAdapter
 import org.easy.ui.recycler.base.BaseRecyclerHolder
 import com.sixth.space.uitls.getTime2String
-import java.util.Objects
 
 
 /**
@@ -27,7 +24,7 @@ import java.util.Objects
  * @Date: 2024/3/3
  * @Description:
  */
-class HotAndVideoAdapter(private val adapterType: Int) :
+class HotAndVideoAdapter() :
     BaseRecyclerAdapter<VideoInfo, BaseRecyclerHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerHolder {
@@ -96,15 +93,7 @@ class HotAndVideoAdapter(private val adapterType: Int) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (adapterType == 0 || adapterType == 1 || adapterType == 2) {
-            return Constant.recycler_adapter_type_hot
-        } else if (adapterType == 3) {
-            if (position == 0) {
-                return Constant.recycler_adapter_type_recommend_head
-            }
-            return Constant.recycler_adapter_type_recommend
-        }
-        return Constant.recycler_adapter_type_comment
+        return list.get(position).videoType;
     }
 
 
@@ -132,7 +121,7 @@ class HotAndVideoAdapter(private val adapterType: Int) :
             }
             binding.tvMessage.text = data.commentMsg;
             binding.tvLikeCount.text = data.likeCount.toString();
-            binding.tvNickname.text = data.name
+            binding.tvNickname.text = data.user_name
             binding.tvDate.text = data.releaseTime.getTime2String()
         }
     }
@@ -146,7 +135,7 @@ class HotAndVideoAdapter(private val adapterType: Int) :
             }
             binding.tvTitle.text = data.title;
             binding.tvCategory.text = "#" + data.category;
-            binding.tvAuthor.text = data.name;
+            binding.tvAuthor.text = data.user_name;
             binding.tvDate.text = data.releaseTime.getTime2String()
             binding.tvDuration.text = data.duration.durationToStr();
         }

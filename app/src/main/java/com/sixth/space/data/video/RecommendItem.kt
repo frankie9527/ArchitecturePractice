@@ -1,4 +1,4 @@
-package com.sixth.space.data
+package com.sixth.space.data.video
 
 data class RecommendItem(
     val adIndex: Int,

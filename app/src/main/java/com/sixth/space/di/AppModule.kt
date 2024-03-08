@@ -1,6 +1,12 @@
 package com.sixth.space.di
 
+import android.app.Application
 import android.content.Context
+import android.provider.MediaStore.Video
+import androidx.room.Room
+import com.sixth.space.data.dao.VideoDatabase
+import com.sixth.space.data.dao.VideoRepository
+import com.sixth.space.data.dao.VideoRepositoryImpl
 import com.sixth.space.uitls.Network
 import com.sixth.space.uitls.NetworkConnectivity
 import dagger.Module
@@ -25,9 +31,25 @@ class AppModule {
     fun provideCoroutineContext(): CoroutineContext {
         return Dispatchers.IO
     }
+
     @Provides
     @Singleton
     fun provideNetworkConnectivity(@ApplicationContext context: Context): NetworkConnectivity {
         return Network(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDatabase(app: Application): VideoDatabase {
+        return Room.databaseBuilder(
+            app,
+            VideoDatabase::class.java, "video"
+        ).build();
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(db: VideoDatabase): VideoRepository {
+        return VideoRepositoryImpl(db.VideoDao());
     }
 }

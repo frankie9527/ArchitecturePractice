@@ -78,7 +78,7 @@ class HotListFragmentStateAdapter(fm: Fragment) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        return HotAndVideoListFragment().newInstance(position);
+        return HotAndVideoListFragment().newInstance(position,-1);
     }
 
 }

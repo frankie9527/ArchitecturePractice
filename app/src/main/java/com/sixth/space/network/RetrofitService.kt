@@ -1,9 +1,9 @@
 package com.sixth.space.network
 
 import com.sixth.space.base.HttpResponse
-import com.sixth.space.data.HotItem
-import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.CommentItem
+import com.sixth.space.data.video.HotItem
+import com.sixth.space.data.video.RecommendItem
+import com.sixth.space.data.video.CommentItem
 import retrofit2.http.GET
 import retrofit2.http.Query
 

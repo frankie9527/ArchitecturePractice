@@ -7,6 +7,7 @@ package com.sixth.space.base
  */
 object Constant {
     const val HOT_POSITION = "hot_position";
+    const val VIDEO_ID = "video_id";
     const val VIDEO_ITEM = "Video_Item"
 
     const val recycler_adapter_type_hot = 0;

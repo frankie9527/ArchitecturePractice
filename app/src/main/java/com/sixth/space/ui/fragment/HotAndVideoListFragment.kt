@@ -9,12 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sixth.space.base.HttpResponse
 import com.sixth.space.base.Constant
-import com.sixth.space.data.HotItem
-import com.sixth.space.data.RecommendItem
-import com.sixth.space.data.CommentItem
-import com.sixth.space.data.VideoInfo
+import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.databinding.FragmentRecyclerBinding
 
 import com.sixth.space.model.RemoteViewModel
@@ -25,7 +21,6 @@ import com.sixth.space.ui.activity.VideoDetailsActivity
 import com.sixth.space.uitls.observe
 import dagger.hilt.android.AndroidEntryPoint
 import org.easy.ui.recycler.listener.ItemClickListener
-import java.util.Objects
 
 @AndroidEntryPoint
 class HotAndVideoListFragment : Fragment(), ItemClickListener {
@@ -33,6 +28,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
     val viewModel: RemoteViewModel by viewModels()
     lateinit var adapter: HotAndVideoAdapter;
     var position: Int = 0;
+    var videoId: Int = 0;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,10 +38,11 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         return binding.root
     }
 
-    fun newInstance(position: Int): HotAndVideoListFragment {
+    fun newInstance(position: Int, videoId: Int): HotAndVideoListFragment {
         val args = Bundle()
         val fragment = HotAndVideoListFragment()
         args.putInt(Constant.HOT_POSITION, position)
+        args.putInt(Constant.VIDEO_ID, videoId)
         fragment.arguments = args
         return fragment
     }
@@ -59,11 +56,12 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
 
     fun initViewAndData() {
         position = requireArguments().getInt(Constant.HOT_POSITION)
-        observe(viewModel.recipesHotData, ::handleRecipesHotList)
-        observe(viewModel.recipesReplyData, ::handleRecipesReplyHotList)
-        observe(viewModel.recipesRecommendData, ::handleRecipesRecommendHotList)
+        videoId = requireArguments().getInt(Constant.VIDEO_ID)
+        observe(viewModel.recipesHotData, ::handleRecipesData)
+        observe(viewModel.recipesReplyData, ::handleRecipesData)
+        observe(viewModel.recipesRecommendData, ::handleRecipesData)
         binding.recycler.layoutManager = LinearLayoutManager(context);
-        adapter = HotAndVideoAdapter(position)
+        adapter = HotAndVideoAdapter()
         adapter.setItemListener(this);
         binding.recycler.adapter = adapter;
         when (position) {
@@ -72,32 +70,23 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
             }
 
             3 -> {
-                viewModel.fetchRecommend("322130")
+                viewModel.fetchRecommend(videoId.toString())
             }
 
             4 -> {
-                viewModel.fetchReplyComment("322130")
+                viewModel.fetchReplyComment(videoId.toString())
             }
         }
 
     }
 
-    private fun handleRecipesHotList(status: Resource<HttpResponse<HotItem>>) {
-        dealData(status)
-    }
 
-    private fun handleRecipesReplyHotList(status: Resource<HttpResponse<CommentItem>>) {
-        dealData(status)
-    }
-    private fun handleRecipesRecommendHotList(status: Resource<HttpResponse<RecommendItem>>) {
-        dealData(status)
-    }
-    fun <T> dealData(status: Resource<HttpResponse<T>>) {
+    fun  handleRecipesData(status: Resource<List<VideoInfo>>) {
         when (status) {
             is Resource.Loading -> binding.controlLayout.showLoading()
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
-                val data = status.data.videoList;
+                val data = status.data;
                 adapter.setData(data);
             }
 
@@ -112,9 +101,10 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        val adapterType=adapter.getItemViewType(position);
-        if (adapterType==Constant.recycler_adapter_type_hot){
+        val adapterType = adapter.getItemViewType(position);
+        if (adapterType == Constant.recycler_adapter_type_hot) {
             val intent = Intent(activity, VideoDetailsActivity::class.java)
+            intent.putExtra(Constant.VIDEO_ITEM, adapter.getDataInPostion(position));
             startActivity(intent)
         }
 

@@ -1,11 +1,9 @@
 package com.sixth.space.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.sixth.space.databinding.ActivityMainBinding
 
 import androidx.fragment.app.Fragment
@@ -14,12 +12,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sixth.space.model.MainViewModel
 import com.sixth.space.R
 import com.sixth.space.base.BaseActivity
-import com.sixth.space.ui.fragment.DiscoveryFragment
 import com.sixth.space.ui.fragment.HomeFragment
 import com.sixth.space.ui.fragment.HotFragment
 import com.sixth.space.ui.onMenuClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import org.easy.ui.viewpager.transforms.StackTransformer
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), onMenuClickListener {
@@ -59,11 +56,6 @@ class MainActivity : BaseActivity(), onMenuClickListener {
                 R.id.navigation_home -> {
                     binding.viewPager2.setCurrentItem(0, false);
                 }
-
-                R.id.navigation_post_video -> {
-
-                }
-
                 R.id.navigation_hot -> {
                     binding.viewPager2.setCurrentItem(1, false);
                 }

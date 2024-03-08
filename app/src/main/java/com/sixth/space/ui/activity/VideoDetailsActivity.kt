@@ -1,6 +1,8 @@
 package com.sixth.space.ui.activity
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -10,6 +12,7 @@ import com.google.android.material.tabs.TabLayout
 import com.sixth.space.R
 import com.sixth.space.base.BaseActivity
 import com.sixth.space.base.Constant
+import com.sixth.space.data.dao.VideoInfo
 
 import com.sixth.space.databinding.ActivityVideoDetailsBinding
 import com.sixth.space.ui.fragment.HotAndVideoListFragment
@@ -24,8 +27,14 @@ import org.various.player.listener.UserActionListener
  */
 @AndroidEntryPoint
 class VideoDetailsActivity : BaseActivity() {
-//    lateinit var videoData: HotList.Item;
-    var url = "https://d1.xia12345.com/video/202310/6524242a37926f1bd8c3740c/hd.mp4"
+    //note that :
+    private val info: VideoInfo by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(Constant.VIDEO_ITEM, VideoInfo::class.java) as VideoInfo
+        } else {
+            intent.getSerializableExtra(Constant.VIDEO_ITEM) as VideoInfo
+        }
+    };
     val binding by lazy {
         ActivityVideoDetailsBinding.inflate(layoutInflater)
     }
@@ -34,24 +43,22 @@ class VideoDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        videoData = if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.TIRAMISU){
-//            intent.getSerializableExtra(Constant.VIDEO_ITEM,HotList.Item::class.java) as HotList.Item
-//        }else{
-//            intent.getSerializableExtra(Constant.VIDEO_ITEM) as HotList.Item
-//        }
-
 
     }
-    val imgUrl="http://ali-img.kaiyanapp.com/0d83aa7ffff0b0d50d91efac5d6acdc4.jpeg?imageMogr2/quality/60/format/jpg";
+
     override fun initViewBinding() {
-        binding.simpleView.setPlayData(url, "title")
-        Glide.with(this).load(imgUrl).into(binding.imgBackGround);
+        binding.simpleView.setPlayData(info.playUrl, info?.title)
+        Glide.with(this).load(info.blurred).into(binding.imgBackGround);
         binding.simpleView.startSyncPlay()
 
         binding.simpleView.setUserActionListener(UserActionListener { action -> if (action == PlayerConstants.ACTION_BACK) finish() })
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.comment)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.recommend)))
-        binding.viewPager.adapter= VideoDetailsFragmentStateAdapter(this);
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(resources.getString(R.string.comment))
+        )
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(resources.getString(R.string.recommend))
+        )
+        binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info.videoId);
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -69,7 +76,7 @@ class VideoDetailsActivity : BaseActivity() {
                 }
             }
         })
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
@@ -81,7 +88,6 @@ class VideoDetailsActivity : BaseActivity() {
     override fun observeViewModel() {
 
     }
-
 
 
     override fun onPause() {
@@ -100,21 +106,20 @@ class VideoDetailsActivity : BaseActivity() {
         binding.simpleView.release()
     }
 }
-class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity){
+
+class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity,private val videoId:Int) :
+    FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
         return 2;
     }
 
     override fun createFragment(position: Int): Fragment {
-        return if (position==0){
-             HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend);
-        }else {
-            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment);
+        return if (position == 0) {
+            HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend,videoId);
+        } else {
+            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment,videoId);
 
         }
-
-
     }
 
 }

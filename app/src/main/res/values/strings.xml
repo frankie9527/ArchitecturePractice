@@ -18,6 +18,8 @@
 
     <string name="follow">follow</string>
 
+    <string name="search">search</string>
 
 
+    <string name="todo">todo</string>
 </resources>

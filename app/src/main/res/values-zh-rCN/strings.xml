@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">第六空间</string>
     <string name="home">主页</string>
-    <string name="post">发布视频</string>
+    <string name="post">发布</string>
     <string name="hot">热门</string>
 
     <string name="weekly">周排行</string>
@@ -17,4 +17,7 @@
 
     <string name="introduction">简介</string>
     <string name="follow">关注</string>
+    <string name="search">搜索</string>
+
+    <string name="todo">todo</string>
 </resources>
