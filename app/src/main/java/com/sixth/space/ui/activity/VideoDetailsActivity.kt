@@ -24,6 +24,7 @@ import org.various.player.listener.UserActionListener
  * @author: Frankie
  * @Date: 2024/3/5
  * @Description:
+ * 322603 dongjing
  */
 @AndroidEntryPoint
 class VideoDetailsActivity : BaseActivity() {
@@ -47,18 +48,18 @@ class VideoDetailsActivity : BaseActivity() {
     }
 
     override fun initViewBinding() {
-        binding.simpleView.setPlayData(info.playUrl, info?.title)
+        binding.simpleView.setPlayData(info.playUrl, info.title)
         Glide.with(this).load(info.blurred).into(binding.imgBackGround);
         binding.simpleView.startSyncPlay()
 
         binding.simpleView.setUserActionListener(UserActionListener { action -> if (action == PlayerConstants.ACTION_BACK) finish() })
         binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(resources.getString(R.string.comment))
+            binding.tabLayout.newTab().setText(resources.getString(R.string.introduction))
         )
         binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(resources.getString(R.string.recommend))
+            binding.tabLayout.newTab().setText(resources.getString(R.string.comment))
         )
-        binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info.videoId);
+       binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info.videoId);
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {

@@ -4,7 +4,7 @@ http://baobab.kaiyanapp.com/api/v4/rankList
 # weekly
 http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=weekly
 
-# weekly
+# monthly
 http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=monthly
 
 # historical

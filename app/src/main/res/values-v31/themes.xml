@@ -2,6 +2,8 @@
 <resources>
 
     <style name="Theme.SixthSpace.Splash" parent="Theme.SplashScreen">
-
+        <item name="android:windowSplashScreenBackground">#00131D</item>
+        <item name="postSplashScreenTheme">@style/Theme.SixthSpace</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
     </style>
 </resources>

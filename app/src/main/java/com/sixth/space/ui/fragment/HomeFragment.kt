@@ -11,6 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.sixth.space.R
+import com.sixth.space.base.Constant
 import com.sixth.space.databinding.FragmentBaseCommonViewpagerBinding
 import com.sixth.space.ui.activity.SearchActivity
 import com.sixth.space.ui.activity.VideoDetailsActivity
@@ -83,7 +84,10 @@ class HomeFragmentStateAdapter(fm: Fragment) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        return TiktokFragment().newInstance(position);
+       if (position==0){
+           return TiktokFragment().newInstance(Constant.fragment_type_tiktok_daily);
+       }
+        return TiktokFragment().newInstance(Constant.fragment_type_tiktok_recommend);
     }
 
 }

@@ -14,7 +14,6 @@ import com.sixth.space.databinding.ActivitySearchBinding
 import com.sixth.space.model.SearchViewModel
 import com.sixth.space.network.Resource
 import com.sixth.space.network.error.NO_INTERNET_CONNECTION
-import com.sixth.space.ui.adapter.HotAndVideoAdapter
 import com.sixth.space.ui.adapter.SearchAdapter
 import com.sixth.space.uitls.observe
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,6 +68,7 @@ class SearchActivity : BaseActivity() , ItemClickListener {
                     return
                 }
                  Glide.with(this).load(R.mipmap.blurry).into(binding.imgBackGround);
+                adapter.clear()
                 adapter.setData(status.data)
             }
 

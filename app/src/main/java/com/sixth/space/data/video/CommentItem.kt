@@ -27,7 +27,6 @@ data class CommentItem(
         val liked: Boolean,
         val message: String,
         val parentReply: Any,
-        val parentReplyId: Int,
         val recommendLevel: String,
         val replyStatus: String,
         val rootReplyId: Long,

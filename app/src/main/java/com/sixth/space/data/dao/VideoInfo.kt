@@ -16,7 +16,7 @@ import java.io.Serializable
 
 @Entity
 data class VideoInfo(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "videoId") val videoId: Int,  //video id;
     @ColumnInfo(name = "videoType") var videoType: Int, //
     @ColumnInfo(name = "title") val title: String, //标题

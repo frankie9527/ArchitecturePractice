@@ -4,6 +4,7 @@ import com.sixth.space.data.video.CommentItem
 import com.sixth.space.data.video.HotItem
 import com.sixth.space.data.video.RecommendItem
 import com.sixth.space.data.dao.VideoInfo
+import com.sixth.space.data.video.TikTokItem
 
 /**
  * author: Frankie
@@ -92,4 +93,32 @@ fun commentItem2VideoInfo(comment: CommentItem): VideoInfo {
 
 fun List<CommentItem>.commentList2Video(): List<VideoInfo> {
     return this.map { commentItem2VideoInfo(it) }
+}
+
+fun List<TikTokItem>.tiktokList2Video(): List<VideoInfo> {
+    return this.map { tiktokItem2VideoInfo(it) }
+}
+fun tiktokItem2VideoInfo(info: TikTokItem): VideoInfo {
+    return VideoInfo(
+        videoId = info.data.id,
+        videoType = 4,
+        title = info.data.content.data.title,
+        description = info.data.content.data.description,
+        playUrl = info.data.content.data.playUrl,
+        blurred = info.data.content.data.cover.blurred,
+        category = info.data.content.data.category,
+        cover = info.data.content.data.cover.feed,
+        user_name = info.data.content.data.author.name,
+        user_description = info.data.content.data.author.description,
+        avatar = info.data.content.data.author.icon,
+        releaseTime = info.data.content.data.releaseTime,
+        duration = info.data.content.data.duration,
+        consumption = VideoInfo.Consumption(
+            info.data.content.data.consumption.collectionCount,
+            info.data.content.data.consumption.replyCount,
+            info.data.content.data.consumption.shareCount
+        ),
+        likeCount = 0,
+        commentMsg = ""
+    )
 }

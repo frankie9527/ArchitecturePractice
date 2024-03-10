@@ -36,5 +36,14 @@ class DataRepository @Inject constructor(
         }.flowOn(ioDispatcher);
     }
 
+    override suspend fun fetchTiktokData(
+        date: String,
+        num: String
+    ): Flow<Resource<List<VideoInfo>>> {
+        return flow {
+            emit(remoteRepository.fetchTiktokData(date,num))
+        }.flowOn(ioDispatcher);
+    }
+
 
 }

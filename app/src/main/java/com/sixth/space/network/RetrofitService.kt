@@ -4,6 +4,7 @@ import com.sixth.space.base.HttpResponse
 import com.sixth.space.data.video.HotItem
 import com.sixth.space.data.video.RecommendItem
 import com.sixth.space.data.video.CommentItem
+import com.sixth.space.data.video.TikTokItem
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,4 +31,10 @@ interface RetrofitService {
     suspend fun fetchRecommend(
         @Query("id") id: String
     ): HttpResponse<RecommendItem>
+
+
+    @GET("/api/v5/index/tab/feed")
+    suspend fun fetchTiktok(
+        @Query("date") date: String, @Query("num") num: String
+    ): HttpResponse<TikTokItem>
 }

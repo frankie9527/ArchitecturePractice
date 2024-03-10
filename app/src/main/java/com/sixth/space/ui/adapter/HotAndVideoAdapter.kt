@@ -123,6 +123,7 @@ class HotAndVideoAdapter() :
             binding.tvLikeCount.text = data.likeCount.toString();
             binding.tvNickname.text = data.user_name
             binding.tvDate.text = data.releaseTime.getTime2String()
+
         }
     }
 

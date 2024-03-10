@@ -37,6 +37,8 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
     val recipesRecommendData: LiveData<Resource<List<VideoInfo>>> get() = recipesRecommendDataPrivate
 
 
+    val recipesTiktokDataPrivate = MutableLiveData<Resource<List<VideoInfo>>>()
+    val recipesTiktokData: LiveData<Resource<List<VideoInfo>>> get() = recipesTiktokDataPrivate
     fun fetchHotData(position: Int) {
         LogUtils.d("RemoteViewModel","fetchHotData str="+position)
         var str: String;
@@ -75,6 +77,14 @@ class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: 
             recipesReplyDataPrivate.value = Resource.Loading();
             dataRepositoryRepository.fetchRecommend(id).collect() {
                 recipesRecommendDataPrivate.value = it;
+            }
+        }
+    }
+    fun fetchTiktokData(dataType:Int){
+        viewModelScope.launch {
+            recipesTiktokDataPrivate.value = Resource.Loading();
+            dataRepositoryRepository.fetchTiktokData("","").collect() {
+                recipesTiktokDataPrivate.value = it;
             }
         }
     }
