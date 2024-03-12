@@ -208,7 +208,6 @@
                     app:srcCompat="@drawable/baseline_favorite_border_24" />
 
                 <TextView
-                    android:id="@+id/tv_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_5"
@@ -216,7 +215,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/image_collect"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="collect" />
+                    android:text="@string/collect" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -226,7 +225,7 @@
             android:layout_width="0dp"
             android:layout_height="0.5dp"
             android:layout_marginTop="@dimen/dp_8"
-            android:background="@color/color_lighter_gray"
+            android:background="@color/color_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_consumption" />

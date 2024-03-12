@@ -2,6 +2,7 @@ package com.sixth.space.ui.fragment
 
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
     val viewModel: RemoteViewModel by viewModels()
     lateinit var adapter: HotAndVideoAdapter;
     var position: Int = 0;
-    var videoId: Int = 0;
+    var videoInfo: VideoInfo? = null;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,11 +39,11 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         return binding.root
     }
 
-    fun newInstance(position: Int, videoId: Int): HotAndVideoListFragment {
+    fun newInstance(position: Int, videoInFo: VideoInfo?): HotAndVideoListFragment {
         val args = Bundle()
         val fragment = HotAndVideoListFragment()
         args.putInt(Constant.HOT_POSITION, position)
-        args.putInt(Constant.VIDEO_ID, videoId)
+        args.putSerializable(Constant.VIDEO_INFO, videoInFo)
         fragment.arguments = args
         return fragment
     }
@@ -55,8 +56,17 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
 
 
     fun initViewAndData() {
-        position = requireArguments().getInt(Constant.HOT_POSITION)
-        videoId = requireArguments().getInt(Constant.VIDEO_ID)
+        arguments?.let {
+            position = it.getInt(Constant.HOT_POSITION)
+            if (position == Constant.fragment_type_recommend || position == Constant.fragment_type_comment) {
+                videoInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.getSerializable(Constant.VIDEO_INFO, VideoInfo::class.java) as VideoInfo
+                } else {
+                    it.getSerializable(Constant.VIDEO_INFO) as VideoInfo
+                }
+            }
+
+        }
         observe(viewModel.recipesHotData, ::handleRecipesData)
         observe(viewModel.recipesReplyData, ::handleRecipesData)
         observe(viewModel.recipesRecommendData, ::handleRecipesData)
@@ -70,23 +80,26 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
             }
 
             3 -> {
-                viewModel.fetchRecommend(videoId.toString())
+                viewModel.fetchRecommend(videoInfo!!.videoId.toString())
             }
 
             4 -> {
-                viewModel.fetchReplyComment(videoId.toString())
+                viewModel.fetchReplyComment(videoInfo!!.videoId.toString())
             }
         }
 
     }
 
 
-    fun  handleRecipesData(status: Resource<List<VideoInfo>>) {
+    fun handleRecipesData(status: Resource<List<VideoInfo>>) {
         when (status) {
             is Resource.Loading -> binding.controlLayout.showLoading()
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
                 val data = status.data;
+                if (position==Constant.fragment_type_recommend){
+                    videoInfo?.let { it1 -> adapter.insertDataInHead(it1) }
+                }
                 adapter.setData(data);
             }
 
@@ -104,7 +117,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         val adapterType = adapter.getItemViewType(position);
         if (adapterType == Constant.recycler_adapter_type_hot) {
             val intent = Intent(activity, VideoDetailsActivity::class.java)
-            intent.putExtra(Constant.VIDEO_ITEM, adapter.getDataInPostion(position));
+            intent.putExtra(Constant.VIDEO_INFO, adapter.getDataInPostion(position));
             startActivity(intent)
         }
 

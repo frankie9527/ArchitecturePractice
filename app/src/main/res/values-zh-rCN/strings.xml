@@ -19,5 +19,7 @@
     <string name="follow">关注</string>
     <string name="search">搜索</string>
 
+    <string name="share">分享</string>
+    <string name="collect">收藏</string>
     <string name="todo">todo</string>
 </resources>

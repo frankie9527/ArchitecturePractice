@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <FrameLayout
+        android:id="@+id/video_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_back_ground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/todo"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/img_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/video_play" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:maxLines="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_22"
+                android:textStyle="bold"
+                tools:text=" @frankie" />
+
+            <TextView
+                android:id="@+id/tv_tile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:maxLines="2"
+                android:textColor="@color/color_lighter_gray"
+                android:textSize="@dimen/sp_18"
+                tools:text="today is nice daya # haha" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="48dp"
+                android:layout_height="56dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_head"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@mipmap/ic_launcher"
+                    app:shapeAppearance="@style/CircleStyle" />
+
+                <ImageView
+                    android:id="@+id/image_follow"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/todo"
+                    android:padding="3dp"
+                    android:src="@drawable/baseline_add_circle_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="48dp"
+                android:layout_height="56dp">
+
+                <ImageView
+                    android:id="@+id/image_like"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/baseline_favorite_24"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/tv_like"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_like"
+                    tools:text="22.5w"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="48dp"
+                android:layout_height="56dp">
+
+                <ImageView
+                    android:id="@+id/image_comment"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@mipmap/ic_comment"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_comment"
+                    tools:text="523"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="48dp"
+                android:layout_height="56dp">
+
+                <ImageView
+                    android:id="@+id/image_share"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@mipmap/ic_share"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_share"
+                    android:text="@string/share"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:background="@mipmap/ic_launcher"
+                android:contentDescription="@string/todo"
+                app:shapeAppearance="@style/CircleStyle" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

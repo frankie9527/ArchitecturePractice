@@ -26,8 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:itemTextColor="@color/main_tab_txt_color_selector"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 </org.easy.ui.SlidingLayout>

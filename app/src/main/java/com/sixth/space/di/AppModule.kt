@@ -2,7 +2,6 @@ package com.sixth.space.di
 
 import android.app.Application
 import android.content.Context
-import android.provider.MediaStore.Video
 import androidx.room.Room
 import com.sixth.space.data.dao.VideoDatabase
 import com.sixth.space.data.dao.VideoRepository

@@ -89,9 +89,9 @@ dependencies {
     implementation("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
 
     //my github
-    implementation("com.github.Frankie9527:EasyAndroid:0.5.1")
-    implementation("com.github.Frankie9527:VariousPlayer:0.5")
-
+    implementation("com.github.Frankie9527:EasyAndroid:0.5.2")
+    implementation("com.github.Frankie9527:VariousPlayer:0.6")
+    //  implementation(project(":VariousPlayer"))
 
 
 }

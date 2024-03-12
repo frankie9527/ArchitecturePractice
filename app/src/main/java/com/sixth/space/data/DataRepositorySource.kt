@@ -3,7 +3,6 @@ package com.sixth.space.data
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.network.Resource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Query
 
 /**
  * @author: Frankie

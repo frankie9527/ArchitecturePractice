@@ -14,9 +14,7 @@ import com.sixth.space.R
 import com.sixth.space.base.Constant
 import com.sixth.space.databinding.FragmentBaseCommonViewpagerBinding
 import com.sixth.space.ui.activity.SearchActivity
-import com.sixth.space.ui.activity.VideoDetailsActivity
 import com.sixth.space.ui.onMenuClickListener
-import org.easy.tools.utils.ToastUtils
 
 class HomeFragment(private val listener : onMenuClickListener) : Fragment(), OnClickListener {
     lateinit var binding: FragmentBaseCommonViewpagerBinding;

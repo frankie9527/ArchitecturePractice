@@ -35,7 +35,7 @@
             app:tabTextColor="@color/color_gray" />
         <View
             android:layout_width="match_parent"
-            android:background="@color/color_gray"
+            android:background="@color/color_line"
             android:layout_height="@dimen/dp_line"/>
 
         <androidx.viewpager2.widget.ViewPager2

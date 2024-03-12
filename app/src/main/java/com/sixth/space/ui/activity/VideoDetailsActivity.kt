@@ -2,7 +2,6 @@ package com.sixth.space.ui.activity
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -19,6 +18,7 @@ import com.sixth.space.ui.fragment.HotAndVideoListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.various.player.PlayerConstants
 import org.various.player.listener.UserActionListener
+import org.various.player.utils.LogUtils
 
 /**
  * @author: Frankie
@@ -31,9 +31,9 @@ class VideoDetailsActivity : BaseActivity() {
     //note that :
     private val info: VideoInfo by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Constant.VIDEO_ITEM, VideoInfo::class.java) as VideoInfo
+            intent.getSerializableExtra(Constant.VIDEO_INFO, VideoInfo::class.java) as VideoInfo
         } else {
-            intent.getSerializableExtra(Constant.VIDEO_ITEM) as VideoInfo
+            intent.getSerializableExtra(Constant.VIDEO_INFO) as VideoInfo
         }
     };
     val binding by lazy {
@@ -48,6 +48,7 @@ class VideoDetailsActivity : BaseActivity() {
     }
 
     override fun initViewBinding() {
+        LogUtils.d("videDetail","videId="+info.videoId)
         binding.simpleView.setPlayData(info.playUrl, info.title)
         Glide.with(this).load(info.blurred).into(binding.imgBackGround);
         binding.simpleView.startSyncPlay()
@@ -59,7 +60,7 @@ class VideoDetailsActivity : BaseActivity() {
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(resources.getString(R.string.comment))
         )
-       binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info.videoId);
+       binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info);
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -108,7 +109,7 @@ class VideoDetailsActivity : BaseActivity() {
     }
 }
 
-class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity,private val videoId:Int) :
+class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity,private val info:VideoInfo) :
     FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
         return 2;
@@ -116,10 +117,9 @@ class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity,privat
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
-            HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend,videoId);
+            HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend,info);
         } else {
-            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment,videoId);
-
+            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment,info);
         }
     }
 

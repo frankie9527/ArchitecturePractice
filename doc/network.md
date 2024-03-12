@@ -15,3 +15,7 @@ http://baobab.kaiyanapp.com/api/v2/replies/video?lastId=&videoId=322130&num=&typ
 
 # recommend
 http://baobab.kaiyanapp.com/api/v4/video/related?id=322130
+
+# tiktok
+http://baobab.kaiyanapp.com/api/v5/index/tab/feed?date=&num=
+

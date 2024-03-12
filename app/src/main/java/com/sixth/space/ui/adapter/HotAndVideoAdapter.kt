@@ -12,11 +12,10 @@ import com.sixth.space.databinding.FragmentCommentListItemBinding
 import com.sixth.space.databinding.FragmentHotListItemBinding
 import com.sixth.space.databinding.FragmentRecommendHeadItemBinding
 import com.sixth.space.databinding.FragmentRecommendListItemBinding
-import com.sixth.space.uitls.LogUtils
 import com.sixth.space.uitls.durationToStr
+import com.sixth.space.uitls.getTime2String
 import org.easy.ui.recycler.base.BaseRecyclerAdapter
 import org.easy.ui.recycler.base.BaseRecyclerHolder
-import com.sixth.space.uitls.getTime2String
 
 
 /**
@@ -93,6 +92,9 @@ class HotAndVideoAdapter() :
     }
 
     override fun getItemViewType(position: Int): Int {
+        if (position == 0 && list.get(1).videoType == Constant.recycler_adapter_type_recommend) {
+            return Constant.recycler_adapter_type_recommend_head
+        }
         return list.get(position).videoType;
     }
 
@@ -145,7 +147,25 @@ class HotAndVideoAdapter() :
     class RecommendHeadHolder(private val binding: FragmentRecommendHeadItemBinding) :
         BaseRecyclerHolder(binding.root) {
         fun bin(data: VideoInfo) {
+            binding.tvTitle.text = data.title;
+            binding.tvDescription.text = data.description
+            binding.tvReleaseDate.text = data.releaseTime.getTime2String()
+            binding.tvCategory.text = "#" + data.category
+            binding.tvCollectionCount.text = data.consumption.collectionCount.toString()
+            binding.tvShareCount.text = data.consumption.shareCount.toString()
+            binding.tvCommentCount.text = data.consumption.replyCount.toString()
+            binding.imageAuthorHeader.let {
+                Glide.with(it).load(data.avatar).into(it);
+            }
+            binding.tvAuthor.text = data.user_name
+            binding.tvAuthorDescription.text = data.user_description
+        }
+    }
 
+    fun insertDataInHead(data: VideoInfo) {
+        if (list.size == 0) {
+            list.add(0, data)
+            notifyItemChanged(0)
         }
     }
 }

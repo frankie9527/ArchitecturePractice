@@ -23,7 +23,7 @@ fun hotItem2VideoInfo(hot: HotItem): VideoInfo {
         cover = hot.data.cover.feed,
         user_name = hot.data.author?.name.toString(),
         user_description = hot.data.author?.description.toString(),
-        avatar = "",
+        avatar = hot.data.author.icon,
         releaseTime = 0,
         duration = 0,
         consumption = VideoInfo.Consumption(
@@ -53,7 +53,7 @@ fun recommendItem2VideoInfo(recommend: RecommendItem): VideoInfo {
         cover = recommend.data.cover.feed,
         user_name = recommend.data.author?.name.toString(),
         user_description = recommend.data.author?.description.toString(),
-        avatar = "",
+        avatar = recommend.data.author?.icon.toString(),
         releaseTime = recommend.data.releaseTime,
         duration = recommend.data.duration,
         consumption = VideoInfo.Consumption(
@@ -100,16 +100,16 @@ fun List<TikTokItem>.tiktokList2Video(): List<VideoInfo> {
 }
 fun tiktokItem2VideoInfo(info: TikTokItem): VideoInfo {
     return VideoInfo(
-        videoId = info.data.id,
+        videoId = info.data.content.data.id,
         videoType = 4,
         title = info.data.content.data.title,
         description = info.data.content.data.description,
         playUrl = info.data.content.data.playUrl,
-        blurred = info.data.content.data.cover.blurred,
+        blurred = info.data.content.data?.cover!!.blurred,
         category = info.data.content.data.category,
         cover = info.data.content.data.cover.feed,
         user_name = info.data.content.data.author.name,
-        user_description = info.data.content.data.author.description,
+        user_description = info.data.content.data?.author!!.description,
         avatar = info.data.content.data.author.icon,
         releaseTime = info.data.content.data.releaseTime,
         duration = info.data.content.data.duration,

@@ -7,8 +7,8 @@ package com.sixth.space.base
  */
 object Constant {
     const val HOT_POSITION = "hot_position";
-    const val VIDEO_ID = "video_id";
-    const val VIDEO_ITEM = "Video_Item"
+    const val VIDEO_INFO = "video_info";
+    const val TIKTOK_TYPE= "tiktok_type"
 
     const val recycler_adapter_type_hot = 0;
     const val recycler_adapter_type_recommend = 1;
