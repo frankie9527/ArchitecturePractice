@@ -1,7 +1,10 @@
 package com.sixth.space.ui.fragment
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 import org.easy.ui.recycler.listener.ItemClickListener
 import org.various.player.core.VariousPlayerManager
-import org.various.player.utils.ToastUtils
+import java.io.File
 
 @AndroidEntryPoint
 class TiktokFragment : Fragment(), ItemClickListener {
@@ -32,6 +35,8 @@ class TiktokFragment : Fragment(), ItemClickListener {
     var type: Int? = null;
     var currentPlayPosition = -1;
     val viewModel: RemoteViewModel by viewModels()
+    lateinit var commentDialog: TiktokCommentFragment;
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,6 +61,11 @@ class TiktokFragment : Fragment(), ItemClickListener {
     }
 
     fun initView() {
+        //share apk
+        val builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+        builder.detectFileUriExposure()
+
         type = requireArguments().getInt(Constant.TIKTOK_TYPE)
         viewModel.fetchTiktokData(type!!)
         observe(viewModel.recipesTiktokData, ::handleRecipesData)
@@ -69,6 +79,8 @@ class TiktokFragment : Fragment(), ItemClickListener {
             }
         });
         adapter.setRecycler(binding.recycler.getChildAt(0) as RecyclerView)
+        commentDialog = TiktokCommentFragment();
+        commentDialog.setTikTokViewModel(viewModel)
     }
 
     fun handleRecipesData(status: Resource<List<VideoInfo>>) {
@@ -91,11 +103,19 @@ class TiktokFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClick(view: View?, position: Int) {
-      if (view!!.id== R.id.image_share){
-          ToastUtils.show("image_share")
-      }else if (view.id==R.id.image_comment){
-          ToastUtils.show("image_comment")
-      }
+        if (view!!.id == R.id.image_share) {
+            val path = activity!!.applicationContext.packageResourcePath;
+            val apkFile = File(path)
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "*/*"
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(apkFile))
+            activity?.startActivity(intent)
+        } else if (view.id == R.id.image_comment) {
+            val data=adapter.getDataInPostion(position);
+            commentDialog.show(childFragmentManager, "commentDialog")
+            commentDialog.fetchComment(data.videoId.toString())
+        }
     }
 
     fun playTikTokItem(position: Int) {
@@ -105,6 +125,7 @@ class TiktokFragment : Fragment(), ItemClickListener {
         val videoView = adapter.getVideoView(position);
         val data = adapter.getDataInPostion(position);
         videoView!!.setDataAndPlay(data.playUrl)
+        viewModel.fetchReplyComment(data.videoId.toString())
         currentPlayPosition = position;
     }
 
@@ -120,7 +141,7 @@ class TiktokFragment : Fragment(), ItemClickListener {
         }
         val videoView = adapter.getVideoView(currentPlayPosition);
         val data = adapter.getDataInPostion(currentPlayPosition);
-
+        viewModel.fetchReplyComment(data.videoId.toString())
         videoView!!.setDataAndPlay(data.playUrl)
     }
 }

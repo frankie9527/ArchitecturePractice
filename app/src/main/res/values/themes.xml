@@ -30,6 +30,11 @@
         <item name="tabRippleColor">@color/color_translucent</item>
     </style>
 
-
-
+    <style name="TransparentBottomSheetStyle" parent="AlertDialog.AppCompat">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
 </resources>
