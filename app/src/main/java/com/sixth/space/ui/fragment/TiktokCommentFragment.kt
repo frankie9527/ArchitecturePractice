@@ -13,6 +13,7 @@ import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.databinding.FragmentTiktokCommentBinding
 import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.network.Resource
+import com.sixth.space.network.error.NETWORK_EMPTY
 import com.sixth.space.network.error.NO_INTERNET_CONNECTION
 import com.sixth.space.ui.adapter.HotAndVideoAdapter
 import com.sixth.space.uitls.observe
@@ -51,16 +52,18 @@ class TiktokCommentFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        val h=(UiUtils.getWindowHeight()*(2/3.0)).toInt();
-        if (dialog!=null){
-            val bottomSheet: View = dialog!!.findViewById(com.google.android.material.R.id.design_bottom_sheet)
+        val h = (UiUtils.getWindowHeight() * (2 / 3.0)).toInt();
+        if (dialog != null) {
+            val bottomSheet: View =
+                dialog!!.findViewById(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet.getLayoutParams().height = h;
         }
-        val parent = view!!.parent as View
+        val parent = requireView().parent as View
         val params = parent.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior
         val bottomSheetBehavior = behavior as BottomSheetBehavior<*>
-        bottomSheetBehavior.maxHeight=h
+        bottomSheetBehavior.maxHeight = h
+        bottomSheetBehavior.peekHeight = h
 
     }
 
@@ -97,6 +100,10 @@ class TiktokCommentFragment : BottomSheetDialogFragment() {
             is Resource.DataError -> {
                 if (status.errorCode == NO_INTERNET_CONNECTION) {
                     binding.controlLayout.showNoNet();
+                    return
+                }
+                if (status.errorCode == NETWORK_EMPTY) {
+                    binding.controlLayout.showEmpty();
                     return
                 }
                 binding.controlLayout.showError();

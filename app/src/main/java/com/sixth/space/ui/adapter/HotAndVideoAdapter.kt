@@ -92,7 +92,7 @@ class HotAndVideoAdapter() :
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0 && list.get(1).videoType == Constant.recycler_adapter_type_recommend) {
+        if (position == 0 &&list.size>=2&& list.get(1).videoType == Constant.recycler_adapter_type_recommend) {
             return Constant.recycler_adapter_type_recommend_head
         }
         return list.get(position).videoType;

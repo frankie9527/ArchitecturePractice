@@ -19,6 +19,7 @@ import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.databinding.FragmentTiktokBinding
 import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.network.Resource
+import com.sixth.space.network.error.NETWORK_EMPTY
 import com.sixth.space.network.error.NO_INTERNET_CONNECTION
 import com.sixth.space.ui.adapter.TikTokAdapter
 import com.sixth.space.uitls.observe
@@ -97,14 +98,18 @@ class TiktokFragment : Fragment(), ItemClickListener {
                     binding.controlLayout.showNoNet();
                     return
                 }
+                if (status.errorCode == NETWORK_EMPTY) {
+                    binding.controlLayout.showEmpty();
+                    return
+                }
                 binding.controlLayout.showError();
             }
         }
     }
 
-    override fun onItemClick(view: View?, position: Int) {
-        if (view!!.id == R.id.image_share) {
-            val path = activity!!.applicationContext.packageResourcePath;
+    override fun onItemClick(view: View, position: Int) {
+        if (view.id == R.id.image_share) {
+            val path = requireActivity().applicationContext.packageResourcePath;
             val apkFile = File(path)
             val intent = Intent()
             intent.action = Intent.ACTION_SEND

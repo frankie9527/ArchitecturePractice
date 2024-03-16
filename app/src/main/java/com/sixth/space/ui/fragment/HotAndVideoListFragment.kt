@@ -16,6 +16,7 @@ import com.sixth.space.databinding.FragmentRecyclerBinding
 
 import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.network.Resource
+import com.sixth.space.network.error.NETWORK_EMPTY
 import com.sixth.space.network.error.NO_INTERNET_CONNECTION
 import com.sixth.space.ui.adapter.HotAndVideoAdapter
 import com.sixth.space.ui.activity.VideoDetailsActivity
@@ -74,11 +75,18 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         adapter = HotAndVideoAdapter()
         adapter.setItemListener(this);
         binding.recycler.adapter = adapter;
+        extracted()
+        binding.controlLayout.setOnRetryListener {
+            extracted()
+        }
+
+    }
+
+    private fun extracted() {
         when (position) {
             0, 1, 2 -> {
                 viewModel.fetchHotData(position)
             }
-
             3 -> {
                 viewModel.fetchRecommend(videoInfo!!.videoId.toString())
             }
@@ -87,7 +95,6 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
                 viewModel.fetchReplyComment(videoInfo!!.videoId.toString())
             }
         }
-
     }
 
 
@@ -106,6 +113,10 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
             is Resource.DataError -> {
                 if (status.errorCode == NO_INTERNET_CONNECTION) {
                     binding.controlLayout.showNoNet();
+                    return
+                }
+                if (status.errorCode == NETWORK_EMPTY) {
+                    binding.controlLayout.showEmpty();
                     return
                 }
                 binding.controlLayout.showError();

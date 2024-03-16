@@ -52,7 +52,6 @@ class HomeFragment(private val listener : onMenuClickListener) : Fragment(), OnC
         })
 
         binding.viewPager.adapter= HomeFragmentStateAdapter(this);
-        binding.tabLayout.getTabAt(1)?.select();
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
