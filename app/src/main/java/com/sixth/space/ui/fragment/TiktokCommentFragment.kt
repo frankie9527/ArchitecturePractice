@@ -1,5 +1,6 @@
 package com.sixth.space.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.sixth.space.R
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.databinding.FragmentTiktokCommentBinding
 import com.sixth.space.model.RemoteViewModel
@@ -84,6 +86,7 @@ class TiktokCommentFragment : BottomSheetDialogFragment() {
         viewModel.fetchReplyComment(id)
     }
 
+    @SuppressLint("SetTextI18n")
     fun handleRecipesData(status: Resource<List<VideoInfo>>) {
         when (status) {
             is Resource.Loading -> {
@@ -93,7 +96,7 @@ class TiktokCommentFragment : BottomSheetDialogFragment() {
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
                 val data = status.data;
-                binding.tvCommentCount.text = data.size.toString() + "条评论"
+                binding.tvCommentCount.text = data.size.toString() +" "+resources.getString(R.string.comments)
                 adapter.setData(data);
             }
 

@@ -25,7 +25,7 @@
                 android:gravity="center_horizontal"
                 android:padding="12dp"
                 android:textColor="@color/color_lighter_gray"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_16"
                 tools:text="666条评论" />
 
             <androidx.recyclerview.widget.RecyclerView
