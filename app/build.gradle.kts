@@ -4,6 +4,9 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
+    // Add the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -90,8 +93,12 @@ dependencies {
 
     //my github
     implementation("com.github.Frankie9527:EasyAndroid:0.5.2")
-    implementation("com.github.Frankie9527:VariousPlayer:0.6")
+    implementation("com.github.Frankie9527:VariousPlayer:0.6.1")
     //  implementation(project(":VariousPlayer"))
 
 
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 }

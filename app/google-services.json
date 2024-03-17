@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "295253258805",
+    "project_id": "sixthspace-16c5a",
+    "storage_bucket": "sixthspace-16c5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295253258805:android:7797f5569629c74502377c",
+        "android_client_info": {
+          "package_name": "com.sixth.space"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHlXQN-N4RVMeoWaRRokImx0jaz5R0k0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

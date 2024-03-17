@@ -1,5 +1,6 @@
 package com.sixth.space.uitls
 
+import com.sixth.space.base.Constant
 import com.sixth.space.data.video.CommentItem
 import com.sixth.space.data.video.HotItem
 import com.sixth.space.data.video.RecommendItem
@@ -14,7 +15,7 @@ import com.sixth.space.data.video.TikTokItem
 fun hotItem2VideoInfo(hot: HotItem): VideoInfo {
     return VideoInfo(
         videoId = hot.data.id,
-        videoType = 0,
+        videoType = Constant.recycler_adapter_type_hot,
         title = hot.data.title,
         description = hot.data.description,
         playUrl = hot.data.playUrl,
@@ -44,7 +45,7 @@ fun List<HotItem>.hotList2Video(): List<VideoInfo> {
 fun recommendItem2VideoInfo(recommend: RecommendItem): VideoInfo {
     return VideoInfo(
         videoId = recommend.data.id,
-        videoType = 1,
+        videoType = Constant.recycler_adapter_type_recommend,
         title = recommend.data.title,
         description = recommend.data.description,
         playUrl = recommend.data.playUrl,
@@ -73,7 +74,7 @@ fun List<RecommendItem>.recommendList2Video(): List<VideoInfo> {
 fun commentItem2VideoInfo(comment: CommentItem): VideoInfo {
     return VideoInfo(
         videoId = comment.data.videoId,
-        videoType = 3,
+        videoType = Constant.recycler_adapter_type_comment,
         title = "",
         description = "",
         playUrl = "",
@@ -101,7 +102,7 @@ fun List<TikTokItem>.tiktokList2Video(): List<VideoInfo> {
 fun tiktokItem2VideoInfo(info: TikTokItem): VideoInfo {
     return VideoInfo(
         videoId = info.data.content.data.id,
-        videoType = 4,
+        videoType = Constant.recycler_adapter_type_tiktok,
         title = info.data.content.data.title,
         description = info.data.content.data.description,
         playUrl = info.data.content.data.playUrl,

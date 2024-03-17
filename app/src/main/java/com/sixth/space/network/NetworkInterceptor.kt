@@ -11,12 +11,10 @@ class NetworkInterceptor(private val network: NetworkConnectivity) : Interceptor
         var request = chain.request()
         //网络没链接上直接走缓存
         request = if (!network.isConnected()){
-            LogUtils.d("jyh","zou wangluo");
             request.newBuilder()
                 .cacheControl(CacheControl.FORCE_CACHE)
                 .build()
         }else{
-            LogUtils.d("jyh","zou huancun");
             request.newBuilder()
                 .addHeader(
                     "User-Agent",

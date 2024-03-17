@@ -23,6 +23,7 @@ import com.sixth.space.ui.activity.VideoDetailsActivity
 import com.sixth.space.uitls.observe
 import dagger.hilt.android.AndroidEntryPoint
 import org.easy.ui.recycler.listener.ItemClickListener
+import org.various.player.utils.LogUtils
 
 @AndroidEntryPoint
 class HotAndVideoListFragment : Fragment(), ItemClickListener {
@@ -66,11 +67,21 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
                     it.getSerializable(Constant.VIDEO_INFO) as VideoInfo
                 }
             }
-
         }
-        observe(viewModel.recipesHotData, ::handleRecipesData)
-        observe(viewModel.recipesReplyData, ::handleRecipesData)
-        observe(viewModel.recipesRecommendData, ::handleRecipesData)
+        when (position) {
+            Constant.fragment_type_recommend -> {
+                observe(viewModel.recipesRecommendData, ::handleRecipesRecommendData)
+            }
+            Constant.fragment_type_comment -> {
+                observe(viewModel.recipesReplyData, ::handleRecipesCommentData)
+            }
+            else -> {
+                observe(viewModel.recipesHotData, ::handleRecipesData)
+            }
+        }
+
+
+
         binding.recycler.layoutManager = LinearLayoutManager(context);
         adapter = HotAndVideoAdapter()
         adapter.setItemListener(this);
@@ -87,6 +98,7 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
             0, 1, 2 -> {
                 viewModel.fetchHotData(position)
             }
+
             3 -> {
                 viewModel.fetchRecommend(videoInfo!!.videoId.toString())
             }
@@ -97,15 +109,40 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
         }
     }
 
+    fun refresh(info: VideoInfo) {
+        when (position) {
+            3 -> {
+                LogUtils.d("jyh", "recommend fetch");
+                viewModel.fetchRecommend(info.videoId.toString())
+            }
+
+            4 -> {
+                LogUtils.d("jyh", "comment fetch");
+                viewModel.fetchReplyComment(info.videoId.toString())
+            }
+        }
+        videoInfo = info;
+    }
+    fun handleRecipesRecommendData(status: Resource<List<VideoInfo>>) {
+        LogUtils.d("jyh", " handleRecipesRecommendData"+" position="+position);
+        handleRecipesData(status)
+    }
+    fun handleRecipesCommentData(status: Resource<List<VideoInfo>>) {
+        LogUtils.d("jyh", " handleRecipesCommentData"+" position="+position);
+        handleRecipesData(status)
+    }
 
     fun handleRecipesData(status: Resource<List<VideoInfo>>) {
         when (status) {
             is Resource.Loading -> binding.controlLayout.showLoading()
             is Resource.Success -> status.data?.let {
                 binding.controlLayout.hideLoading()
+                adapter.clear()
                 val data = status.data;
-                if (position==Constant.fragment_type_recommend){
-                    videoInfo?.let { it1 -> adapter.insertDataInHead(it1) }
+                videoInfo?.let { it1 ->
+                    if (it1.videoType == Constant.recycler_adapter_type_recommend_head && position == Constant.fragment_type_recommend) {
+                        adapter.insertDataInHead(it1)
+                    }
                 }
                 adapter.setData(data);
             }
@@ -126,9 +163,11 @@ class HotAndVideoListFragment : Fragment(), ItemClickListener {
 
     override fun onItemClick(view: View?, position: Int) {
         val adapterType = adapter.getItemViewType(position);
-        if (adapterType == Constant.recycler_adapter_type_hot) {
+        if (adapterType == Constant.recycler_adapter_type_hot || adapterType == Constant.recycler_adapter_type_recommend) {
             val intent = Intent(activity, VideoDetailsActivity::class.java)
-            intent.putExtra(Constant.VIDEO_INFO, adapter.getDataInPostion(position));
+            val data = adapter.getDataInPostion(position);
+            data.videoType = Constant.recycler_adapter_type_recommend_head;
+            intent.putExtra(Constant.VIDEO_INFO, data);
             startActivity(intent)
         }
 

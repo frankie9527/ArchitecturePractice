@@ -39,6 +39,7 @@
         </activity>
         <activity android:name=".ui.activity.VideoDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:exported="false"/>
         <activity android:name=".ui.activity.SearchActivity"
             android:exported="false"/>

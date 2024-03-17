@@ -1,7 +1,9 @@
 package com.sixth.space.ui.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -27,15 +29,10 @@ import org.various.player.utils.LogUtils
  * 322603 dongjing
  */
 @AndroidEntryPoint
-class VideoDetailsActivity : BaseActivity() {
+class VideoDetailsActivity : AppCompatActivity() {
     //note that :
-    private val info: VideoInfo by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Constant.VIDEO_INFO, VideoInfo::class.java) as VideoInfo
-        } else {
-            intent.getSerializableExtra(Constant.VIDEO_INFO) as VideoInfo
-        }
-    };
+    private var info: VideoInfo? = null;
+    private lateinit var adapter: VideoDetailsFragmentStateAdapter;
     val binding by lazy {
         ActivityVideoDetailsBinding.inflate(layoutInflater)
     }
@@ -43,16 +40,17 @@ class VideoDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        initViewBinding()
+        initData(intent);
 
     }
 
-    override fun initViewBinding() {
-        LogUtils.d("videDetail","videId="+info.videoId)
-        binding.simpleView.setPlayData(info.playUrl, info.title)
-        Glide.with(this).load(info.blurred).into(binding.imgBackGround);
-        binding.simpleView.startSyncPlay()
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initData(intent);
+    }
 
+    fun initViewBinding() {
         binding.simpleView.setUserActionListener(UserActionListener { action -> if (action == PlayerConstants.ACTION_BACK) finish() })
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(resources.getString(R.string.introduction))
@@ -60,7 +58,8 @@ class VideoDetailsActivity : BaseActivity() {
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(resources.getString(R.string.comment))
         )
-       binding.viewPager.adapter = VideoDetailsFragmentStateAdapter(this,info);
+        adapter = VideoDetailsFragmentStateAdapter(this);
+        binding.viewPager.adapter = adapter
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -87,8 +86,16 @@ class VideoDetailsActivity : BaseActivity() {
         })
     }
 
-    override fun observeViewModel() {
-
+    fun initData(intent: Intent?) {
+        info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent!!.getSerializableExtra(Constant.VIDEO_INFO, VideoInfo::class.java) as VideoInfo
+        } else {
+            intent!!.getSerializableExtra(Constant.VIDEO_INFO) as VideoInfo
+        }
+        binding.simpleView.setPlayData(info!!.playUrl, info!!.title)
+        Glide.with(this).load(info!!.blurred).into(binding.imgBackGround);
+        binding.simpleView.startSyncPlay()
+        adapter.setVideoInfo(info!!)
     }
 
 
@@ -109,18 +116,35 @@ class VideoDetailsActivity : BaseActivity() {
     }
 }
 
-class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity,private val info:VideoInfo) :
+class VideoDetailsFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
+    private  var recommend:HotAndVideoListFragment?=null;
+    private  var comment:HotAndVideoListFragment?=null;
     override fun getItemCount(): Int {
         return 2;
     }
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
-            HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend,info);
+            recommend as Fragment
         } else {
-            HotAndVideoListFragment().newInstance(Constant.fragment_type_comment,info);
+            comment as Fragment
         }
+    }
+
+    fun setVideoInfo(info: VideoInfo) {
+        if (recommend==null){
+            recommend=HotAndVideoListFragment().newInstance(Constant.fragment_type_recommend, info);
+        }else{
+            recommend!!.refresh(info)
+        }
+        if (comment==null){
+            comment= HotAndVideoListFragment().newInstance(Constant.fragment_type_comment, info);
+        }else{
+            comment!!.refresh(info)
+        }
+//        notifyItemChanged(0)
+//        notifyItemChanged(1)
     }
 
 }

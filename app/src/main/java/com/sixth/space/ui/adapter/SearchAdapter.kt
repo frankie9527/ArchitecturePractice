@@ -11,6 +11,7 @@ import com.sixth.space.uitls.durationToStr
 import org.easy.ui.recycler.base.BaseRecyclerAdapter
 import org.easy.ui.recycler.base.BaseRecyclerHolder
 import com.sixth.space.uitls.getTime2String
+import org.various.player.utils.LogUtils
 
 
 /**
@@ -35,7 +36,6 @@ class SearchAdapter() :
 
     override fun MyHolder(holder: BaseRecyclerHolder, position: Int) {
         super.MyHolder(holder, position)
-
         val data = list.get(position)
         val recommendHolder = holder as RecommendHolder;
         recommendHolder.bin(data)

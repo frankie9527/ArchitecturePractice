@@ -85,7 +85,9 @@ class SearchActivity : BaseActivity() , ItemClickListener {
 
     override fun onItemClick(view: View?, position: Int) {
         val intent = Intent(this, VideoDetailsActivity::class.java)
-        intent.putExtra(Constant.VIDEO_INFO, adapter.getDataInPostion(position));
+        val data=adapter.getDataInPostion(position);
+        data.videoType=Constant.recycler_adapter_type_recommend_head;
+        intent.putExtra(Constant.VIDEO_INFO, data);
         startActivity(intent)
     }
 }

@@ -82,6 +82,9 @@ class TiktokFragment : Fragment(), ItemClickListener {
         adapter.setRecycler(binding.recycler.getChildAt(0) as RecyclerView)
         commentDialog = TiktokCommentFragment();
         commentDialog.setTikTokViewModel(viewModel)
+        binding.controlLayout.setOnRetryListener {
+            viewModel.fetchTiktokData(type!!)
+        }
     }
 
     fun handleRecipesData(status: Resource<List<VideoInfo>>) {
@@ -117,7 +120,7 @@ class TiktokFragment : Fragment(), ItemClickListener {
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(apkFile))
             activity?.startActivity(intent)
         } else if (view.id == R.id.image_comment) {
-            val data=adapter.getDataInPostion(position);
+            val data = adapter.getDataInPostion(position);
             commentDialog.show(childFragmentManager, "commentDialog")
             commentDialog.fetchComment(data.videoId.toString())
         }
@@ -130,7 +133,6 @@ class TiktokFragment : Fragment(), ItemClickListener {
         val videoView = adapter.getVideoView(position);
         val data = adapter.getDataInPostion(position);
         videoView!!.setDataAndPlay(data.playUrl)
-        viewModel.fetchReplyComment(data.videoId.toString())
         currentPlayPosition = position;
     }
 
@@ -146,7 +148,6 @@ class TiktokFragment : Fragment(), ItemClickListener {
         }
         val videoView = adapter.getVideoView(currentPlayPosition);
         val data = adapter.getDataInPostion(currentPlayPosition);
-        viewModel.fetchReplyComment(data.videoId.toString())
         videoView!!.setDataAndPlay(data.playUrl)
     }
 }
