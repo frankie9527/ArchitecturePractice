@@ -1,6 +1,6 @@
 中文 | [English](README-en.md)
 # 项目简介
-当前项目根据国外招聘要求写的练手项目，除了unit 测试和compose还没添加到项目中！此项目是作为后期会持续更新，喜欢的可以给个start
+当前项目根据国外招聘要求写的练手项目，除了compose还没添加到项目中！此项目是作为后期会持续更新，喜欢的可以给个start
 
 ## 使用技术
 - hilt  谷歌推出的依赖注入框架
@@ -9,6 +9,7 @@
 - firebase 谷歌数据采集平台(类似腾讯bugly)
 - kotlin + flow 
 - VariousPlayer  自己封装的播放器，底层是谷歌的exoplayer
+- test  用的是junit+hilt   &emsp; [学习junit请点击](https://github.com/frankie9527/AndroidDocumentProject/tree/main/AndroidTestPractice) 
 
 ## 功能介绍
 - 抖音播放界面
