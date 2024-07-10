@@ -1,21 +1,21 @@
-中文 | [English](README-en.md)
-# 项目简介
-当前项目根据国外招聘要求写的练手项目，除了compose还没添加到项目中！此项目是作为后期会持续更新，喜欢的可以给个start
+English | [中文](README-cn.md)
+# Project Description
+The current project is a practice project, using Google's latest technology
 
-## 使用技术
-- hilt  谷歌推出的依赖注入框架
-- room  谷歌推出的数据库
-- retrofit2 + okhttp3   网络请求框架
-- firebase 谷歌数据采集平台(类似腾讯bugly)
-- kotlin + flow 
-- VariousPlayer  自己封装的播放器，底层是谷歌的exoplayer
-- test  用的是junit+hilt   &emsp; [学习junit请点击](https://github.com/frankie9527/AndroidDocumentProject/tree/main/AndroidTestPractice) 
+## Use technology
+- [compose](https://developer.android.com/develop/ui/compose/documentation?hl=zh-cn) google required skills
+- hilt  dependency injection framework launched by Google
+- room  database launched by Google
+- retrofit2 + okhttp3
+- firebase
+- kotlin + flow
+- VariousPlayer  Self-encapsulated player, the bottom layer is Google’s exoplayer
 
-## 功能介绍
-- 抖音播放界面
-- 单独影视播放界面
-- 搜索功能
-- 缓存功能（无网络下请求走缓存，播放走本地缓存）
+## Features
+- tiktok playback interface
+- video playback interface
+- search function
+- caching function (requests are cached when there is no network, and local cache is used when playing videos)
 
-## 运行效果
+## Running result
 ![image](https://raw.githubusercontent.com/Frankie9527/ArchitecturePractice/mvvm/img/sixthspace.gif)
