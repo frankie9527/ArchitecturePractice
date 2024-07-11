@@ -1,7 +1,6 @@
 package com.sixth.space
 
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -14,11 +13,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sixth.space.ui.screen.HotScreen
+import com.sixth.space.ui.screen.TikTokScreen
 import com.sixth.space.ui.theme.SixthSpaceTheme
 
 /**
