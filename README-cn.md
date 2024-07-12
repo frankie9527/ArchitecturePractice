@@ -8,7 +8,7 @@
 - room  谷歌推出的数据库
 - retrofit2 + okhttp3   网络请求框架
 - firebase 谷歌数据采集平台(类似腾讯bugly)
-- kotlin + flow
+- kotlin + [flow](https://developer.android.google.cn/kotlin/flow?hl=en)
 - VariousPlayer  自己封装的播放器，底层是谷歌的exoplayer
 - test  用的是junit+hilt   &emsp; [学习junit请点击](https://github.com/frankie9527/AndroidDocumentProject/tree/main/AndroidTestPractice)
 

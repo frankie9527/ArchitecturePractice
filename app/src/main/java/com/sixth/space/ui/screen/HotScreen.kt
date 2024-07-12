@@ -22,17 +22,9 @@ fun HotScreen (modifier: Modifier = Modifier) {
     val hotType = rememberPagerState(pageCount = {
         3
     })
-    val hotCount = rememberPagerState(pageCount = {
-        100
-    })
+ 
     HorizontalPager(state = hotType,modifier = modifier) { page ->
         // Our page content vertical
-        VerticalPager(state = hotCount) { verticalPage ->
-            // Our page content
-            Text(
-                text = "hot type $page  Page: $verticalPage",
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        HotListScreen(page = page)
     }
 }

@@ -8,7 +8,7 @@ The current project is a practice project, using Google's latest technology
 - room  database launched by Google
 - retrofit2 + okhttp3
 - firebase
-- kotlin + flow
+- kotlin + [flow](https://developer.android.com/kotlin/flow?hl=en)
 - VariousPlayer  Self-encapsulated player, the bottom layer is Google’s exoplayer
 
 ## Features

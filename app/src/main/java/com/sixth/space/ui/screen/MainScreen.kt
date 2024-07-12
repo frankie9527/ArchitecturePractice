@@ -1,4 +1,4 @@
-package com.sixth.space
+package com.sixth.space.ui.screen
 
 
 import androidx.compose.foundation.layout.padding
@@ -17,8 +17,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sixth.space.ui.screen.HotScreen
-import com.sixth.space.ui.screen.TikTokScreen
 import com.sixth.space.ui.theme.SixthSpaceTheme
 
 /**
