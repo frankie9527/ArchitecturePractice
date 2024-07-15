@@ -14,5 +14,5 @@ interface DataRepositorySource {
     suspend fun fetchReplyComment(id: String): Flow<Resource<List<VideoInfo>>>
     suspend fun fetchRecommend(id: String): Flow<Resource<List<VideoInfo>>>
 
-    suspend fun fetchTiktokData(date: String, num: String): Flow<Resource<List<VideoInfo>>>
+          fun fetchTiktokData(date: String, num: String): Flow<Resource<List<VideoInfo>>>
 }

@@ -7,6 +7,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asFlow
+import com.sixth.space.model.RemoteViewModel
 
 /**
  * @author: Frankie
@@ -15,10 +18,11 @@ import androidx.compose.ui.Modifier
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TiktokListScreen(page:Int) {
+fun HomeListScreen(page:Int,viewModel: RemoteViewModel = hiltViewModel()) {
     val tiktokCount = rememberPagerState(pageCount = {
-        100
+        10
     })
+
     VerticalPager(state = tiktokCount) { verticalPage ->
         // Our page content
         Text(

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">第六空间</string>
+    <string name="app_name">FrankieMVI</string>
     <string name="home">主页</string>
     <string name="post">发布</string>
     <string name="hot">热门</string>

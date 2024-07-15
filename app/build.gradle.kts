@@ -11,7 +11,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.sixth.space"
+        applicationId = "com.frankie.space"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -74,6 +74,7 @@ dependencies {
     //hilt
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation(libs.androidx.hilt.navigation.compose)
 
     //room
     implementation("androidx.room:room-runtime:2.6.1")
