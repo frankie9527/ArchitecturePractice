@@ -76,22 +76,22 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtimeCompose)
 
     //hilt
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     //room
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     // To use Kotlin annotation processing tool (kapt)
-    ksp("androidx.room:room-compiler:2.6.1")
+    ksp(libs.androidx.room.compiler)
 
     //frankie github
-    implementation("com.github.Frankie9527:EasyAndroid:0.5.2")
+    implementation(libs.com.github.frankie9527.easyandroid)
 
     //retrofit2 + okhttp3
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    implementation(libs.com.squareup.retrofit2.retrofit)
+    implementation(libs.com.squareup.retrofit2.converter.gson)
 }
