@@ -24,7 +24,7 @@ fun HotScreen (modifier: Modifier = Modifier) {
     })
  
     HorizontalPager(state = hotType,modifier = modifier) { page ->
-        // Our page content vertical
+
         HotListScreen(page = page)
     }
 }
