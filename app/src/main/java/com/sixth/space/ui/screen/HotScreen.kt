@@ -1,6 +1,7 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -14,7 +15,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.sixth.space.R
@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HotScreen(modifier: Modifier = Modifier) {
+fun HotScreen(modifier: Modifier) {
     ConstraintLayout {
         // Create references for the composables to constrain
         val (tab, pager) = createRefs()
@@ -45,8 +45,7 @@ fun HotScreen(modifier: Modifier = Modifier) {
             indicator = { tabPositions ->
                 TabRowDefaults.SecondaryIndicator(
                     Modifier
-                        .tabIndicatorOffset(tabPositions[hotPagerState.currentPage])
-                        .padding(horizontal = 24.dp),
+                        .tabIndicatorOffset(tabPositions[hotPagerState.currentPage]),
                     color = Color.White
                 )
             },
@@ -69,9 +68,12 @@ fun HotScreen(modifier: Modifier = Modifier) {
                 })
             }
         }
-        HorizontalPager(state = hotPagerState, modifier = modifier.constrainAs(pager) {
+
+        HorizontalPager(state = hotPagerState, modifier = Modifier
+            .constrainAs(pager) {
             top.linkTo(tab.bottom)
-        }) { page ->
+        }
+                .background(Color.Cyan)) { page ->
             HotListScreen(page = page)
         }
     }

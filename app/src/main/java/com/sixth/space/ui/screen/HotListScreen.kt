@@ -1,15 +1,22 @@
 package com.sixth.space.ui.screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.VerticalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
+import com.sixth.space.R
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
 
@@ -21,32 +28,62 @@ import com.sixth.space.model.RemoteViewModel
  */
 
 @Composable
-fun HotListScreen(page:Int, viewModel: RemoteViewModel = hiltViewModel()) {
+fun HotListScreen(page: Int, viewModel: RemoteViewModel = hiltViewModel()) {
     val viewState = when (page) {
         0 -> {
             viewModel.hotWeeklyState.collectAsStateWithLifecycle()
         }
+
         1 -> {
             viewModel.hotMonthlyState.collectAsStateWithLifecycle()
         }
+
         else -> {
             viewModel.hotHistoricalState.collectAsStateWithLifecycle()
         }
     }
     viewState.value?.data?.let {
-        HomeItemViewPager(it)
+        LazyColumn {
+            items(items = it) { item ->
+                HomeItemView(video = item)
+            }
+        }
     }
 }
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
-fun HomeItemViewPager(videos: List<VideoInfo>){
-    val count = rememberPagerState(pageCount = {
-        videos.size
-    })
-    VerticalPager(state = count) { verticalPage ->
-        // Our page content
-        Box(modifier = Modifier.fillMaxSize()) {
-            Text(text = videos.get(verticalPage).title)
-        }
+fun HomeItemView(video: VideoInfo) {
+    ConstraintLayout {
+        val (title, type) = createRefs()
+        AsyncImage(
+            model = video.cover,
+            modifier = Modifier.fillMaxWidth()
+                .height(180.dp),
+            contentDescription = "hot list item background",
+            placeholder = painterResource(R.drawable.ic_launcher_background),
+            error = painterResource(R.drawable.ic_launcher_background),
+        )
+        Text(
+            video.title,
+            Modifier.constrainAs(title) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            color = Color.White,
+            fontSize = 16.sp
+        )
+        Text(
+            "#"+video.videoType,
+            Modifier.constrainAs(type) {
+                top.linkTo(title.bottom)
+                start.linkTo(title.start)
+                end.linkTo(parent.end)
+            },
+            color = Color.White,
+            fontSize = 12.sp
+
+        )
     }
 }

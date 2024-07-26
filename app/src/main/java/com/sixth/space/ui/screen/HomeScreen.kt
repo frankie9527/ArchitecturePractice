@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier) {
     ConstraintLayout {
         // Create references for the composables to constrain
         val (tab, pager) = createRefs()
@@ -45,7 +45,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 TabRowDefaults.SecondaryIndicator(
                     Modifier
                         .tabIndicatorOffset(tabPositions[tiktokPagerState.currentPage])
-                        .padding(horizontal = 24.dp),
+                         ,
                     color = Color.White
                 )
             },
@@ -67,7 +67,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 })
             }
         }
-        HorizontalPager(state = tiktokPagerState, modifier = modifier.constrainAs(pager) {
+        HorizontalPager(state = tiktokPagerState, modifier = Modifier.constrainAs(pager) {
             top.linkTo(tab.bottom)
         }) { page ->
             HomeListScreen(page = page)
