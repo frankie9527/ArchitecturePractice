@@ -13,10 +13,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sixth.space.R
 import com.sixth.space.ui.theme.SixthSpaceTheme
 
 /**
@@ -53,12 +56,12 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier,navController: 
         NavigationBarItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.AccountBox,
+                    painter = painterResource(R.drawable.baseline_home_24),
                     contentDescription = null
                 )
             },
             label = {
-                Text("tiktok")
+                Text(stringResource(id = R.string.home))
             },
             selected = true,
             onClick = {
@@ -68,12 +71,12 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier,navController: 
         NavigationBarItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.AccountCircle,
+                    painter = painterResource(R.drawable.baseline_hot_24),
                     contentDescription = null
                 )
             },
             label = {
-                Text("hot")
+                Text(stringResource(id = R.string.hot))
             },
             selected = false,
             onClick = {

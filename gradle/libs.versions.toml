@@ -3,6 +3,7 @@ agp = "8.5.0"
 androidxHiltNavigationCompose = "1.2.0"
 androidxLifecycle = "2.8.3"
 coilCompose = "2.7.0"
+constraintlayoutCompose = "1.0.1"
 githubEasyandroidVersion = "0.5.2"
 hiltAndroid = "2.51.1"
 hiltCompiler = "2.51.1"
@@ -24,6 +25,7 @@ squareupRetrofitVersion = "2.9.0"
 squareupConverterGsonVersion = "2.9.0"
 
 [libraries]
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
