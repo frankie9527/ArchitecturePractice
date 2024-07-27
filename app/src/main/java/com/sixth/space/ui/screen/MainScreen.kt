@@ -2,9 +2,6 @@ package com.sixth.space.ui.screen
 
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -34,7 +31,7 @@ fun MainScreen(){
         Scaffold(
             bottomBar = { SootheBottomNavigation(navController = navController) }
         ) { padding ->
-            HomeScreen(Modifier.padding(padding),navController)
+            HomeScreen(Modifier.padding(top = padding.calculateTopPadding()),navController)
         }
     }
 }

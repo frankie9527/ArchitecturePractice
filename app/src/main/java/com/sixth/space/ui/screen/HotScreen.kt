@@ -58,22 +58,22 @@ fun HotScreen(modifier: Modifier) {
                         hotPagerState.animateScrollToPage(index)
                     }
                 }, text = {
-                    val textColor=if (hotPagerState.currentPage==index){
+                    val textColor = if (hotPagerState.currentPage == index) {
                         Color.White
-                    }else{
+                    } else {
                         Color.Gray
                     }
-                    Text(text = item, color =textColor )
-                    
+                    Text(text = item, color = textColor)
+
                 })
             }
         }
 
         HorizontalPager(state = hotPagerState, modifier = Modifier
             .constrainAs(pager) {
-            top.linkTo(tab.bottom)
-        }
-                .background(Color.Cyan)) { page ->
+                top.linkTo(tab.bottom)
+            }
+            .background(Color.Cyan)) { page ->
             HotListScreen(page = page)
         }
     }

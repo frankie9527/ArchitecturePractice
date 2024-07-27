@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,11 +58,11 @@ fun HomeItemView(video: VideoInfo) {
         val (title, type) = createRefs()
         AsyncImage(
             model = video.cover,
-            modifier = Modifier.fillMaxWidth()
-                .height(180.dp),
+            modifier = Modifier.height(180.dp),
             contentDescription = "hot list item background",
-            placeholder = painterResource(R.drawable.ic_launcher_background),
-            error = painterResource(R.drawable.ic_launcher_background),
+            placeholder = painterResource(R.mipmap.blurry),
+            error = painterResource(R.mipmap.blurry),
+            contentScale = ContentScale.FillWidth
         )
         Text(
             video.title,
@@ -75,7 +76,7 @@ fun HomeItemView(video: VideoInfo) {
             fontSize = 16.sp
         )
         Text(
-            "#"+video.videoType,
+            "#"+video.category,
             Modifier.constrainAs(type) {
                 top.linkTo(title.bottom)
                 start.linkTo(title.start)
