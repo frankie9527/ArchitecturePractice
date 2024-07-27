@@ -72,8 +72,7 @@ fun HotScreen(modifier: Modifier) {
         HorizontalPager(state = hotPagerState, modifier = Modifier
             .constrainAs(pager) {
                 top.linkTo(tab.bottom)
-            }
-            .background(Color.Cyan)) { page ->
+            }) { page ->
             HotListScreen(page = page)
         }
     }

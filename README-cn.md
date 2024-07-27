@@ -1,7 +1,6 @@
 中文 | [English](README.md)
 # 项目简介
-当前项目根据国外招聘要求写的练手项目，除了compose还没添加到项目中！此项目是作为后期会持续更新，喜欢的可以给个start
-
+学习 architecture-samples 项目，运用google 最新的技术整合在项目中。此项目是android 架构的尝试性实践
 ## 使用技术
 - [compose](https://developer.android.google.cn/develop/ui/compose/documentation?hl=zh-cn) 国外must掌握技术
 - hilt  谷歌推出的依赖注入框架

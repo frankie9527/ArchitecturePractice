@@ -1,6 +1,7 @@
 English | [中文](README-cn.md)
 # Project Description
-The current project is a practice project, using Google's latest technology
+Learning
+architecture-samples project, using the latest google technology integration in the project, this project is android architecture experimental practice
 
 ## Use technology
 - [compose](https://developer.android.com/develop/ui/compose/documentation?hl=zh-cn) google required skills
