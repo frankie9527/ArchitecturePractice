@@ -40,7 +40,8 @@ fun HomeScreen(modifier: Modifier = Modifier,navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "tiktok") {
         composable("tiktok") { HomeScreen(modifier) }
-        composable("hot") { HotScreen(modifier) }
+        composable("hot") { HotScreen(modifier,navController) }
+        composable("video-detail") { VideoDetailsScreen(navController) }
     }
 }
 @Composable

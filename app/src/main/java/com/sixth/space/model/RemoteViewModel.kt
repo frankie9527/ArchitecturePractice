@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixth.space.data.DataRepositorySource
+import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.dao.VideoInfo
 
 import com.sixth.space.network.Resource
@@ -24,7 +25,10 @@ import javax.inject.Inject
  *
  */
 @HiltViewModel
-class RemoteViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) :
+class RemoteViewModel @Inject constructor(
+    private val dataRepositoryRepository: DataRepositorySource,
+    val videoInfo: VideoDetailsInfo
+) :
     ViewModel() {
     val homeDailyState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
         .fetchTiktokData("1489107600000", "2")

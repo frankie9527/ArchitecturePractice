@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import com.sixth.space.R
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HotScreen(modifier: Modifier) {
+fun HotScreen(modifier: Modifier,navController: NavHostController) {
     ConstraintLayout {
         // Create references for the composables to constrain
         val (tab, pager) = createRefs()
@@ -73,7 +74,7 @@ fun HotScreen(modifier: Modifier) {
             .constrainAs(pager) {
                 top.linkTo(tab.bottom)
             }) { page ->
-            HotListScreen(page = page)
+            HotListScreen(page = page,navController)
         }
     }
 

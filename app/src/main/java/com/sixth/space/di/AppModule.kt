@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.sixth.space.data.dao.VideoDatabase
+import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.dao.VideoRepository
 import com.sixth.space.data.dao.VideoRepositoryImpl
 import com.sixth.space.uitls.Network
@@ -50,5 +51,11 @@ class AppModule {
     @Singleton
     fun provideUserRepository(db: VideoDatabase): VideoRepository {
         return VideoRepositoryImpl(db.VideoDao());
+    }
+
+    @Provides
+    @Singleton
+    fun provideVideoDetailsInfo(): VideoDetailsInfo {
+        return VideoDetailsInfo("")
     }
 }

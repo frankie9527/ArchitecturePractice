@@ -1,5 +1,6 @@
 package com.sixth.space.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.data.dao.VideoInfo
@@ -29,7 +31,10 @@ import com.sixth.space.model.RemoteViewModel
  */
 
 @Composable
-fun HotListScreen(page: Int, viewModel: RemoteViewModel = hiltViewModel()) {
+fun HotListScreen(
+    page: Int, navController: NavHostController,
+    viewModel: RemoteViewModel = hiltViewModel()
+) {
     val viewState = when (page) {
         0 -> {
             viewModel.hotWeeklyState.collectAsStateWithLifecycle()
@@ -45,16 +50,24 @@ fun HotListScreen(page: Int, viewModel: RemoteViewModel = hiltViewModel()) {
     }
     viewState.value?.data?.let {
         LazyColumn {
+
             items(items = it) { item ->
-                HomeItemView(video = item)
+                HomeItemView(video = item, navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun HomeItemView(video: VideoInfo) {
-    ConstraintLayout {
+fun HomeItemView(
+    video: VideoInfo,
+    navController: NavHostController,
+    viewModel: RemoteViewModel
+) {
+    ConstraintLayout(Modifier.clickable(onClick = {
+        viewModel.videoInfo.data="hello"
+        navController.navigate("video-detail")
+    })) {
         val (title, type) = createRefs()
         AsyncImage(
             model = video.cover,
@@ -76,7 +89,7 @@ fun HomeItemView(video: VideoInfo) {
             fontSize = 16.sp
         )
         Text(
-            "#"+video.category,
+            "#" + video.category,
             Modifier.constrainAs(type) {
                 top.linkTo(title.bottom)
                 start.linkTo(title.start)
