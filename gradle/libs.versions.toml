@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.2"
 androidxHiltNavigationCompose = "1.2.0"
 androidxLifecycle = "2.8.3"
 coilCompose = "2.7.0"

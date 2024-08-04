@@ -1,6 +1,7 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,7 +24,7 @@ import com.sixth.space.R
 fun VideoCommentsScreen(
     id: String
 ) {
-    ConstraintLayout(Modifier.fillMaxWidth()) {
+    ConstraintLayout(Modifier.fillMaxWidth().fillMaxHeight()) {
         val (imgHead, imgLikeCount) = createRefs()
         val (nickName, postDate, lickCount, message) = createRefs()
 

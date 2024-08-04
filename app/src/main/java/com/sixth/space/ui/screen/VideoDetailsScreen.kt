@@ -82,12 +82,12 @@ fun VideoDetailsScreen(
             val coroutineScope = rememberCoroutineScope()
 
             TabRow(selectedTabIndex = videoDetailsState.currentPage,
-                containerColor = Color.Black,
+                containerColor = Color.Transparent,
                 indicator = { tabPositions ->
                     TabRowDefaults.SecondaryIndicator(
                         Modifier
                             .tabIndicatorOffset(tabPositions[videoDetailsState.currentPage]),
-                        color = Color.White
+                        color = Color.Transparent
                     )
                 }) {
                 videoDetailsList.forEachIndexed() { index, item ->
@@ -112,6 +112,7 @@ fun VideoDetailsScreen(
                     0 -> {
                         VideoRecommendScreen(navController, viewModel)
                     }
+
                     else -> {
                         VideoCommentsScreen(id = "")
                     }
