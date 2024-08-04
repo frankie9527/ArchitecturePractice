@@ -9,4 +9,9 @@
         <item>@string/monthly</item>
         <item>@string/historical</item>
     </string-array>
+
+    <string-array name="video_details_array">
+        <item>@string/introduction</item>
+        <item>@string/comment</item>
+    </string-array>
 </resources>
