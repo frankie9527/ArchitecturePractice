@@ -12,7 +12,7 @@ plugins {
 android {
     namespace = "com.sixth.space"
     compileSdk = 34
-
+    buildFeatures.buildConfig = true
     defaultConfig {
         applicationId = "com.sixth.space"
         minSdk = 24
