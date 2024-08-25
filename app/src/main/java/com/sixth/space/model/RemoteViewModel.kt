@@ -10,10 +10,11 @@ import com.sixth.space.data.dao.VideoInfo
 
 import com.sixth.space.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 import javax.inject.Inject
 
@@ -30,26 +31,13 @@ class RemoteViewModel @Inject constructor(
     val videoInfo: VideoDetailsInfo
 ) :
     ViewModel() {
-    val homeDailyState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
-        .fetchTiktokData("1489107600000", "2")
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = null,
-        )
-    val homeRecommendState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
-        .fetchTiktokData("", "")
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = null,
-        )
-
+    val homeState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
+    val hotState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     /**
      *  page:0  homeDailyState
      *  page:1  homeRecommendState
      * */
-    fun homeState(page: Int): Flow<Resource<List<VideoInfo>>?> {
+    fun fetchHomeState(page: Int) {
         Log.e("jyh", "homeState page $page")
         var data = "";
         var number = ""
@@ -57,39 +45,20 @@ class RemoteViewModel @Inject constructor(
             data = "1489107600000";
             number = "2"
         }
-        return dataRepositoryRepository
-            .fetchTiktokData(data, number)
-
+        viewModelScope.launch {
+            dataRepositoryRepository.fetchTiktokData(data,number).collect() {
+                homeState.value=it;
+            }
+        }
     }
 
-    val hotWeeklyState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
-        .fetchHotList("weekly")
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = null,
-        )
-    val hotMonthlyState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
-        .fetchHotList("monthly")
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = null,
-        )
-    val hotHistoricalState: StateFlow<Resource<List<VideoInfo>>?> = dataRepositoryRepository
-        .fetchHotList("historical")
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = null,
-        )
 
     /**
      *  page:0  weekly
      *  page:1  monthly
      *  page:2  historical
      * */
-    fun hotState(page: Int): StateFlow<Resource<List<VideoInfo>>?> {
+    fun fetchHotState(page: Int) {
         val str = when (page) {
             0 -> {
                 "weekly"
@@ -103,12 +72,13 @@ class RemoteViewModel @Inject constructor(
                 "historical"
             }
         }
-        return dataRepositoryRepository
-            .fetchHotList(str)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = null,
-            )
+        viewModelScope.launch {
+            dataRepositoryRepository
+                .fetchHotList(str).collect() {
+                    hotState.value=it
+                }
+        }
     }
+
+
 }

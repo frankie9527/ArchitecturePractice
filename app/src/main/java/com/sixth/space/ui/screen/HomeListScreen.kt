@@ -7,9 +7,9 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
 
@@ -21,12 +21,9 @@ import com.sixth.space.model.RemoteViewModel
  */
 
 @Composable
-fun HomeListScreen(page: Int, viewModel: RemoteViewModel = hiltViewModel()) {
-    val viewState = if (page == 0) {
-        viewModel.homeDailyState.collectAsStateWithLifecycle()
-    } else {
-        viewModel.homeRecommendState.collectAsStateWithLifecycle()
-    }
+fun HomeListScreen(page: Int, viewModel: RemoteViewModel = hiltViewModel(key = page.toString())) {
+    viewModel.fetchHomeState(page)
+    val viewState = viewModel.homeState.collectAsState()
     viewState.value?.data?.let {
         HomeItemPager(it)
     }

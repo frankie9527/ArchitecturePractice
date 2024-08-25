@@ -18,25 +18,25 @@ class DataRepository @Inject constructor(
     private val remoteRepository: RemoteData,
     private val ioDispatcher: CoroutineContext
 ) : DataRepositorySource {
-    override fun fetchHotList(str: String): Flow<Resource<List<VideoInfo>>> {
+    suspend override fun fetchHotList(str: String): Flow<Resource<List<VideoInfo>>> {
         return flow {
             emit(remoteRepository.fetchHotList(str))
         }.flowOn(ioDispatcher);
     }
 
-    override fun fetchReplyComment(id: String): Flow<Resource<List<VideoInfo>>> {
+    suspend override fun fetchReplyComment(id: String): Flow<Resource<List<VideoInfo>>> {
         return flow {
             emit(remoteRepository.fetchReplyComment(id))
         }.flowOn(ioDispatcher);
     }
 
-    override fun fetchRecommend(id: String): Flow<Resource<List<VideoInfo>>> {
+    suspend override fun fetchRecommend(id: String): Flow<Resource<List<VideoInfo>>> {
         return flow {
             emit(remoteRepository.fetchRecommend(id))
         }.flowOn(ioDispatcher);
     }
 
-    override fun fetchTiktokData(
+    suspend override fun fetchTiktokData(
         date: String,
         num: String
     ): Flow<Resource<List<VideoInfo>>> {
