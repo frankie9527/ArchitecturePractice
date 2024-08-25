@@ -1,6 +1,7 @@
 package com.sixth.space.uitls
 
 import com.sixth.space.base.Constant
+import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.video.CommentItem
 import com.sixth.space.data.video.HotItem
 import com.sixth.space.data.video.RecommendItem
@@ -92,14 +93,15 @@ fun commentItem2VideoInfo(comment: CommentItem): VideoInfo {
     )
 }
 
-fun List<CommentItem>.commentList2Video(): List<VideoInfo> {
+fun List<CommentItem>.replyList2Video(): List<VideoInfo> {
     return this.map { commentItem2VideoInfo(it) }
 }
 
-fun List<TikTokItem>.tiktokList2Video(): List<VideoInfo> {
-    return this.map { tiktokItem2VideoInfo(it) }
+fun List<TikTokItem>.homeList2Video(): List<VideoInfo> {
+    return this.map { homeItem2VideoInfo(it) }
 }
-fun tiktokItem2VideoInfo(info: TikTokItem): VideoInfo {
+
+fun homeItem2VideoInfo(info: TikTokItem): VideoInfo {
     return VideoInfo(
         videoId = info.data.content.data.id,
         videoType = Constant.recycler_adapter_type_tiktok,
@@ -122,4 +124,24 @@ fun tiktokItem2VideoInfo(info: TikTokItem): VideoInfo {
         likeCount = 0,
         commentMsg = ""
     )
+}
+
+fun VideoDetailsInfo.video2Detail(info: VideoInfo): VideoDetailsInfo {
+    this.videoId=info.videoId
+    this.videoType=info.videoType
+    this.title=info.title
+    this.description=info.description
+    this.playUrl=info.playUrl
+    this.blurred=info.blurred
+    this.category=info.category
+    this.cover=info.cover
+    this.user_name=info.user_name
+    this.user_description=info.user_description
+    this.avatar=info.avatar
+    this.releaseTime=info.releaseTime
+
+    this.duration=info.duration
+    this.consumption=info.consumption
+    this.likeCount=info.likeCount
+    return this;
 }

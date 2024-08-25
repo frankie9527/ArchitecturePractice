@@ -1,9 +1,6 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 
 
@@ -30,7 +27,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sixth.space.R
+import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.model.RemoteViewModel
+import com.sixth.space.uitls.getTime2String
 
 @Composable
 fun VideoRecommendScreen(
@@ -38,14 +37,14 @@ fun VideoRecommendScreen(
     viewModel: RemoteViewModel
 ) {
     Column {
-        head()
+        head(viewModel.info)
         body()
     }
 }
 
-@Preview
+
 @Composable
-fun head() {
+fun head(info: VideoDetailsInfo) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -54,7 +53,7 @@ fun head() {
         val (title, releaseDate, category, description) = createRefs()
         val cs = createRef()
         Text(
-            text = "泰国爆笑神广，iPhone只需「碰一碰」",
+            text = info.title.toString(),
             fontSize = 18.sp,
             color = Color.White,
             modifier = Modifier
@@ -65,7 +64,7 @@ fun head() {
                 }
         )
         Text(
-            text = "2023/02/07 12:00",
+            text = info.releaseTime!!.getTime2String(),
             fontSize = 12.sp,
             color = Color.LightGray,
             modifier = Modifier
@@ -77,7 +76,7 @@ fun head() {
         )
 
         Text(
-            text = "# travel",
+            text = "#" + info.category,
             fontSize = 12.sp,
             color = Color.LightGray,
             modifier = Modifier
@@ -88,7 +87,7 @@ fun head() {
                 }
         )
         Text(
-            text = "当一位男子在机场对一位陌生人一见钟情，然而地板突然塌下他掉入了坑里，他在坑里不断叹气怕女孩走远。幸运的是，女孩居然朝坑里走来，如此远的距离怎么交换联系方式呢？别紧张，这是 iPhone！两台 iPhone 碰一碰就可以和对方交换名片了。",
+            text = info.description.toString(),
             fontSize = 12.sp,
             color = Color.LightGray,
             modifier = Modifier
@@ -107,7 +106,7 @@ fun head() {
                 }) {
             val (imgHead, author, authorDescription, rowFollow) = createRefs()
             AsyncImage(
-                model = "",
+                model = info.avatar,
                 modifier = Modifier
                     .padding(start = 8.dp)
                     .width(40.dp)
@@ -124,7 +123,7 @@ fun head() {
             )
 
             Text(
-                text = "frankie",
+                text = info.user_name.toString(),
                 color = Color.White,
                 modifier = Modifier
                     .padding(start = 8.dp)
@@ -135,7 +134,7 @@ fun head() {
             )
 
             Text(
-                text = "this a author description and what do u want to know,this a author description and what do u want to know",
+                text = info.user_description.toString(),
                 maxLines = 1,
                 color = Color.White,
                 modifier = Modifier

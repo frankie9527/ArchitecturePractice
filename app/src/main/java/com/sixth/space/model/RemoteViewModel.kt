@@ -11,9 +11,6 @@ import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 import javax.inject.Inject
@@ -28,11 +25,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteViewModel @Inject constructor(
     private val dataRepositoryRepository: DataRepositorySource,
-    val videoInfo: VideoDetailsInfo
+    var info: VideoDetailsInfo
 ) :
     ViewModel() {
     val homeState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     val hotState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
+    val replyState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     /**
      *  page:0  homeDailyState
      *  page:1  homeRecommendState
@@ -46,7 +44,7 @@ class RemoteViewModel @Inject constructor(
             number = "2"
         }
         viewModelScope.launch {
-            dataRepositoryRepository.fetchTiktokData(data,number).collect() {
+            dataRepositoryRepository.fetchHomeData(data,number).collect() {
                 homeState.value=it;
             }
         }
@@ -80,5 +78,12 @@ class RemoteViewModel @Inject constructor(
         }
     }
 
-
+    fun fetchReplyState() {
+        var id=info.videoId;
+        viewModelScope.launch {
+            dataRepositoryRepository.fetchReplyList(id.toString()).collect() {
+                replyState.value=it
+            }
+        }
+    }
 }

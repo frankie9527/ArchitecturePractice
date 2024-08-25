@@ -20,6 +20,7 @@ import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
+import com.sixth.space.uitls.video2Detail
 
 
 /**
@@ -51,7 +52,8 @@ fun HomeItemView(
     viewModel: RemoteViewModel
 ) {
     ConstraintLayout(Modifier.clickable(onClick = {
-        viewModel.videoInfo.data = video.playUrl
+        viewModel.info.video2Detail(video)
+//        viewModel.videoInfo.data=video.playUrl
         navController.navigate("video-detail")
     })) {
         val (title, type) = createRefs()

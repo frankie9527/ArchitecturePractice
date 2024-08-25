@@ -1,14 +1,17 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -19,17 +22,42 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sixth.space.R
+import com.sixth.space.model.RemoteViewModel
+import androidx.compose.foundation.lazy.items
+import com.sixth.space.data.dao.VideoInfo
+import com.sixth.space.uitls.getTime2String
 
 @Composable
 fun VideoCommentsScreen(
-    id: String
+    viewModel: RemoteViewModel
 ) {
-    ConstraintLayout(Modifier.fillMaxWidth().fillMaxHeight()) {
+    viewModel.fetchReplyState();
+    val viewState = viewModel.replyState.collectAsState()
+    viewState.value?.data?.let {
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            modifier = Modifier.padding(top = 24.dp)
+        ) {
+            items(items = it) { item ->
+                replyItem(info = item)
+            }
+        }
+    }
+
+}
+
+@Composable
+fun replyItem(info: VideoInfo) {
+    ConstraintLayout(
+        Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
         val (imgHead, imgLikeCount) = createRefs()
         val (nickName, postDate, lickCount, message) = createRefs()
 
         AsyncImage(
-            model = "",
+            model = info.avatar,
             modifier = Modifier
                 .padding(top = 8.dp, start = 8.dp)
                 .width(30.dp)
@@ -58,7 +86,7 @@ fun VideoCommentsScreen(
 
         )
         Text(
-            text = "Yuki1234",
+            text = info.user_name,
             fontSize = 12.sp,
             color = Color.White,
             modifier = Modifier
@@ -68,7 +96,7 @@ fun VideoCommentsScreen(
                     start.linkTo(imgHead.end)
                 }
         )
-        Text(text = "20:21",
+        Text(text = info.releaseTime.getTime2String(),
             fontSize = 12.sp,
             color = Color.Gray,
             modifier = Modifier
@@ -77,7 +105,7 @@ fun VideoCommentsScreen(
                     top.linkTo(nickName.top)
                     start.linkTo(nickName.end)
                 })
-        Text(text = "123", fontSize = 12.sp,
+        Text(text = info.likeCount.toString(), fontSize = 12.sp,
             color = Color.White,
             modifier = Modifier
                 .padding(end = 4.dp, top = 8.dp)
@@ -86,7 +114,7 @@ fun VideoCommentsScreen(
 
                 })
 
-        Text(text = "i am message,hello ,how are u! i am message,hello ,how are u! i am message,hello ,how are u!",
+        Text(text = info.commentMsg,
             fontSize = 16.sp,
             color = Color.White,
             maxLines = 2,

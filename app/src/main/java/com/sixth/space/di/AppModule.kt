@@ -56,6 +56,6 @@ class AppModule {
     @Provides
     @Singleton
     fun provideVideoDetailsInfo(): VideoDetailsInfo {
-        return VideoDetailsInfo("")
+        return VideoDetailsInfo()
     }
 }

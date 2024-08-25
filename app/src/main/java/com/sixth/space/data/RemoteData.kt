@@ -11,10 +11,10 @@ import com.sixth.space.network.error.NETWORK_EMPTY
 import com.sixth.space.network.error.NETWORK_ERROR
 import com.sixth.space.network.error.NO_INTERNET_CONNECTION
 import com.sixth.space.uitls.NetworkConnectivity
-import com.sixth.space.uitls.commentList2Video
+import com.sixth.space.uitls.replyList2Video
 import com.sixth.space.uitls.hotList2Video
 import com.sixth.space.uitls.recommendList2Video
-import com.sixth.space.uitls.tiktokList2Video
+import com.sixth.space.uitls.homeList2Video
 import javax.inject.Inject
 
 /**
@@ -45,7 +45,7 @@ class RemoteData @Inject constructor(
         }
     }
 
-    override suspend fun fetchReplyComment(id: String): Resource<List<VideoInfo>> {
+    override suspend fun fetchReplyList(id: String): Resource<List<VideoInfo>> {
         return try {
             val data = service.fetchReply("", id, "", "");
             val newData = data.itemList as ArrayList<CommentItem>;
@@ -56,7 +56,7 @@ class RemoteData @Inject constructor(
                     iterator.remove()
                 }
             }
-            val videoList = newData.commentList2Video();
+            val videoList = newData.replyList2Video();
             if (videoList.size==0){
                 if (!networkConnectivity.isConnected()) {
                     return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);
@@ -93,7 +93,7 @@ class RemoteData @Inject constructor(
         }
     }
 
-    override suspend fun fetchTiktokData(date: String, num: String): Resource<List<VideoInfo>> {
+    override suspend fun fetchHomeData(date: String, num: String): Resource<List<VideoInfo>> {
         return try {
             val data = service.fetchTiktok(date, num);
             val newData: ArrayList<TikTokItem> = data.itemList as ArrayList<TikTokItem>;
@@ -105,7 +105,7 @@ class RemoteData @Inject constructor(
                 }
             }
             data.itemList = newData;
-            val videoList=data.itemList.tiktokList2Video();
+            val videoList=data.itemList.homeList2Video();
             if (videoList.size==0){
                 if (!networkConnectivity.isConnected()) {
                     return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);

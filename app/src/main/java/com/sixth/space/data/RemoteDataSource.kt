@@ -12,10 +12,10 @@ import com.sixth.space.network.Resource
 interface RemoteDataSource {
     suspend fun fetchHotList(str: String): Resource<List<VideoInfo>>
 
-    suspend fun fetchReplyComment(id: String): Resource<List<VideoInfo>>
+    suspend fun fetchReplyList(id: String): Resource<List<VideoInfo>>
 
     suspend fun fetchRecommend(id: String): Resource<List<VideoInfo>>
 
-    suspend fun fetchTiktokData(date: String, num: String): Resource<List<VideoInfo>>
+    suspend fun fetchHomeData(date: String, num: String): Resource<List<VideoInfo>>
 
 }

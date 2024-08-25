@@ -104,4 +104,8 @@ dependencies {
 
     // frankie lib
     implementation("com.github.Frankie9527:VariousPlayer:0.6.1")
+
+    // google
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+
 }

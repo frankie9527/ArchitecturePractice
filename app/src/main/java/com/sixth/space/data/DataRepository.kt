@@ -24,9 +24,9 @@ class DataRepository @Inject constructor(
         }.flowOn(ioDispatcher);
     }
 
-    suspend override fun fetchReplyComment(id: String): Flow<Resource<List<VideoInfo>>> {
+    suspend override fun fetchReplyList(id: String): Flow<Resource<List<VideoInfo>>> {
         return flow {
-            emit(remoteRepository.fetchReplyComment(id))
+            emit(remoteRepository.fetchReplyList(id))
         }.flowOn(ioDispatcher);
     }
 
@@ -36,12 +36,12 @@ class DataRepository @Inject constructor(
         }.flowOn(ioDispatcher);
     }
 
-    suspend override fun fetchTiktokData(
+    suspend override fun fetchHomeData(
         date: String,
         num: String
     ): Flow<Resource<List<VideoInfo>>> {
         return flow {
-            emit(remoteRepository.fetchTiktokData(date, num))
+            emit(remoteRepository.fetchHomeData(date, num))
         }.flowOn(ioDispatcher);
     }
 

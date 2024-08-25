@@ -9,13 +9,17 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.sixth.space.R
 import com.sixth.space.ui.theme.SixthSpaceTheme
 
@@ -28,6 +32,7 @@ import com.sixth.space.ui.theme.SixthSpaceTheme
 fun MainScreen(){
     SixthSpaceTheme {
         val navController = rememberNavController()
+        SetupSystemUi(rememberSystemUiController(), Color.Black)
         Scaffold(
             bottomBar = { SootheBottomNavigation(navController = navController) }
         ) { padding ->
@@ -81,5 +86,14 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier,navController: 
                 navController.navigate("hot")
             }
         )
+    }
+}
+@Composable
+fun SetupSystemUi(
+    systemUiController: SystemUiController,
+    systemBarColor: Color
+) {
+    SideEffect {
+        systemUiController.setSystemBarsColor(color = systemBarColor)
     }
 }
