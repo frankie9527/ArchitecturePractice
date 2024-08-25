@@ -1,5 +1,7 @@
 package com.sixth.space.ui.screen
 
+import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,16 +22,19 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -37,6 +42,7 @@ import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.model.RemoteViewModel
 import kotlinx.coroutines.launch
+import org.various.player.ui.simple.SimpleVideoView
 
 /**
  * @author: Frankie
@@ -66,12 +72,7 @@ fun VideoDetailsScreen(
             contentScale = ContentScale.FillHeight
         )
         Column {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .background(Color.Black)
-                    .height(240.dp)
-            )
+            videoView(viewModel.videoInfo.data)
             val videoDetailsList: Array<String> =
                 LocalContext.current.resources.getStringArray(R.array.video_details_array);
             val videoDetailsState = rememberPagerState(
@@ -123,3 +124,47 @@ fun VideoDetailsScreen(
 
 }
 
+@Composable
+fun videoView(url:String){
+    val context = LocalContext.current
+    var md: Modifier? = null
+    val configuration = LocalConfiguration.current
+    md = if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        Modifier
+            .fillMaxWidth()
+            .height(240.dp)
+    } else {
+        Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    }
+    val simpleVideoView = remember {
+        SimpleVideoView(context).apply {
+            // Sets up listeners for View -> Compose communication
+            setUserActionListener {
+                Toast.makeText(context, "nihao", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+    // Adds view to Compose
+    AndroidView(
+        modifier = md, // Occupy the max size in the Compose UI tree
+        factory = { context ->
+            // Creates view
+            simpleVideoView
+        },
+        update = { view ->
+            // View's been inflated or state read in this block has been updated
+            // Add logic here if necessary
+
+            // As selectedItem is read here, AndroidView will recompose
+            // whenever the state changes
+            // Example of Compose -> View communication
+                view.setPlayData(url, "update view")
+                view.startSyncPlay()
+        },
+        onRelease = { view ->
+            view.release()
+        }
+    )
+}

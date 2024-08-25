@@ -63,7 +63,7 @@ fun HomeItemView(
     viewModel: RemoteViewModel
 ) {
     ConstraintLayout(Modifier.clickable(onClick = {
-        viewModel.videoInfo.data="hello"
+        viewModel.videoInfo.data=video.playUrl
         navController.navigate("video-detail")
     })) {
         val (title, type) = createRefs()

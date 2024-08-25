@@ -101,4 +101,7 @@ dependencies {
 
     //constraintlayout
     implementation(libs.androidx.constraintlayout.compose)
+
+    // frankie lib
+    implementation("com.github.Frankie9527:VariousPlayer:0.6.1")
 }
