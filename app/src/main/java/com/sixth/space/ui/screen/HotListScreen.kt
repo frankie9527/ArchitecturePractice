@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sixth.space.R
@@ -34,8 +35,10 @@ fun HotListScreen(
     page: Int, navController: NavHostController,
     viewModel: RemoteViewModel = hiltViewModel(key = page.toString())
 ) {
-    viewModel.fetchHotState(page)
-    val viewState = viewModel.hotState.collectAsState()
+    LaunchedEffect(true) { // Restart the effect when the pulse rate changes
+        viewModel.fetchHotState(page)
+    }
+    val viewState = viewModel.hotState.collectAsStateWithLifecycle()
     viewState.value?.data?.let {
         LazyColumn {
             items(items = it) { item ->

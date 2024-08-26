@@ -1,6 +1,7 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
@@ -13,7 +14,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import com.sixth.space.R
 import kotlinx.coroutines.launch
@@ -27,9 +27,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HotScreen(modifier: Modifier,navController: NavHostController) {
-    ConstraintLayout {
-        // Create references for the composables to constrain
-        val (tab, pager) = createRefs()
+    Column(modifier = modifier)  {
         val hotList: Array<String> =
             LocalContext.current.resources.getStringArray(R.array.hot_array);
         val hotPagerState = rememberPagerState(
@@ -46,10 +44,7 @@ fun HotScreen(modifier: Modifier,navController: NavHostController) {
                         .tabIndicatorOffset(tabPositions[hotPagerState.currentPage]),
                     color = Color.White
                 )
-            },
-            modifier = modifier.constrainAs(tab) {
-                top.linkTo(parent.top)
-            }) {
+            },) {
             hotList.forEachIndexed() { index, item ->
                 Tab(selected = false, onClick = {
                     coroutineScope.launch {
@@ -67,10 +62,7 @@ fun HotScreen(modifier: Modifier,navController: NavHostController) {
             }
         }
 
-        HorizontalPager(state = hotPagerState, modifier = Modifier
-            .constrainAs(pager) {
-                top.linkTo(tab.bottom)
-            }) { page ->
+        HorizontalPager(state = hotPagerState) { page ->
             HotListScreen(page = page,navController)
         }
     }

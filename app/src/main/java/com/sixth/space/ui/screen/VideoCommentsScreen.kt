@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,6 +23,8 @@ import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.model.RemoteViewModel
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.uitls.getTime2String
 
@@ -31,8 +32,10 @@ import com.sixth.space.uitls.getTime2String
 fun VideoCommentsScreen(
     viewModel: RemoteViewModel
 ) {
-    viewModel.fetchReplyState();
-    val viewState = viewModel.replyState.collectAsState()
+    LaunchedEffect(true) { // Restart the effect when the pulse rate changes
+        viewModel.fetchReplyState()
+    }
+    val viewState = viewModel.replyState.collectAsStateWithLifecycle()
     viewState.value?.data?.let {
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 16.dp),

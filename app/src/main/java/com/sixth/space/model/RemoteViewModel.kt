@@ -31,12 +31,12 @@ class RemoteViewModel @Inject constructor(
     val homeState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     val hotState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     val replyState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
+    val recommedState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
     /**
      *  page:0  homeDailyState
      *  page:1  homeRecommendState
      * */
     fun fetchHomeState(page: Int) {
-        Log.e("jyh", "homeState page $page")
         var data = "";
         var number = ""
         if (page == 0) {
@@ -83,6 +83,15 @@ class RemoteViewModel @Inject constructor(
         viewModelScope.launch {
             dataRepositoryRepository.fetchReplyList(id.toString()).collect() {
                 replyState.value=it
+            }
+        }
+    }
+    fun fetchRecommend() {
+        var id=info.videoId;
+        viewModelScope.launch {
+            dataRepositoryRepository.fetchRecommend(id.toString()).collect() {
+                Log.e("jyh","fetchRecommend size="+it.data?.size)
+                recommedState.value=it
             }
         }
     }

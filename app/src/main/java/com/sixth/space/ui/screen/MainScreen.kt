@@ -36,7 +36,7 @@ fun MainScreen(){
         Scaffold(
             bottomBar = { SootheBottomNavigation(navController = navController) }
         ) { padding ->
-            HomeScreen(Modifier.padding(top = padding.calculateTopPadding()),navController)
+            HomeScreen(Modifier.padding(padding),navController)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
@@ -25,9 +26,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(modifier: Modifier) {
-    ConstraintLayout {
-        // Create references for the composables to constrain
-        val (tab, pager) = createRefs()
+    Column(modifier = modifier) {
         val hotList: Array<String> =
             LocalContext.current.resources.getStringArray(R.array.home_array);
         val tiktokPagerState = rememberPagerState(
@@ -45,9 +44,6 @@ fun HomeScreen(modifier: Modifier) {
                          ,
                     color = Color.White
                 )
-            },
-            modifier = modifier.constrainAs(tab) {
-                top.linkTo(parent.top)
             }) {
             hotList.forEachIndexed() { index, item ->
                 Tab(selected = false, onClick = {
@@ -64,9 +60,7 @@ fun HomeScreen(modifier: Modifier) {
                 })
             }
         }
-        HorizontalPager(state = tiktokPagerState, modifier = Modifier.constrainAs(pager) {
-            top.linkTo(tab.bottom)
-        }) { page ->
+        HorizontalPager(state = tiktokPagerState) { page ->
             HomeListScreen(page = page)
         }
     }
