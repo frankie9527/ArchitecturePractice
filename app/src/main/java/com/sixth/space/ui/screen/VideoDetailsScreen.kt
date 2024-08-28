@@ -67,7 +67,7 @@ fun VideoDetailsScreen(
             contentScale = ContentScale.FillHeight
         )
         Column {
-            videoView(viewModel.info.playUrl + "")
+            videoView(viewModel.info.playUrl.toString(),navController)
             val videoDetailsList: Array<String> =
                 LocalContext.current.resources.getStringArray(R.array.video_details_array);
             val videoDetailsState = rememberPagerState(
@@ -120,7 +120,7 @@ fun VideoDetailsScreen(
 }
 
 @Composable
-fun videoView(url: String) {
+fun videoView(url: String,navController: NavHostController) {
     val context = LocalContext.current
     var md: Modifier? = null
     val configuration = LocalConfiguration.current
@@ -138,7 +138,7 @@ fun videoView(url: String) {
         SimpleVideoView(context).apply {
             // Sets up listeners for View -> Compose communication
             setUserActionListener {
-                Toast.makeText(context, "nihao", Toast.LENGTH_LONG).show()
+                navController.popBackStack()
             }
         }
     }

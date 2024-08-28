@@ -34,7 +34,9 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.data.dao.VideoDetailsInfo
+import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
+import com.sixth.space.uitls.durationToStr
 import com.sixth.space.uitls.getTime2String
 
 @Composable
@@ -46,17 +48,16 @@ fun VideoRecommendScreen(
         viewModel.fetchRecommend()
     }
     val viewState = viewModel.recommedState.collectAsStateWithLifecycle()
-    Column {
-        head(viewModel.info)
+
         viewState.value?.data?.let {
             LazyColumn {
+                item {
+                    head(viewModel.info)
+                }
                 items(items = it) { item ->
-                    Log.e("jyh","hehe")
-                    body()
+                    body(item)
                 }
             }
-        }
-
     }
 }
 
@@ -66,7 +67,6 @@ fun head(info: VideoDetailsInfo) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight()
     ) {
         val (title, releaseDate, category, description) = createRefs()
         val cs = createRef()
@@ -118,6 +118,7 @@ fun head(info: VideoDetailsInfo) {
         ConstraintLayout(
             Modifier
                 .padding(top = 10.dp)
+                .fillMaxWidth()
                 .constrainAs(cs) {
                     top.linkTo(description.bottom)
                     start.linkTo(parent.start)
@@ -143,6 +144,7 @@ fun head(info: VideoDetailsInfo) {
             Text(
                 text = info.user_name.toString(),
                 color = Color.White,
+                fontSize = 14.sp,
                 modifier = Modifier
                     .padding(start = 8.dp)
                     .constrainAs(author) {
@@ -155,6 +157,7 @@ fun head(info: VideoDetailsInfo) {
                 text = info.user_description.toString(),
                 maxLines = 1,
                 color = Color.White,
+                fontSize = 12.sp,
                 modifier = Modifier
                     .padding(start = 8.dp, end = 100.dp)
                     .constrainAs(authorDescription) {
@@ -191,76 +194,88 @@ fun head(info: VideoDetailsInfo) {
     }
 }
 
-@Preview
+
 @Composable
-fun body() {
+fun body(info: VideoInfo) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        val (img_cover, tv_title, tv_author, tv_date, tv_category) = createRefs()
+        val (imgCover,duration, title, author, date, category) = createRefs()
         AsyncImage(
-            model = "",
+            model = info.avatar,
             modifier = Modifier
                 .padding(start = 8.dp)
-                .width(90.dp)
+                .width(126.dp)
                 .height(90.dp)
-
-                .constrainAs(img_cover) {
+                .constrainAs(imgCover) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 },
             contentDescription = "imgHead",
             placeholder = painterResource(R.mipmap.blurry),
             error = painterResource(R.mipmap.blurry),
+            contentScale= ContentScale.Crop
         )
         Text(
-            text = "hello ,it is a nice day, im frankie",
+            text = info.duration.durationToStr(),
+            color = Color.White,
+            fontSize = 11.sp,
+            modifier = Modifier
+                .padding(8.dp)
+                .constrainAs(duration) {
+                    bottom.linkTo(imgCover.bottom)
+                    end.linkTo(imgCover.end)
+                }
+        )
+        Text(
+            text = info.title,
             color = Color.White,
             fontSize = 16.sp,
             modifier = Modifier
                 .padding(start = 10.dp)
-                .constrainAs(tv_title) {
-                    top.linkTo(img_cover.top)
-                    start.linkTo(img_cover.end)
+                .constrainAs(title) {
+                    top.linkTo(imgCover.top)
+                    start.linkTo(imgCover.end)
+                    end.linkTo(category.start)
                 }
         )
 
         Text(
-            text = " 2022/12/21 12:00",
+            text = info.releaseTime.getTime2String(),
             color = Color.Gray,
             fontSize = 12.sp,
             modifier = Modifier
                 .padding(start = 10.dp)
-                .constrainAs(tv_date) {
-                    bottom.linkTo(img_cover.bottom)
-                    start.linkTo(img_cover.end)
+                .constrainAs(date) {
+                    bottom.linkTo(imgCover.bottom)
+                    start.linkTo(imgCover.end)
                 }
         )
 
         Text(
-            text = "frankie",
+            text = info.user_name,
             color = Color.White,
             fontSize = 12.sp,
             modifier = Modifier
                 .padding(start = 10.dp)
-                .constrainAs(tv_author) {
-                    top.linkTo(img_cover.top)
-                    bottom.linkTo(img_cover.bottom)
-                    start.linkTo(img_cover.end)
+                .constrainAs(author) {
+                    top.linkTo(imgCover.top)
+                    bottom.linkTo(imgCover.bottom)
+                    start.linkTo(imgCover.end)
                 }
         )
 
         Text(
-            text = "# 旅行",
+            text = "# "+info.category,
             color = Color.White,
             fontSize = 12.sp,
             modifier = Modifier
                 .padding(start = 10.dp)
-                .constrainAs(tv_category) {
-                    top.linkTo(img_cover.top)
-                    bottom.linkTo(img_cover.bottom)
+                .constrainAs(category) {
+                    top.linkTo(imgCover.top)
+                    bottom.linkTo(imgCover.bottom)
                     end.linkTo(parent.end)
                 }
         )
