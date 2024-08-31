@@ -13,4 +13,7 @@
     <color name="purple_500">#FF6200EE</color>
 
     <color name="color_line">#33FFFFFF</color>
+
+
+    <color name="color_lighter_gray">#ddd</color>
 </resources>

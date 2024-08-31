@@ -50,6 +50,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavHostController) 
         composable("home") { HomeScreen(modifier) }
         composable("hot") { HotScreen(modifier, navController) }
         composable("video-detail") { VideoDetailsScreen(navController) }
+        composable("search") { SearchSreen(navController) }
     }
 }
 

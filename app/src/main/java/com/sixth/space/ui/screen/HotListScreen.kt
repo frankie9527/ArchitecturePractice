@@ -56,7 +56,6 @@ fun HomeItemView(
 ) {
     ConstraintLayout(Modifier.clickable(onClick = {
         viewModel.info.video2Detail(video)
-//        viewModel.videoInfo.data=video.playUrl
         navController.navigate("video-detail")
     })) {
         val (title, type) = createRefs()
@@ -83,7 +82,7 @@ fun HomeItemView(
             "#" + video.category,
             Modifier.constrainAs(type) {
                 top.linkTo(title.bottom)
-                start.linkTo(title.start)
+                start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },
             color = Color.White,

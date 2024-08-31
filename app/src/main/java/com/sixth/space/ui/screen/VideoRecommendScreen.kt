@@ -1,18 +1,11 @@
 package com.sixth.space.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-
-
 import androidx.compose.foundation.layout.Row
-
-
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,10 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -203,27 +199,29 @@ fun body(info: VideoInfo) {
             .padding(8.dp)
     ) {
         val (imgCover,duration, title, author, date, category) = createRefs()
+        // Create guideline from the start of the parent at 10% the width of the Composable
+        val startGuideline = createGuidelineFromStart(0.4f)
         AsyncImage(
             model = info.avatar,
             modifier = Modifier
-                .padding(start = 8.dp)
-                .width(126.dp)
                 .height(90.dp)
                 .constrainAs(imgCover) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
+                    end.linkTo(startGuideline)
+                    width= Dimension.preferredWrapContent
                 },
             contentDescription = "imgHead",
             placeholder = painterResource(R.mipmap.blurry),
             error = painterResource(R.mipmap.blurry),
             contentScale= ContentScale.Crop
         )
+
         Text(
             text = info.duration.durationToStr(),
             color = Color.White,
             fontSize = 11.sp,
-            modifier = Modifier
-                .padding(8.dp)
+            modifier = Modifier.padding(end = 8.dp)
                 .constrainAs(duration) {
                     bottom.linkTo(imgCover.bottom)
                     end.linkTo(imgCover.end)
@@ -232,14 +230,18 @@ fun body(info: VideoInfo) {
         Text(
             text = info.title,
             color = Color.White,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
+            maxLines = 1,
+            textAlign = TextAlign.Start,
             modifier = Modifier
                 .padding(start = 10.dp)
                 .constrainAs(title) {
-                    top.linkTo(imgCover.top)
+                    top.linkTo(parent.top)
                     start.linkTo(imgCover.end)
                     end.linkTo(category.start)
-                }
+                    width = Dimension.fillToConstraints
+                },
+            style = TextStyle(textAlign = TextAlign.Start)
         )
 
         Text(
@@ -251,7 +253,7 @@ fun body(info: VideoInfo) {
                 .constrainAs(date) {
                     bottom.linkTo(imgCover.bottom)
                     start.linkTo(imgCover.end)
-                }
+                },
         )
 
         Text(
@@ -261,8 +263,8 @@ fun body(info: VideoInfo) {
             modifier = Modifier
                 .padding(start = 10.dp)
                 .constrainAs(author) {
-                    top.linkTo(imgCover.top)
-                    bottom.linkTo(imgCover.bottom)
+                    top.linkTo(title.top)
+                    bottom.linkTo(date.bottom)
                     start.linkTo(imgCover.end)
                 }
         )
