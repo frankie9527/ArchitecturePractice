@@ -1,11 +1,11 @@
 package com.sixth.space.ui.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,7 +20,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -35,6 +34,7 @@ import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.uitls.durationToStr
 import com.sixth.space.uitls.getTime2String
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun VideoRecommendScreen(
     navController: NavHostController,
@@ -43,7 +43,7 @@ fun VideoRecommendScreen(
     LaunchedEffect(true) { // Restart the effect when the pulse rate changes
         viewModel.fetchRecommend()
     }
-    val viewState = viewModel.recommedState.collectAsStateWithLifecycle()
+    val viewState = viewModel.recommendState.collectAsStateWithLifecycle()
 
         viewState.value?.data?.let {
             LazyColumn {
@@ -231,14 +231,14 @@ fun body(info: VideoInfo) {
             text = info.title,
             color = Color.White,
             fontSize = 14.sp,
-            maxLines = 1,
+            maxLines = 2,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .padding(start = 10.dp)
                 .constrainAs(title) {
                     top.linkTo(parent.top)
                     start.linkTo(imgCover.end)
-                    end.linkTo(category.start)
+                    end.linkTo(parent.end)
                     width = Dimension.fillToConstraints
                 },
             style = TextStyle(textAlign = TextAlign.Start)
@@ -263,8 +263,8 @@ fun body(info: VideoInfo) {
             modifier = Modifier
                 .padding(start = 10.dp)
                 .constrainAs(author) {
-                    top.linkTo(title.top)
-                    bottom.linkTo(date.bottom)
+                    top.linkTo(title.bottom)
+                    bottom.linkTo(date.top)
                     start.linkTo(imgCover.end)
                 }
         )
@@ -276,8 +276,7 @@ fun body(info: VideoInfo) {
             modifier = Modifier
                 .padding(start = 10.dp)
                 .constrainAs(category) {
-                    top.linkTo(imgCover.top)
-                    bottom.linkTo(imgCover.bottom)
+                    top.linkTo(author.top)
                     end.linkTo(parent.end)
                 }
         )

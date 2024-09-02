@@ -6,8 +6,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
@@ -53,8 +55,8 @@ fun VideoDetailsScreen(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
+            .fillMaxSize()
+            .statusBarsPadding()
     ) {
         AsyncImage(
             model = viewModel.info.blurred,
@@ -67,7 +69,7 @@ fun VideoDetailsScreen(
             contentScale = ContentScale.FillHeight
         )
         Column {
-            videoView(viewModel.info.playUrl.toString(),navController)
+            videoView(viewModel.info.playUrl.toString(), navController)
             val videoDetailsList: Array<String> =
                 LocalContext.current.resources.getStringArray(R.array.video_details_array);
             val videoDetailsState = rememberPagerState(
@@ -120,7 +122,7 @@ fun VideoDetailsScreen(
 }
 
 @Composable
-fun videoView(url: String,navController: NavHostController) {
+fun videoView(url: String, navController: NavHostController) {
     val context = LocalContext.current
     var md: Modifier? = null
     val configuration = LocalConfiguration.current

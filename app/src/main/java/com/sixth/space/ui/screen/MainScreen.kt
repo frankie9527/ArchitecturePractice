@@ -1,13 +1,25 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.sixth.space.ui.screen
 
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -31,42 +43,112 @@ import com.sixth.space.ui.theme.SixthSpaceTheme
  * @Date: 2024/7/10
  * @Description:
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen() {
     SixthSpaceTheme {
         val navController = rememberNavController()
+        val homePagerState = rememberPagerState(
+            initialPage = 0,
+            pageCount = {
+                2
+            })
+        val hotPagerState = rememberPagerState(
+            initialPage = 0,
+            pageCount = {
+                3
+            })
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        val routes = remember { "home,hot" }
+
         SetupSystemUi(rememberSystemUiController(), Color.Black)
         Scaffold(
-            bottomBar = { SootheBottomNavigation(navController = navController) }
+            topBar = {
+                if (!routes.contains(currentRoute.toString())) {
+                    return@Scaffold
+                }
+                val pagerState = if (currentRoute == "home") {
+                    homePagerState
+                } else {
+                    hotPagerState
+                }
+                StatusBar(
+                    pagerState = pagerState,
+                    navController,
+                    currentRoute = currentRoute.toString()
+                )
+            },
+            bottomBar = {
+                if (!routes.contains(currentRoute.toString())) {
+                    return@Scaffold
+                }
+                SootheBottomNavigation(
+                    navController = navController,
+                    currentRoute = currentRoute.toString()
+                )
+            }
         ) { padding ->
-            HomeScreen(Modifier.padding(padding), navController)
+            HomeScreen(Modifier.padding(padding), navController, homePagerState, hotPagerState)
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    homePagerState: PagerState,
+    hotPagerState: PagerState
+) {
     NavHost(navController = navController, startDestination = "home") {
-        composable("home") { HomeScreen(modifier) }
-        composable("hot") { HotScreen(modifier, navController) }
+        composable("home") { HomeScreen(modifier, homePagerState) }
+        composable("hot") { HotScreen(modifier, navController, hotPagerState) }
         composable("video-detail") { VideoDetailsScreen(navController) }
-        composable("search") { SearchSreen(navController) }
+        composable("search") { SearchScreen(navController) }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun StatusBar(
+    pagerState: PagerState,
+    navController: NavHostController,
+    currentRoute: String
+) {
+    TopAppBar(title = {
+        if (currentRoute == "home") {
+            HomeScreenTitleList(pagerState = pagerState)
+        } else {
+            HotScreenTitleList(pagerState = pagerState)
+        }
+    },
+        navigationIcon = {
+            IconButton(
+                onClick = { }
+            ) {
+                Icon(Icons.Filled.Menu, null)
+            }
+        },
+        actions = {
+            IconButton(
+                onClick = { navController.navigate("search") }
+            ) {
+                Icon(Icons.Filled.Search, null)
+            }
+
+        })
 }
 
 @Composable
 private fun SootheBottomNavigation(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    currentRoute: String
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
 
-    val routes = remember { "home,hot"}
-
-    if (!routes.contains(currentRoute.toString())){
-        return
-    }
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         modifier = modifier
@@ -81,7 +163,7 @@ private fun SootheBottomNavigation(
             label = {
                 Text(stringResource(id = R.string.home))
             },
-            selected = currentRoute=="home",
+            selected = currentRoute == "home",
             onClick = {
                 navController.navigate("home") {
                     popUpTo(navController.graph.startDestinationId) {
@@ -102,7 +184,7 @@ private fun SootheBottomNavigation(
             label = {
                 Text(stringResource(id = R.string.hot))
             },
-            selected = currentRoute=="hot",
+            selected = currentRoute == "hot",
             onClick = {
                 navController.navigate("hot") {
                     popUpTo(navController.graph.startDestinationId) {

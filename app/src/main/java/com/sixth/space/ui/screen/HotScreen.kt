@@ -3,6 +3,7 @@ package com.sixth.space.ui.screen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -26,46 +27,45 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HotScreen(modifier: Modifier,navController: NavHostController) {
+fun HotScreen(modifier: Modifier,navController: NavHostController,pagerState: PagerState) {
     Column(modifier = modifier)  {
-        val hotList: Array<String> =
-            LocalContext.current.resources.getStringArray(R.array.hot_array);
-        val hotPagerState = rememberPagerState(
-            initialPage = 0,
-            pageCount = {
-                3
-            })
-        val coroutineScope = rememberCoroutineScope()
-        TabRow(selectedTabIndex = hotPagerState.currentPage,
-            containerColor = Color.Black,
-            indicator = { tabPositions ->
-                TabRowDefaults.SecondaryIndicator(
-                    Modifier
-                        .tabIndicatorOffset(tabPositions[hotPagerState.currentPage]),
-                    color = Color.White
-                )
-            },) {
-            hotList.forEachIndexed() { index, item ->
-                Tab(selected = false, onClick = {
-                    coroutineScope.launch {
-                        hotPagerState.animateScrollToPage(index)
-                    }
-                }, text = {
-                    val textColor = if (hotPagerState.currentPage == index) {
-                        Color.White
-                    } else {
-                        Color.Gray
-                    }
-                    Text(text = item, color = textColor)
-
-                })
-            }
-        }
-
-        HorizontalPager(state = hotPagerState) { page ->
+        HorizontalPager(state = pagerState) { page ->
             HotListScreen(page = page,navController)
         }
     }
 
+}
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun HotScreenTitleList(pagerState: PagerState){
+    val hotList: Array<String> =
+        LocalContext.current.resources.getStringArray(R.array.hot_array);
+
+    val coroutineScope = rememberCoroutineScope()
+    TabRow(selectedTabIndex = pagerState.currentPage,
+        containerColor = Color.Black,
+        indicator = { tabPositions ->
+            TabRowDefaults.SecondaryIndicator(
+                Modifier
+                    .tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+                color = Color.White
+            )
+        },) {
+        hotList.forEachIndexed() { index, item ->
+            Tab(selected = false, onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(index)
+                }
+            }, text = {
+                val textColor = if (pagerState.currentPage == index) {
+                    Color.White
+                } else {
+                    Color.Gray
+                }
+                Text(text = item, color = textColor)
+
+            })
+        }
+    }
 }

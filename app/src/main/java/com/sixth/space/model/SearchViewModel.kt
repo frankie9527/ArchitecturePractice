@@ -10,6 +10,7 @@ import com.sixth.space.data.dao.VideoRepository
 import com.sixth.space.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -23,21 +24,26 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: VideoRepository) : ViewModel() {
-    val recipesDataPrivate = MutableLiveData<Resource<List<VideoInfo>>>()
-    val recipesData: LiveData<Resource<List<VideoInfo>>> get() = recipesDataPrivate
-    fun search(str: String) {
+    val searchState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
+
+    init {
         viewModelScope.launch {
-            recipesDataPrivate.value = Resource.Loading();
             flow<Resource<List<VideoInfo>>> {
-                val data: List<VideoInfo>;
-                data = if (TextUtils.isEmpty(str)) {
-                    repository.getAll();
-                } else {
-                    repository.getVideoByKeyWord(str);
-                }
+                val data: List<VideoInfo> =repository.getAll();
                 emit(Resource.Success(data = data))
             }.flowOn(Dispatchers.IO).collect() {
-                recipesDataPrivate.value = it;
+                searchState.value=it
+            }
+        }
+    }
+
+    fun search(str: String) {
+        viewModelScope.launch {
+            flow<Resource<List<VideoInfo>>> {
+                val data: List<VideoInfo> =repository.getVideoByKeyWord(str);
+                emit(Resource.Success(data = data))
+            }.flowOn(Dispatchers.IO).collect() {
+                searchState.value=it
             }
         }
     }
