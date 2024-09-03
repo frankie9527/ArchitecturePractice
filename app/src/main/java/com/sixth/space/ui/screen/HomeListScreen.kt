@@ -43,8 +43,13 @@ fun HomeItemPager(
     })
     VerticalPager(state = count) { verticalPage ->
         // Our page content
-        Box(modifier = Modifier.fillMaxSize()) {
-            Text(text = videos.get(verticalPage).title)
-        }
+       HomeItemView(videos[verticalPage])
+    }
+}
+
+@Composable
+fun HomeItemView(video:VideoInfo){
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(text = video.title)
     }
 }

@@ -50,6 +50,7 @@ fun HomeScreenTitleList(pagerState: PagerState){
                     .tabIndicatorOffset(tabPositions[pagerState.currentPage])
                 ,
                 color = Color.White
+
             )
         }) {
         hotList.forEachIndexed() { index, item ->
