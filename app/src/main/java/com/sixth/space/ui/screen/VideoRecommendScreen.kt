@@ -30,7 +30,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sixth.space.R
-import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.uitls.durationToStr
@@ -40,7 +39,7 @@ import com.sixth.space.uitls.video2Detail
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun VideoRecommendScreen(
-    navController: NavHostController,
+    onItemClick: (String) -> Unit,
     viewModel: RemoteViewModel
 ) {
     LaunchedEffect(true) { // Restart the effect when the pulse rate changes
@@ -54,7 +53,7 @@ fun VideoRecommendScreen(
                 head(viewModel.info)
             }
             items(items = it) { item ->
-                body(item,navController,viewModel)
+                body(item,onItemClick,viewModel)
             }
         }
     }
@@ -62,7 +61,7 @@ fun VideoRecommendScreen(
 
 
 @Composable
-fun head(info: VideoDetailsInfo) {
+fun head(info: VideoInfo) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -197,7 +196,7 @@ fun head(info: VideoDetailsInfo) {
 @Composable
 fun body(
     info: VideoInfo,
-    navController: NavHostController,
+    onItemClick: (String) -> Unit,
     viewModel: RemoteViewModel
 ) {
     ConstraintLayout(
@@ -206,15 +205,14 @@ fun body(
             .padding(8.dp)
             .clickable(onClick = {
                 viewModel.info.video2Detail(info)
-                navController.popBackStack()
-                navController.navigate("video-detail")
+                onItemClick("video-detail")
             })
     ) {
         val (imgCover, duration, title, author, date, category) = createRefs()
         // Create guideline from the start of the parent at 10% the width of the Composable
         val startGuideline = createGuidelineFromStart(0.4f)
         AsyncImage(
-            model = info.avatar,
+            model = info.cover,
             modifier = Modifier
                 .height(90.dp)
                 .clip(RoundedCornerShape(8))
@@ -242,7 +240,7 @@ fun body(
                 }
         )
         Text(
-            text = info.title,
+            text = info.title.toString(),
             color = Color.White,
             fontSize = 14.sp,
             maxLines = 2,
@@ -271,7 +269,7 @@ fun body(
         )
 
         Text(
-            text = info.user_name,
+            text = info.user_name.toString(),
             color = Color.White,
             fontSize = 12.sp,
             modifier = Modifier

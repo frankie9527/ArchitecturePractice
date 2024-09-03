@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -21,6 +23,7 @@ import coil.compose.AsyncImage
 import com.sixth.space.R
 import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
+import com.sixth.space.ui.theme.SixthSpaceTheme
 import com.sixth.space.uitls.video2Detail
 
 
@@ -42,7 +45,9 @@ fun HotListScreen(
     viewState.value?.data?.let {
         LazyColumn {
             items(items = it) { item ->
-                HotItemView(video = item, navController, viewModel)
+                HotItemView(video = item, onItemClick = { name ->
+                    navController.navigate(name)
+                }, viewModel)
             }
         }
     }
@@ -51,12 +56,12 @@ fun HotListScreen(
 @Composable
 fun HotItemView(
     video: VideoInfo,
-    navController: NavHostController,
+    onItemClick: (String) -> Unit,
     viewModel: RemoteViewModel
 ) {
     ConstraintLayout(Modifier.clickable(onClick = {
         viewModel.info.video2Detail(video)
-        navController.navigate("video-detail")
+        onItemClick.invoke("video-detail")
     })) {
         val (title, type) = createRefs()
         AsyncImage(
@@ -68,7 +73,7 @@ fun HotItemView(
             contentScale = ContentScale.FillWidth
         )
         Text(
-            video.title,
+            video.title.toString(),
             Modifier.constrainAs(title) {
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
@@ -89,5 +94,17 @@ fun HotItemView(
             fontSize = 12.sp
 
         )
+    }
+}
+
+
+@Preview
+@Composable
+fun HotItemView(
+    @PreviewParameter(HotItemResourcePreviewParameterProvider::class)
+    video: VideoInfo,
+) {
+    SixthSpaceTheme {
+        HotItemView(video = video, onItemClick = {}, viewModel = hiltViewModel())
     }
 }

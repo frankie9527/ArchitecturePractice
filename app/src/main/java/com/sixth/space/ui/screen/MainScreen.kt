@@ -4,6 +4,7 @@ package com.sixth.space.ui.screen
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -17,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -155,19 +157,29 @@ private fun SootheBottomNavigation(
     currentRoute: String
 ) {
 
+    val bkg = if (currentRoute == "home") {
+        Color.Black
+    } else {
+        Color.White
+    }
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = bkg,
         modifier = modifier
     ) {
         NavigationBarItem(
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.baseline_home_24),
-                    contentDescription = null
-                )
+                    contentDescription = null,
+                    tint = getBackColor(currentRoute,0),
+
+                    )
             },
             label = {
-                Text(stringResource(id = R.string.home))
+                Text(
+                    stringResource(id = R.string.home),
+                    color = getBackColor(currentRoute,0)
+                )
             },
             selected = currentRoute == "home",
             onClick = {
@@ -178,17 +190,21 @@ private fun SootheBottomNavigation(
                     launchSingleTop = true
                     restoreState = true
                 }
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent)
         )
         NavigationBarItem(
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.baseline_hot_24),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = getBackColor(currentRoute,1),
                 )
             },
             label = {
-                Text(stringResource(id = R.string.hot))
+                Text(
+                    stringResource(id = R.string.hot), color = getBackColor(currentRoute,1)
+                )
             },
             selected = currentRoute == "hot",
             onClick = {
@@ -199,8 +215,25 @@ private fun SootheBottomNavigation(
                     launchSingleTop = true
                     restoreState = true
                 }
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent)
         )
+    }
+}
+
+fun getBackColor(currentRoute: String,index:Int): Color {
+    return if (index==0){
+        if (currentRoute == "home") {
+            Color.White
+        } else {
+            Color.Gray
+        }
+    }else{
+        if (currentRoute == "hot") {
+            Color.Black
+        } else {
+            Color.Gray
+        }
     }
 }
 

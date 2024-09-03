@@ -89,7 +89,7 @@ fun replyItem(info: VideoInfo) {
 
         )
         Text(
-            text = info.user_name,
+            text = info.user_name.toString(),
             fontSize = 12.sp,
             color = Color.White,
             modifier = Modifier
@@ -99,7 +99,7 @@ fun replyItem(info: VideoInfo) {
                     start.linkTo(imgHead.end)
                 }
         )
-        Text(text = info.releaseTime.getTime2String(),
+        Text(text = info.releaseTime!!.getTime2String(),
             fontSize = 12.sp,
             color = Color.Gray,
             modifier = Modifier
@@ -117,7 +117,7 @@ fun replyItem(info: VideoInfo) {
 
                 })
 
-        Text(text = info.commentMsg,
+        Text(text = info.commentMsg.toString(),
             fontSize = 16.sp,
             color = Color.White,
             maxLines = 2,

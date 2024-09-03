@@ -1,7 +1,6 @@
 package com.sixth.space.uitls
 
 import com.sixth.space.base.Constant
-import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.video.CommentItem
 import com.sixth.space.data.video.HotItem
 import com.sixth.space.data.video.RecommendItem
@@ -126,7 +125,7 @@ fun homeItem2VideoInfo(info: TikTokItem): VideoInfo {
     )
 }
 
-fun VideoDetailsInfo.video2Detail(info: VideoInfo): VideoDetailsInfo {
+fun VideoInfo.video2Detail(info: VideoInfo): VideoInfo {
     this.videoId=info.videoId
     this.videoType=info.videoType
     this.title=info.title

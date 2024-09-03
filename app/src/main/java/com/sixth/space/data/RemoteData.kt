@@ -32,7 +32,7 @@ class RemoteData @Inject constructor(
         return try {
             val data = service.fetchHotList(str);
             val newData = data.itemList.hotList2Video()
-            if (newData.size==0){
+            if (newData.isEmpty()){
                 if (!networkConnectivity.isConnected()) {
                     return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);
                 }
@@ -81,7 +81,7 @@ class RemoteData @Inject constructor(
                 }
             }
             data.itemList = newData;
-            if (data.itemList.size==0){
+            if (data.itemList.isEmpty()){
                 if (!networkConnectivity.isConnected()) {
                     return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);
                 }
@@ -106,7 +106,7 @@ class RemoteData @Inject constructor(
             }
             data.itemList = newData;
             val videoList=data.itemList.homeList2Video();
-            if (videoList.size==0){
+            if (videoList.isEmpty()){
                 if (!networkConnectivity.isConnected()) {
                     return Resource.DataError(errorCode = NO_INTERNET_CONNECTION);
                 }

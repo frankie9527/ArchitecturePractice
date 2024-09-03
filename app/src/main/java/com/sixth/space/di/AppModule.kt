@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.sixth.space.data.dao.VideoDatabase
-import com.sixth.space.data.dao.VideoDetailsInfo
+import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.data.dao.VideoRepository
 import com.sixth.space.data.dao.VideoRepositoryImpl
 import com.sixth.space.uitls.Network
@@ -55,7 +55,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideVideoDetailsInfo(): VideoDetailsInfo {
-        return VideoDetailsInfo()
+    fun provideVideoInfo(): VideoInfo {
+        return VideoInfo()
     }
 }

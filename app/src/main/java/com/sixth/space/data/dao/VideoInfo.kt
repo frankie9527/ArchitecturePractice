@@ -17,26 +17,26 @@ import java.io.Serializable
 @Entity
 data class VideoInfo(
     @PrimaryKey
-    @ColumnInfo(name = "videoId") val videoId: Int,  //video id;
-    @ColumnInfo(name = "videoType") var videoType: Int, //
-    @ColumnInfo(name = "title") val title: String, //标题
-    @ColumnInfo(name = "description") val description: String, //标题
-    @ColumnInfo(name = "playUrl") val playUrl: String, //播放地址
-    @ColumnInfo(name = "blurred") val blurred: String, //毛玻璃背景图片
-    @ColumnInfo(name = "category") val category: String,  //类别
-    @ColumnInfo(name = "cover") val cover: String,//封面
-    @ColumnInfo(name = "user_name") val user_name: String,//username
-    @ColumnInfo(name = "user_description") val user_description: String,//username
-    @ColumnInfo(name = "avatar") val avatar: String,  //user avatar
-    @ColumnInfo(name = "releaseTime") val releaseTime: Long,//视频发布时间
-    @ColumnInfo(name = "duration") val duration: Int,// video duration
-    @ColumnInfo(name = "consumption") val consumption: Consumption, // 视频的点赞等信息
-    @ColumnInfo(name = "likeCount") val likeCount: Int,//评论的喜欢数
-    @ColumnInfo(name = "commentMsg") val commentMsg: String //评论
+    @ColumnInfo(name = "videoId") var videoId: Int ?=null,  //video id;
+    @ColumnInfo(name = "videoType") var videoType: Int?=null, //
+    @ColumnInfo(name = "title") var title: String?=null, //标题
+    @ColumnInfo(name = "description") var description: String?=null, //标题
+    @ColumnInfo(name = "playUrl") var playUrl: String?=null, //播放地址
+    @ColumnInfo(name = "blurred") var blurred: String?=null, //毛玻璃背景图片
+    @ColumnInfo(name = "category") var category: String?=null,  //类别
+    @ColumnInfo(name = "cover") var cover: String?=null,//封面
+    @ColumnInfo(name = "user_name") var user_name: String?=null,//username
+    @ColumnInfo(name = "user_description") var user_description: String?=null,//username
+    @ColumnInfo(name = "avatar") var avatar: String?=null,  //user avatar
+    @ColumnInfo(name = "releaseTime") var releaseTime: Long=0,//视频发布时间
+    @ColumnInfo(name = "duration") var duration: Int=0,// video duration
+    @ColumnInfo(name = "consumption") var consumption: Consumption?=null, // 视频的点赞等信息
+    @ColumnInfo(name = "likeCount") var likeCount: Int=0,//评论的喜欢数
+    @ColumnInfo(name = "commentMsg") val commentMsg: String?=null //评论
 ): Serializable{
     data class Consumption(
-        @ColumnInfo(name = "collectionCount")    val collectionCount: Int,
-        @ColumnInfo(name = "replyCount")    val replyCount: Int,
-        @ColumnInfo(name = "shareCount")    val shareCount: Int
+        @ColumnInfo(name = "collectionCount")    val collectionCount: Int?=null,
+        @ColumnInfo(name = "replyCount")    val replyCount: Int?=null,
+        @ColumnInfo(name = "shareCount")    val shareCount: Int?=null
     ): Serializable
 }

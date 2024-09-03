@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixth.space.data.DataRepositorySource
-import com.sixth.space.data.dao.VideoDetailsInfo
 import com.sixth.space.data.dao.VideoInfo
 
 import com.sixth.space.network.Resource
@@ -25,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteViewModel @Inject constructor(
     private val dataRepositoryRepository: DataRepositorySource,
-    var info: VideoDetailsInfo
+    var info: VideoInfo
 ) :
     ViewModel() {
     val homeState = MutableStateFlow<Resource<List<VideoInfo>>?>(null)
@@ -79,7 +78,7 @@ class RemoteViewModel @Inject constructor(
     }
 
     fun fetchReplyState() {
-        var id=info.videoId;
+        val id=info.videoId;
         viewModelScope.launch {
             dataRepositoryRepository.fetchReplyList(id.toString()).collect() {
                 replyState.value=it
@@ -87,10 +86,9 @@ class RemoteViewModel @Inject constructor(
         }
     }
     fun fetchRecommend() {
-        var id=info.videoId;
+        val id=info.videoId;
         viewModelScope.launch {
             dataRepositoryRepository.fetchRecommend(id.toString()).collect() {
-                Log.e("jyh","fetchRecommend size="+it.data?.size)
                 recommendState.value=it
             }
         }

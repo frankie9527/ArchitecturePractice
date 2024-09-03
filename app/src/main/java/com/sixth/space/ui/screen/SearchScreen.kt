@@ -91,7 +91,10 @@ fun SearchScreen(
             viewState.value?.data?.let {
                 LazyColumn {
                     items(items = it) { item ->
-                        body(info = item, navController, remoteViewModel)
+                        body(info = item, onItemClick = { name ->
+                            navController.popBackStack()
+                            navController.navigate(name)
+                        }, remoteViewModel)
                     }
                 }
             }

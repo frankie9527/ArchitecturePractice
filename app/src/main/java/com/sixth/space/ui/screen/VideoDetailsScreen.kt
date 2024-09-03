@@ -106,7 +106,10 @@ fun VideoDetailsScreen(
             HorizontalPager(state = videoDetailsState) { page ->
                 when (page) {
                     0 -> {
-                        VideoRecommendScreen(navController, viewModel)
+                        VideoRecommendScreen(onItemClick = { name ->
+                            navController.popBackStack()
+                            navController.navigate(name)
+                        }, viewModel)
                     }
 
                     else -> {
@@ -166,7 +169,7 @@ fun videoView(url: String, navController: NavHostController) {
     // Adds view to Compose
     AndroidView(
         modifier = md, // Occupy the max size in the Compose UI tree
-        factory = { context ->
+        factory = {
             // Creates view
             simpleVideoView
         },

@@ -89,6 +89,7 @@ dependencies {
 
     //frankie github
     implementation(libs.com.github.frankie9527.easyandroid)
+    implementation(libs.com.github.frankie9527.variousplayer)
 
     //retrofit2 + okhttp3
     implementation(libs.com.squareup.okhttp3.okhttp)
@@ -99,13 +100,13 @@ dependencies {
     //coil
     implementation(libs.coil.compose)
 
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
     //constraintlayout
     implementation(libs.androidx.constraintlayout.compose)
 
-    // frankie lib
-    implementation("com.github.Frankie9527:VariousPlayer:0.6.1")
-
     // google
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+    implementation(libs.accompanist.systemuicontroller)
 
 }

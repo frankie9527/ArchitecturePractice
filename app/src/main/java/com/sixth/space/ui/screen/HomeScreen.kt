@@ -1,13 +1,10 @@
 package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -20,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.sixth.space.R
 import kotlinx.coroutines.launch
 
@@ -32,7 +28,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(modifier: Modifier,pagerState: PagerState) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.background(Color.Black)) {
         HorizontalPager(state = pagerState) { page ->
             HomeListScreen(page = page)
         }
@@ -55,6 +51,7 @@ fun HomeScreenTitleList(pagerState: PagerState){
                 Modifier
                     .tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 color = Color.White
+
             )
         },
         divider = {
