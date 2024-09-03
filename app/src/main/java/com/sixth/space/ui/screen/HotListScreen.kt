@@ -42,14 +42,14 @@ fun HotListScreen(
     viewState.value?.data?.let {
         LazyColumn {
             items(items = it) { item ->
-                HomeItemView(video = item, navController, viewModel)
+                HotItemView(video = item, navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun HomeItemView(
+fun HotItemView(
     video: VideoInfo,
     navController: NavHostController,
     viewModel: RemoteViewModel

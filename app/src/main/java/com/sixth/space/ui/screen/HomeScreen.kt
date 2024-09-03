@@ -2,9 +2,13 @@ package com.sixth.space.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -15,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.sixth.space.R
 import kotlinx.coroutines.launch
@@ -42,18 +47,23 @@ fun HomeScreenTitleList(pagerState: PagerState){
         LocalContext.current.resources.getStringArray(R.array.home_array);
 
     val coroutineScope = rememberCoroutineScope()
-    TabRow(selectedTabIndex = pagerState.currentPage,
+    TabRow(
+        selectedTabIndex = pagerState.currentPage,
         containerColor = Color.Black,
         indicator = { tabPositions ->
-            TabRowDefaults.SecondaryIndicator(
+            TabRowDefaults.PrimaryIndicator(
                 Modifier
-                    .tabIndicatorOffset(tabPositions[pagerState.currentPage])
-                ,
+                    .tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 color = Color.White
             )
-        }) {
+        },
+        divider = {
+            HorizontalDivider(thickness = 1.dp, color = Color.Black)
+        }
+    ) {
         hotList.forEachIndexed() { index, item ->
-            Tab(selected = false, onClick = {
+            Tab(
+                selected = false, onClick = {
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(index)
                 }

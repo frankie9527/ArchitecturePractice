@@ -2,6 +2,7 @@ package com.sixth.space.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,6 +35,7 @@ import com.sixth.space.data.dao.VideoInfo
 import com.sixth.space.model.RemoteViewModel
 import com.sixth.space.uitls.durationToStr
 import com.sixth.space.uitls.getTime2String
+import com.sixth.space.uitls.video2Detail
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
@@ -45,15 +48,15 @@ fun VideoRecommendScreen(
     }
     val viewState = viewModel.recommendState.collectAsStateWithLifecycle()
 
-        viewState.value?.data?.let {
-            LazyColumn {
-                item {
-                    head(viewModel.info)
-                }
-                items(items = it) { item ->
-                    body(item)
-                }
+    viewState.value?.data?.let {
+        LazyColumn {
+            item {
+                head(viewModel.info)
             }
+            items(items = it) { item ->
+                body(item,navController,viewModel)
+            }
+        }
     }
 }
 
@@ -192,36 +195,47 @@ fun head(info: VideoDetailsInfo) {
 
 
 @Composable
-fun body(info: VideoInfo) {
+fun body(
+    info: VideoInfo,
+    navController: NavHostController,
+    viewModel: RemoteViewModel
+) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable(onClick = {
+                viewModel.info.video2Detail(info)
+                navController.popBackStack()
+                navController.navigate("video-detail")
+            })
     ) {
-        val (imgCover,duration, title, author, date, category) = createRefs()
+        val (imgCover, duration, title, author, date, category) = createRefs()
         // Create guideline from the start of the parent at 10% the width of the Composable
         val startGuideline = createGuidelineFromStart(0.4f)
         AsyncImage(
             model = info.avatar,
             modifier = Modifier
                 .height(90.dp)
+                .clip(RoundedCornerShape(8))
                 .constrainAs(imgCover) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(startGuideline)
-                    width= Dimension.preferredWrapContent
+                    width = Dimension.preferredWrapContent
                 },
             contentDescription = "imgHead",
             placeholder = painterResource(R.mipmap.blurry),
             error = painterResource(R.mipmap.blurry),
-            contentScale= ContentScale.Crop
+            contentScale = ContentScale.Crop
         )
 
         Text(
             text = info.duration.durationToStr(),
             color = Color.White,
             fontSize = 11.sp,
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier
+                .padding(end = 8.dp)
                 .constrainAs(duration) {
                     bottom.linkTo(imgCover.bottom)
                     end.linkTo(imgCover.end)
@@ -270,7 +284,7 @@ fun body(info: VideoInfo) {
         )
 
         Text(
-            text = "# "+info.category,
+            text = "# " + info.category,
             color = Color.White,
             fontSize = 12.sp,
             modifier = Modifier

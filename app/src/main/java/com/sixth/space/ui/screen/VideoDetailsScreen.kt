@@ -60,9 +60,7 @@ fun VideoDetailsScreen(
     ) {
         AsyncImage(
             model = viewModel.info.blurred,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
+            modifier = Modifier.fillMaxSize(),
             contentDescription = "hot list item background",
             placeholder = painterResource(R.mipmap.blurry),
             error = painterResource(R.mipmap.blurry),
